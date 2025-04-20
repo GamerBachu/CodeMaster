@@ -5,19 +5,21 @@ import { IUser } from "@/models/IUser";
 import UnAuthorizedLayout from "./UnAuthorizedLayout";
 import AuthorizedLayout from "./AuthorizedLayout";
 import { UserConfigProvider } from "@/contexts/config/";
+import Container from "@/components/Container";
+
 interface AppLayoutProps {
   children: ReactNode;
 }
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   return (
-    <>
+    <Container>
       <AuthorizedProvider>
         <UserConfigProvider>
           <CreateLayout>{children}</CreateLayout>
         </UserConfigProvider>
       </AuthorizedProvider>
-    </>
+    </Container>
   );
 };
 export default AppLayout;
