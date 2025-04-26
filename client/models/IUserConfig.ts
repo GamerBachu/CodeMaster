@@ -6,4 +6,4 @@ export interface IUserConfig {
 export enum UserTheme {
     light = "light",
     dark = "dark",
-  }
+}
