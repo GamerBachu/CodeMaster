@@ -1,29 +1,29 @@
-import React from "react";
-import Home from "../pages/home/Home";
 import About from "../pages/about/About";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/account/Login";
 import Register from "../pages/account/Register";
-import { Route, Routes } from "react-router";
-import ConcertsHome from "../pages/concerts/ConcertsHome";
-import City from "../pages/concerts/City";
+import { Navigate, Route, Routes } from "react-router";
+
 import Trending from "../pages/concerts/Trending";
+import CommonLayout from "../layouts/CommonLayout";
+
 
 const InitializeRoutes = () => {
   return (
     <Routes>
-      <Route index element={<Home />} />
-      <Route path="about" element={<About />} />
+      <Route index element={<Navigate to="/account/login" replace />} />
 
-      <Route path="account" element={<AuthLayout />}>
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+      <Route element={<CommonLayout />}>
+        <Route path="account">
+          <Route index path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
       </Route>
-
-      <Route path="concerts">
-        <Route index element={<ConcertsHome />} />
-        <Route path=":city" element={<City />} />
-        <Route path="trending" element={<Trending />} />
+      <Route element={<AuthLayout />}>
+        <Route path="account">
+          <Route path="trending" element={<Trending />} />
+        </Route>
+        <Route path="about" element={<About></About>}></Route>
       </Route>
     </Routes>
   );

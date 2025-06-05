@@ -1,23 +1,21 @@
 {
-    "appName": "My Application",
-    "appDescription": "This is a sample application to demonstrate localization.",
+  "appName": "My Application",
+  "appDescription": "This is a sample application to demonstrate localization.",
 
-    "login": "Login",
-    "username": "Username",
-    "password": "Password",
-    
+  "login": "Login",
+  "username": "User Name",
+  "password": "Password",
 
-    "doNotHaveCreateNewAccount": " Don't have an account? Create here.",
+  "doNotHaveCreateNewAccount": " Don't have an account? Create.",
 
-
-    "welcomeMessage": "Welcome to our application!",
-    "errorMessage": "An error has occurred. Please try again.",
-    "loadingMessage": "Loading, please wait...",
-    "logoutMessage": "You have been successfully logged out.",
-    "loginPrompt": "Please enter your username and password to log in.",
-    "submitButton": "Submit",
-    "cancelButton": "Cancel",
-    "homePageTitle": "Home",
-    "settingsPageTitle": "Settings",
-    "profilePageTitle": "Profile"
+  "welcomeMessage": "Welcome to our application!",
+  "errorMessage": "An error has occurred. Please try again.",
+  "loadingMessage": "Loading, please wait...",
+  "logoutMessage": "You have been successfully logged out.",
+  "loginPrompt": "Please enter your username and password to log in.",
+  "submitButton": "Submit",
+  "cancelButton": "Cancel",
+  "homePageTitle": "Home",
+  "settingsPageTitle": "Settings",
+  "profilePageTitle": "Profile"
 }

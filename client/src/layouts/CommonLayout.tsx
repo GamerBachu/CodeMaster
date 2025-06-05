@@ -1,11 +1,12 @@
 import { Outlet } from "react-router";
 import AppContainer from "../components/AppContainer";
 
-const AuthLayout = () => {
+const CommonLayout = () => {
   return (
     <AppContainer>
       <Outlet></Outlet>
     </AppContainer>
   );
 };
-export default AuthLayout;
+
+export default CommonLayout;
