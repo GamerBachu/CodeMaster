@@ -1,9 +1,4 @@
-export interface ILogin {
-  username: string;
-  password: string;
-}
-
-export interface IAccount {
+export default interface IUser {
   id: string;
   name: string;
 

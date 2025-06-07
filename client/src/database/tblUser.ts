@@ -1,19 +1,7 @@
 import config from "./config";
+import type IUser from "./modal/IUser";
 
-interface IUser {
-  id: string;
-  name: string;
-
-  email: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-
-  username: string;
-  password: string;
-  isActive: boolean;
-}
-
-const getById = async (user: IUser): Promise<IUser | null> => {
+const getById = async (user: Partial<IUser>): Promise<IUser | null> => {
   if (!user?.id) return null;
 
   const userList = await config.loadData<IUser[]>(config.dbTable.USER);
@@ -29,13 +17,32 @@ const getById = async (user: IUser): Promise<IUser | null> => {
   };
 };
 
-const getByUserName = async (user: IUser): Promise<IUser | null> => {
+const getByUserName = async (user: Partial<IUser>): Promise<IUser | null> => {
   if (!user?.username) return null;
 
   const userList = await config.loadData<IUser[]>(config.dbTable.USER);
   if (!Array.isArray(userList) || userList.length === 0) return null;
 
   const data = userList.find((u) => u.username === user.username);
+  if (!data) return null;
+
+  return {
+    ...data,
+    createdAt: data.createdAt ?? new Date(),
+    updatedAt: data.updatedAt ?? new Date(),
+  };
+};
+
+const getByLogin = async (user: Partial<IUser>): Promise<IUser | null> => {
+  if (!user?.username) return null;
+  if (!user?.password) return null;
+
+  const userList = await config.loadData<IUser[]>(config.dbTable.USER);
+  if (!Array.isArray(userList) || userList.length === 0) return null;
+
+  const data = userList.find(
+    (u) => u.username === user.username && u.password === user.password
+  );
   if (!data) return null;
 
   return {
@@ -57,6 +64,7 @@ const set = async (user: IUser): Promise<void> => {
 const tblUser = {
   getById,
   getByUserName,
+  getByLogin,
   get,
   set,
 };
