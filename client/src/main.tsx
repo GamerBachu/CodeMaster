@@ -5,11 +5,14 @@ import { BrowserRouter } from "react-router";
 import "@bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import InitializeRoutes from "./routes/InitializeRoutes.tsx";
+import { AppSessionProvider } from "./contexts/";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <InitializeRoutes></InitializeRoutes>
+      <AppSessionProvider>
+        <InitializeRoutes></InitializeRoutes>
+      </AppSessionProvider>
     </BrowserRouter>
   </StrictMode>
 );

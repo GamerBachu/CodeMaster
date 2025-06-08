@@ -15,7 +15,7 @@ const loadData = async <T = unknown>(table: TableName): Promise<T | null> => {
   }
 };
 
-const saveData = async (table: TableName, data: unknown): Promise<void> => {
+const saveData = async <T>(table: TableName, data: T): Promise<void> => {
   localStorage.setItem(dbTable[table], JSON.stringify(data));
 };
 

@@ -14,4 +14,5 @@ export interface IAccount {
   username: string;
   password: string;
   isActive: boolean;
+  token: string;
 }

@@ -5,6 +5,17 @@
   "login": "Login",
   "username": "User Name",
   "password": "Password",
+  "loginSuccess": "Login successful!",
+  "loginFailed": "Invalid username or password.",
+
+  "register": "New User",
+  "email": "Email",
+  "createNow": "Create Now",
+
+  "registerSuccess": "Registration successful! Please log in.",
+  "registerFailed": "Registration failed. Please try again.",
+  "createAccount": "Create Account",
+  "alreadyHaveAccount": "Already have an account? Log in.",
 
   "doNotHaveCreateNewAccount": " Don't have an account? Create.",
 

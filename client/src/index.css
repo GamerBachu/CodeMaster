@@ -43,6 +43,8 @@ body {
   background-color: var(--bg-color-box);
 }
 
-input[type="text"] {
+input[type="text"]
+, input[type="email"]
+, input[type="password"] {
   border-color: var(--bg-color-input-border);
 }

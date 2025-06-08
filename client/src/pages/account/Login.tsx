@@ -2,21 +2,53 @@ import { Link, useNavigate } from "react-router";
 import appRoute from "../../routes/appRoute";
 import locale from "../../resources";
 import apis from "../../apis";
+import { useAppSession } from "../../contexts";
 
 const Login = () => {
+  const appSession = useAppSession();
   const navigate = useNavigate();
+
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
     const username = formData.get("username") as string;
     const password = formData.get("password") as string;
-    const account = apis.accounts.login({ username, password });
-    if (account) {
-      alert("Login successful!");
-      navigate(appRoute.DASHBOARD);
-    } else {
-      alert("Invalid username or password");
-    }
+
+    const resetForm = () => {
+      form.reset();
+      form.querySelectorAll("input").forEach((input) => {
+        input.classList.remove("is-invalid");
+      });
+    };
+
+    apis.accounts
+      .login({ username, password })
+      .then((account) => {
+        if (account) {
+          alert(locale.loginSuccess);
+          const prev = appSession.info;
+          appSession.setInfo({
+            ...prev,
+            account,
+            isAuthorized: true,
+            appToken: account.token,
+          });
+
+          resetForm();
+          navigate(appRoute.DASHBOARD);
+        } else {
+          alert(locale.loginFailed);
+          resetForm();
+        }
+      })
+      .catch(() => {
+        alert(locale.errorMessage);
+        resetForm();
+      })
+      .finally(() => {
+        resetForm();
+      });
   };
 
   return (
