@@ -1,32 +1,35 @@
-import About from "../pages/about/About";
-import AuthLayout from "../layouts/AuthLayout";
-import Login from "../pages/account/Login";
-import Register from "../pages/account/Register";
+import  { Suspense, lazy } from "react";
 import { Navigate, Route, Routes } from "react-router";
 
-import Trending from "../pages/concerts/Trending";
-import CommonLayout from "../layouts/CommonLayout";
-import Dashboard from "../pages/dashboard/Dashboard";
+const About = lazy(() => import("../pages/about/About"));
+const AuthLayout = lazy(() => import("../layouts/AuthLayout"));
+const Login = lazy(() => import("../pages/account/Login"));
+const Register = lazy(() => import("../pages/account/Register"));
+const Trending = lazy(() => import("../pages/concerts/Trending"));
+const CommonLayout = lazy(() => import("../layouts/CommonLayout"));
+const Dashboard = lazy(() => import("../pages/dashboard/Dashboard"));
 
 const InitializeRoutes = () => {
   return (
-    <Routes>
-      <Route index element={<Navigate to="/account/login" replace />} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route index element={<Navigate to="/account/login" replace />} />
 
-      <Route element={<CommonLayout />}>
-        <Route path="account">
-          <Route index path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
+        <Route element={<CommonLayout />}>
+          <Route path="account">
+            <Route index path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </Route>
         </Route>
-      </Route>
-      <Route element={<AuthLayout />}>
-        <Route path="account">
-          <Route path="trending" element={<Trending />} />
+        <Route element={<AuthLayout />}>
+          <Route path="account">
+            <Route path="trending" element={<Trending />} />
+          </Route>
+          <Route path="about" element={<About />} />
+          <Route path="Dashboard" element={<Dashboard />} />
         </Route>
-        <Route path="about" element={<About></About>}></Route>
-        <Route path="Dashboard" element={<Dashboard />}></Route>
-      </Route>
-    </Routes>
+      </Routes>
+    </Suspense>
   );
 };
 
