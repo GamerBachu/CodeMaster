@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import type { ToastProps } from ".";
 import { useAppDispatch } from "../../hooks/hooks";
 import { removeToast } from "./toastSlicer";
+import { utils } from ".";
 
 const Body = ({ data }: ToastProps) => {
   const {
@@ -17,11 +19,13 @@ const Body = ({ data }: ToastProps) => {
     dispatch(removeToast(data.id));
   };
 
-  setTimeout(() => {
-    if (show) {
+  useEffect(() => {
+    if (!show) return;
+    const timer = setTimeout(() => {
       dispatch(removeToast(data.id));
-    }
-  }, 3000);
+    }, utils.timeOut);
+    return () => clearTimeout(timer);
+  }, [show, dispatch, data.id]);
 
   return (
     <div

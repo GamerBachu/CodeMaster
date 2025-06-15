@@ -4,7 +4,7 @@ import Body from "./Body";
 
 const Toast = () => {
   const dataList = useAppSelector((state) => state.toaster);
-  console.log("Toast props", dataList);
+
   return (
     <>
       {dataList.map((toast) => (

@@ -8,7 +8,6 @@ export interface IToast {
   time?: string;
   type?: "success" | "error" | "info" | "warning";
   show: boolean;
-  
 }
 export type ToastProps = {
   data: IToast;
@@ -17,6 +16,7 @@ export type ToastProps = {
 export default Toast;
 export { Container as ToastContainer };
 
-
-
- 
+export const utils = {
+   timeOut: 3000 as number
+}
+  
