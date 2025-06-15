@@ -3,13 +3,20 @@ import appRoute from "../../routes/appRoute";
 import locale from "../../resources";
 import apis from "../../apis";
 import { useAppSession } from "../../contexts";
+import { useAppDispatch } from "../../hooks/hooks";
+import { createToast } from "../../components/toasts/toastSlicer";
 
 const Login = () => {
   const appSession = useAppSession();
+
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
+  const pgTitle = locale.login;
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const form = e.currentTarget;
     const formData = new FormData(form);
     const username = formData.get("username") as string;
@@ -26,7 +33,6 @@ const Login = () => {
       .login({ username, password })
       .then((account) => {
         if (account) {
-          alert(locale.loginSuccess);
           const prev = appSession.info;
           appSession.setInfo({
             ...prev,
@@ -34,16 +40,43 @@ const Login = () => {
             isAuthorized: true,
             appToken: account.token,
           });
-
+          dispatch(
+            createToast({
+              id: new Date().toISOString(),
+              show: true,
+              title: pgTitle,
+              time: "",
+              description: locale.loginSuccess,
+              type: "success",
+            })
+          );
           resetForm();
           navigate(appRoute.DASHBOARD);
         } else {
-          alert(locale.loginFailed);
+          dispatch(
+            createToast({
+              id: new Date().toISOString(),
+              show: true,
+              title: pgTitle,
+              time: "",
+              description: locale.loginFailed,
+              type: "warning",
+            })
+          );
           resetForm();
         }
       })
       .catch(() => {
-        alert(locale.errorMessage);
+        dispatch(
+          createToast({
+            id: new Date().toISOString(),
+            show: true,
+            title: pgTitle,
+            time: "",
+            description: locale.errorMessage,
+            type: "warning",
+          })
+        );
         resetForm();
       })
       .finally(() => {
@@ -54,7 +87,7 @@ const Login = () => {
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="text-center border p-2 rounded shadow center-box">
-        <h1 className="text-primary py-2">{locale.login}</h1>
+        <h1 className="text-primary py-2">{pgTitle}</h1>
         <form className="py-3" onSubmit={handleLogin}>
           <div className="mb-3">
             <input
@@ -75,7 +108,7 @@ const Login = () => {
             />
           </div>
           <button type="submit" className="btn btn-primary">
-            {locale.login}
+            {pgTitle}
           </button>
           <div className="mt-3">
             <Link

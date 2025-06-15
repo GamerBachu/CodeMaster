@@ -2,8 +2,14 @@ import { Link } from "react-router";
 import appRoute from "../../routes/appRoute";
 import locale from "../../resources";
 import apis from "../../apis";
+import { useAppDispatch } from "../../hooks/hooks";
+import { createToast } from "../../components/toasts/toastSlicer";
 
 const Register = () => {
+  const dispatch = useAppDispatch();
+
+  const pgTitle = locale.register;
+
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -22,15 +28,43 @@ const Register = () => {
       .createNew({ username, password })
       .then((account) => {
         if (account) {
-          alert(locale.registerSuccess);
+          dispatch(
+            createToast({
+              id: new Date().toISOString(),
+              show: true,
+              title: pgTitle,
+              time: "",
+              description: locale.registerSuccess,
+              type: "success",
+            })
+          );
+
           resetForm();
         } else {
-          alert(locale.registerFailed);
+          dispatch(
+            createToast({
+              id: new Date().toISOString(),
+              show: true,
+              title: pgTitle,
+              time: "",
+              description: locale.registerFailed,
+              type: "warning",
+            })
+          );
           resetForm();
         }
       })
       .catch(() => {
-        alert(locale.errorMessage);
+        dispatch(
+          createToast({
+            id: new Date().toISOString(),
+            show: true,
+            title: pgTitle,
+            time: "",
+            description: locale.errorMessage,
+            type: "warning",
+          })
+        );
         resetForm();
       })
       .finally(() => {
@@ -41,7 +75,7 @@ const Register = () => {
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="text-center border p-2 rounded shadow center-box">
-        <h1 className="text-primary py-2">{locale.register}</h1>
+        <h1 className="text-primary py-2">{pgTitle}</h1>
         <form className="py-3" onSubmit={handleLogin}>
           <div className="mb-3">
             <input
