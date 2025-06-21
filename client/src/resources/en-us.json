@@ -2,6 +2,8 @@
   "appName": "My Application",
   "appDescription": "This is a sample application to demonstrate localization.",
 
+  "loading": "Loading...",
+
   "login": "Login",
   "username": "User Name",
   "password": "Password",

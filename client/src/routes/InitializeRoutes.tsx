@@ -1,5 +1,6 @@
 import  { Suspense, lazy } from "react";
 import { Navigate, Route, Routes } from "react-router";
+import { AppLoader } from "../components/progress";
 
 const About = lazy(() => import("../pages/about/About"));
 const AuthLayout = lazy(() => import("../layouts/AuthLayout"));
@@ -11,7 +12,7 @@ const Dashboard = lazy(() => import("../pages/dashboard/Dashboard"));
 
 const InitializeRoutes = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<AppLoader></AppLoader>}>
       <Routes>
         <Route index element={<Navigate to="/account/login" replace />} />
 

@@ -3,33 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { IToast } from ".";
 
-const initialState: IToast[] = [
-  {
-    id: "initial-toast",
-    title: "Welcome!",
-    description: "This is an initial toast message.",
-    time: new Date().toISOString(),
-    type: "info",
-    show: true,
-  },
-  {
-    id: "initial-toast1",
-    title: "Welcome!",
-    description: "This is an initial toast message.",
-    time: new Date().toISOString(),
-    type: "info",
-    show: true,
-  },
-
-  {
-    id: "initial-toast2",
-    title: "Welcome!",
-    description: "This is an initial toast message.",
-    time: new Date().toISOString(),
-    type: "info",
-    show: true,
-  },
-];
+const initialState: IToast[] = [];
 
 export const toastSlicer = createSlice({
   name: "toaster",

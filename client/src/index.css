@@ -48,3 +48,13 @@ input[type="text"]
 , input[type="password"] {
   border-color: var(--bg-color-input-border);
 }
+.app-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  
+}
+.app-loader .progress{
+  height: 10px;
+}
