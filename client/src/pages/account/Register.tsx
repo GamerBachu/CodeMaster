@@ -99,7 +99,7 @@ const Register = () => {
             {locale.createNow}
           </button>
           <div className="mt-3">
-            <Link className="btn btn-link text-secondary" to={appRoute.LOGIN}>
+            <Link className="btn btn-link text-secondary" to={appRoute.LOGIN.path}>
               {locale.alreadyHaveAccount}
             </Link>
           </div>

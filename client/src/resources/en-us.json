@@ -4,8 +4,8 @@
 
   "loading": "Loading...",
 
-  "login": "Login",
-  "username": "User Name",
+  "login": "Log In",
+  "username": "Username",
   "password": "Password",
   "loginSuccess": "Login successful!",
   "loginFailed": "Invalid username or password.",
@@ -19,7 +19,17 @@
   "createAccount": "Create Account",
   "alreadyHaveAccount": "Already have an account? Log in.",
 
-  "doNotHaveCreateNewAccount": " Don't have an account? Create.",
+  "doNotHaveCreateNewAccount": "Don't have an account? Create one.",
+
+  "link_Login": "Login",
+  "link_Register": "Register",
+  "link_Logout": "Logout",
+  "link_Dashboard": "Dashboard",
+  "link_Profile": "Profile",
+  "link_Settings": "Settings",
+  "link_About": "About",
+
+  "pageNotFound": "Requested page not found or not available.",
 
   "welcomeMessage": "Welcome to our application!",
   "errorMessage": "An error has occurred. Please try again.",

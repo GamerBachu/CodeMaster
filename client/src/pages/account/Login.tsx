@@ -51,7 +51,7 @@ const Login = () => {
             })
           );
           resetForm();
-          navigate(appRoute.DASHBOARD);
+          navigate(appRoute.DASHBOARD.path);
         } else {
           dispatch(
             createToast({
@@ -113,7 +113,7 @@ const Login = () => {
           <div className="mt-3">
             <Link
               className="btn btn-link text-secondary"
-              to={appRoute.REGISTER}
+              to={appRoute.REGISTER.path}
             >
               {locale.doNotHaveCreateNewAccount}
             </Link>

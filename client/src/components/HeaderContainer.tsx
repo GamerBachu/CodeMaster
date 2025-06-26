@@ -1,6 +1,5 @@
 import { NavLink } from "react-router";
-
- 
+import appRoute from "../routes/appRoute";
 
 const HeaderContainer = () => {
   return (
@@ -9,45 +8,51 @@ const HeaderContainer = () => {
         <ul className="nav me-auto">
           <li className="nav-item">
             <NavLink
-              to="/"
+              to={appRoute.DASHBOARD.path}
               className={({ isActive }) =>
-                "nav-link link-body-emphasis px-2" + (isActive ? " active" : "")
+                "nav-link link-body-emphasis px-2 text-capitalize" +
+                (isActive ? " active" : "")
               }
-              aria-current="page"
             >
-              Home
+              {appRoute.DASHBOARD.value}
             </NavLink>
           </li>
+
           <li className="nav-item">
-            <NavLink to="/features" className="nav-link link-body-emphasis px-2">
-              Features
+            <NavLink
+              to={appRoute.PLAN_LIST.path}
+              className={({ isActive }) =>
+                "nav-link link-body-emphasis px-2 text-capitalize" +
+                (isActive ? " active" : "")
+              }
+            >
+              {appRoute.PLAN_LIST.value}
             </NavLink>
           </li>
+
           <li className="nav-item">
-            <NavLink to="/pricing" className="nav-link link-body-emphasis px-2">
-              Pricing
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to="/faqs" className="nav-link link-body-emphasis px-2">
-              FAQs
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to="/about" className="nav-link link-body-emphasis px-2">
-              About
+            <NavLink
+              to={appRoute.PROFILE.path}
+              className={({ isActive }) =>
+                "nav-link link-body-emphasis px-2 text-capitalize" +
+                (isActive ? " active" : "")
+              }
+            >
+              {appRoute.PROFILE.value}
             </NavLink>
           </li>
         </ul>
+
         <ul className="nav">
           <li className="nav-item">
-            <NavLink to="/login" className="nav-link link-body-emphasis px-2">
-              Login
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to="/signup" className="nav-link link-body-emphasis px-2">
-              Sign up
+            <NavLink
+              to={appRoute.LOGOUT.path}
+              className={({ isActive }) =>
+                "nav-link link-body-emphasis px-2 text-capitalize" +
+                (isActive ? " active" : "")
+              }
+            >
+              {appRoute.LOGOUT.value}
             </NavLink>
           </li>
         </ul>
