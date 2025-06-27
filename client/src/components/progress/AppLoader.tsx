@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import AnimatedStripes from "./AnimatedStripes";
 
 const AppLoader = () => {
@@ -27,4 +27,4 @@ const AppLoader = () => {
   );
 };
 
-export default AppLoader;
+export default memo(AppLoader);
