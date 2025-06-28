@@ -10,8 +10,10 @@ import { Provider } from "react-redux";
 import store from "./redux/store.ts";
 import { ToastContainer } from "./components/toasts/index.ts";
 
+console.log("----createRoot----");
+
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+  <>
     <Provider store={store}>
       <ToastContainer></ToastContainer>
       <BrowserRouter>
@@ -20,5 +22,5 @@ createRoot(document.getElementById("root")!).render(
         </AppSessionProvider>
       </BrowserRouter>
     </Provider>
-  </StrictMode>
+  </>
 );

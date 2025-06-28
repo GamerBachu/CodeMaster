@@ -1,34 +1,21 @@
-import { Suspense, lazy } from "react";
+import { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router";
 import { AppLoader } from "../components/progress";
 import NotFound from "../pages/common/NotFound";
-
-const About = lazy(() => import("../pages/about/About"));
-const AuthLayout = lazy(() => import("../layouts/AuthLayout"));
-const Login = lazy(() => import("../pages/account/Login"));
-const Register = lazy(() => import("../pages/account/Register"));
-const Trending = lazy(() => import("../pages/concerts/Trending"));
-const CommonLayout = lazy(() => import("../layouts/CommonLayout"));
-const Dashboard = lazy(() => import("../pages/dashboard/Dashboard"));
-
-const PlannerList = lazy(() =>
-  import("../pages/planner").then((module) => ({ default: module.PlannerList }))
-);
-const PlannerCreate = lazy(() =>
-  import("../pages/planner").then((module) => ({
-    default: module.PlannerCreate,
-  }))
-);
-const PlannerLUpdate = lazy(() =>
-  import("../pages/planner").then((module) => ({
-    default: module.PlannerLUpdate,
-  }))
-);
-const PlannerLDelete = lazy(() =>
-  import("../pages/planner").then((module) => ({
-    default: module.PlannerLDelete,
-  }))
-);
+import AuthLayout from "../layouts/AuthLayout";
+import Trending from "../pages/concerts/Trending";
+import Dashboard from "../pages/dashboard/Dashboard";
+import About from "../pages/about/About";
+import {
+  PlannerList,
+  PlannerCreate,
+  PlannerView,
+  PlannerUpdate,
+  PlannerDelete,
+} from "../pages/planner";
+import CommonLayout from "../layouts/CommonLayout";
+import Login from "../pages/account/Login";
+import Register from "../pages/account/Register";
 
 const InitializeRoutes = () => {
   return (
@@ -41,13 +28,14 @@ const InitializeRoutes = () => {
             <Route path="trending" element={<Trending />} />
           </Route>
           <Route path="about" element={<About />} />
-          <Route path="Dashboard" element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
 
           <Route path="planner">
             <Route index path="list" element={<PlannerList />} />
             <Route path="create/:id" element={<PlannerCreate />} />
-            <Route path="update/:id" element={<PlannerLUpdate />} />
-            <Route path="delete/:id" element={<PlannerLDelete />} />
+            <Route path="view/:id" element={<PlannerView />} />
+            <Route path="update/:id" element={<PlannerUpdate />} />
+            <Route path="delete/:id" element={<PlannerDelete />} />
           </Route>
         </Route>
 
