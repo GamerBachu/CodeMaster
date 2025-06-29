@@ -1,3 +1,3 @@
-import enUS from "./en-us.json";
+import enUS from "../assets/locale/en-us.json";
 
 export default enUS;

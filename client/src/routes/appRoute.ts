@@ -8,5 +8,6 @@ const appRoute = {
   LOGOUT: { path: "/account/logout", value: locale.link_Logout },
 
   PLAN_LIST: { path: "/planner/list", value: locale.link_Planner  },
+  PLAN_Action: { path: "/planner/", value: locale.link_Planner  },
 };
 export default appRoute;

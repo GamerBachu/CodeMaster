@@ -30,6 +30,10 @@
   "link_About": "About",
   "link_Planner": "Planner",
 
+  "Planner": "Planner",
+
+  "AddNew": "Add New",
+
   "pageNotFound": "Requested page not found or not available.",
 
   "welcomeMessage": "Welcome to our application!",
