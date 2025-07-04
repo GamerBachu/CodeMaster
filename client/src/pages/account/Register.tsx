@@ -54,7 +54,8 @@ const Register = () => {
           resetForm();
         }
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e)
         dispatch(
           createToast({
             id: new Date().toISOString(),

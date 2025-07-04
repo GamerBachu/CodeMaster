@@ -16,6 +16,7 @@ import {
 import CommonLayout from "../layouts/CommonLayout";
 import Login from "../pages/account/Login";
 import Register from "../pages/account/Register";
+import MigrationDB from "../pages/common/MigrationDB";
 
 const InitializeRoutes = () => {
   return (
@@ -44,7 +45,9 @@ const InitializeRoutes = () => {
             <Route index path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
           </Route>
+          <Route path="activity/migration/:q?" element={<MigrationDB />}></Route>
           <Route path="not-found/:page?" element={<NotFound />}></Route>
+
           <Route
             path="*"
             element={

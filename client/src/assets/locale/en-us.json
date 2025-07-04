@@ -24,6 +24,7 @@
   "link_Login": "Login",
   "link_Register": "Register",
   "link_Logout": "Logout",
+  "link_MigrationDB": "Migration DB",
   "link_Dashboard": "Dashboard",
   "link_Profile": "Profile",
   "link_Settings": "Settings",

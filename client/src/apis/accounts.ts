@@ -29,7 +29,7 @@ export const login = async (account: ILogin): Promise<IAccount | null> => {
   }
 };
 
-export const createNew = async (account: ILogin): Promise<string | null> => {
+export const createNew = async (account: ILogin): Promise<string | null> => { 
   if (account.password === "" || account.username === "") return null;
   try {
     const already = await db.tblUser.findByUserName({
