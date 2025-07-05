@@ -1,12 +1,12 @@
 import type { IDBStoreSchema } from "../Interfaces";
 
 export interface UserModel {
-  id: string;
+  id?: number;
   name: string;
 
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdDate: Date;
+  updatedDate: Date;
 
   username: string;
   password: string;

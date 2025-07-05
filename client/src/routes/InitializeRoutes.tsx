@@ -32,7 +32,7 @@ const InitializeRoutes = () => {
           <Route path="dashboard" element={<Dashboard />} />
 
           <Route path="planner">
-            <Route index path="list" element={<PlannerList />} />
+            <Route index path="list/:q?" element={<PlannerList />} />
             <Route path="create/:id" element={<PlannerCreate />} />
             <Route path="view/:id" element={<PlannerView />} />
             <Route path="update/:id" element={<PlannerUpdate />} />

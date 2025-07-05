@@ -54,8 +54,7 @@ const Register = () => {
           resetForm();
         }
       })
-      .catch((e) => {
-        console.log(e)
+      .catch(() => {
         dispatch(
           createToast({
             id: new Date().toISOString(),
@@ -104,6 +103,16 @@ const Register = () => {
               {locale.alreadyHaveAccount}
             </Link>
           </div>
+          <div className="mt-3"  >
+            <p className="text-secondary" style={{ width: "300px", margin: "0 auto" }}>
+
+              <Link className="btn btn-link text-secondary" to={appRoute.MigrationDB.path}>
+                {locale.demoDisclaimerContent}
+              </Link>
+            </p>
+
+          </div>
+
         </form>
       </div>
     </div>

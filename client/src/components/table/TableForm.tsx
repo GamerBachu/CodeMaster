@@ -1,7 +1,7 @@
 import React from "react";
-import { icons_file_add } from "../../components/Icons";
+import { icons_arrow_left_square } from "../../components/Icons";
 
-type TableProps = {
+type TableFormProps = {
   id: string;
   title: string;
   addButtonLabel?: string;
@@ -9,16 +9,15 @@ type TableProps = {
   onAddButtonClick?: () => void;
 };
 
-const Table = ({
+const TableForm = ({
   id,
   title,
   addButtonLabel,
   onAddButtonClick,
   children,
-}: TableProps) => {
-  const titleId = `ttl-${id}`;
-  const buttonId = `btn-${id}`;
-  const tableId = `tbl-${id}`;
+}: TableFormProps) => {
+  const titleId = `ttf-${id}`;
+  const buttonId = `btn-b-${id}`;
 
   return (
     <div className="card m-1">
@@ -34,17 +33,14 @@ const Table = ({
             data-testid={buttonId}
             onClick={onAddButtonClick}
           >
-            <img src={icons_file_add} className="btn-sm-align" /> <label>{addButtonLabel}</label>
+            <img src={icons_arrow_left_square} className="btn-sm-align" />{" "}
+            <label>{addButtonLabel}</label>
           </button>
         </div>
       </div>
-      <div className="card-body">
-        <table className="table table-hover" id={tableId} data-testid={tableId}>
-          {children}
-        </table>
-      </div>
+      <div className="card-body">{children}</div>
     </div>
   );
 };
 
-export default Table;
+export default TableForm;

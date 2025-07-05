@@ -62,3 +62,6 @@ input[type="text"]
 .nav-link.active{
   color: var(--bg-color-input-border) !important;
 }
+.btn-sm-align{
+  margin-top: -3px;
+}

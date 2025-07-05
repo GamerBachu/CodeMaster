@@ -79,6 +79,7 @@ export default class LocalDb {
       };
       request.onerror = () => this.handleDbError(request, reject);
     });
+
   }
 
   /**
