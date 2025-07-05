@@ -1,5 +1,9 @@
 import tblUser from "./tblUser";
+import tblActionStatus from "./tblActionStatus";
+import tblUserPlanner from "./tblUserPlanner";
 
-const db = { tblUser };
-
-export default db;
+export default {
+    tblUser,
+    tblActionStatus,
+    tblUserPlanner
+};

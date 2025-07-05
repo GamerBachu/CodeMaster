@@ -1,5 +1,5 @@
 import type { IAccount, ILogin } from "../models/accounts";
-import db from "../database";
+import db from "../database/index";
 import { generateGuid } from "../utils/helper/guid";
 
 export const login = async (account: ILogin): Promise<IAccount | null> => {
@@ -29,15 +29,15 @@ export const login = async (account: ILogin): Promise<IAccount | null> => {
   }
 };
 
-export const createNew = async (account: ILogin): Promise<string | null> => { 
+export const createNew = async (account: ILogin): Promise<string | null> => {
   if (account.password === "" || account.username === "") return null;
   try {
-    const already = await db.tblUser.findByUserName({
+    const already = await tblUser.findByUserName({
       username: account.username,
     });
     if (already) return null;
 
-    const r = await db.tblUser.post({
+    const r = await tblUser.post({
       id: generateGuid(),
       name: account.username,
       email: account.username,
