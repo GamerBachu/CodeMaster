@@ -30,10 +30,19 @@ const remove = async (user: ActionStatusModel): Promise<string | number | null> 
     return user.id;
 };
 
+const search = async (user: Partial<ActionStatusModel>): Promise<ActionStatusModel[] | null> => {
+
+    const db = new LocalDb();
+    const data = await db.getAll<ActionStatusModel>(ActionStatus.name);
+    return data ?? null;
+};
+
+
 const tblActionStatus = {
     get,
     post,
     put,
     remove,
+    search
 };
 export default tblActionStatus;

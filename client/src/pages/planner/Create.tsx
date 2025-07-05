@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import TableForm from "../../components/table/TableForm";
 import appRoute from "../../routes/appRoute";
 import locale from "../../resources";
 import type { UserPlannerModel } from "../../models/userPlanner";
+import type { keyValue } from "../../models/keyValue";
 import { useDispatch } from "react-redux";
 import { createToast } from "../../components/toasts/toastSlicer";
 
 import tblUserPlanner from "../../database/tblUserPlanner";
+import tblActionStatus from "../../database/tblActionStatus";
 
 const Create = () => {
   const dispatch = useDispatch();
@@ -21,14 +23,28 @@ const Create = () => {
     status: "",
     createdAt: "",
   });
+  const [statusList, setStatusList] = useState<keyValue[]>([]);
 
-  const labels = {
+  useEffect(() => {
+    tblActionStatus.search({}).then((result) => {
+      if (result) {
+        setStatusList(result.map((item) => ({ key: item.id, value: item.name })));
+      }
+    }).catch(() => {
+      dispatch(
+        createToast({
+          id: new Date().toISOString(),
+          show: true,
+          title: locale.Planner,
+          time: "",
+          description: locale.errorMessage,
+          type: "warning",
+        })
+      );
+    });
+  }, [dispatch]);
 
-    selectStatus: "Select status",
-    pending: "Pending",
-    inProgress: "In Progress",
-    completed: "Completed",
-  };
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -95,6 +111,8 @@ const Create = () => {
   const onAddButtonClick = () => {
     navigate(`${appRoute.PLAN_Action.path}/list?q=`);
   };
+
+  console.log("Create component rendered", statusList);
   return (
     <TableForm
       id={"frm"}
@@ -155,11 +173,13 @@ const Create = () => {
             value={form.status}
             onChange={handleChange}
             required
-          >
-            <option value="">{labels.selectStatus}</option>
-            <option value="pending">{labels.pending}</option>
-            <option value="in-progress">{labels.inProgress}</option>
-            <option value="completed">{labels.completed}</option>
+          >{
+              statusList.map((status) => (
+                <option key={status.key} value={status.value}>
+                  {status.value}
+                </option>
+              ))
+            }
           </select>
         </div>
         <button type="submit" className="btn btn-primary">{locale.AddNew}</button>
