@@ -30,7 +30,7 @@ const put = async (user: UserPlannerModel): Promise<string | number | null> => {
     return data as number;
 };
 
-const remove = async (user: UserPlannerModel): Promise<string | number | null> => {
+const remove = async (user: Partial<UserPlannerModel>): Promise<string | number | null> => {
     if (!user?.id) return null;
     const db = new LocalDb();
     await db.delete(UserPlanner.name, user.id);

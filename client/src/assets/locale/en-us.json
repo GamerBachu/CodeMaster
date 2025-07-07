@@ -42,8 +42,10 @@
   "Back": "Back",
   "Cancel": "Cancel",
   "Update": "Update",
+  "Delete": "Delete",
   "AddNewSuccess": "Added successfully!",
   "UpdateSuccess": "Updated successfully!",
+  "DeleteSuccess": "Deleted successfully!",
 
   "pageNotFound": "Requested page not found or not available.",
 

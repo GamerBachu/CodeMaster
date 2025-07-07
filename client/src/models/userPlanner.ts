@@ -1,7 +1,7 @@
 import type { keyValueModel } from "./keyValue";
 
 export interface UserPlannerModel {
-    id: string;
+    id: number;
     title: string;
     desc: string;
     startDate: Date;

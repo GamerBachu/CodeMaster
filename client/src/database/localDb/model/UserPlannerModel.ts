@@ -1,5 +1,4 @@
-import type { IDBStoreSchema } from "../Interfaces";
-import type { ActionStatusModel } from "./ActionStatusModel";
+import type { IDBStoreSchema } from "../Interfaces"; 
 
 export interface UserPlannerModel {
   id?: number;
@@ -7,7 +6,7 @@ export interface UserPlannerModel {
   desc: string;
   startDate: Date;
   endDate: Date;
-  status: { key: string; value: string; } | ActionStatusModel;
+  status: { key: string; value: string; };
   createdDate: Date;
   isActive: boolean;
 }
