@@ -1,5 +1,5 @@
 import locale from "../../resources";
-import React from "react";
+
 
 type AnimatedStripesProps = {
   ariaLabel?: string;

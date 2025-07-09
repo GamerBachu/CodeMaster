@@ -19,7 +19,7 @@ const List = () => {
   const [apiData, setApiData] = useState<UserPlannerModel[]>([]);
 
   useEffect(() => {
-    tblUserPlanner.search({})
+    tblUserPlanner.search()
       .then((response) => {
         if (response === undefined || response === null) {
           setApiData([]);

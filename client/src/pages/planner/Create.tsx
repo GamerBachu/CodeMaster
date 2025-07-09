@@ -26,7 +26,7 @@ const Create = () => {
 
   useEffect(() => {
     db.tblActionStatus
-      .search({})
+      .search()
       .then((result) => {
         if (result) {
           const data = result.map((item) => ({
@@ -64,7 +64,7 @@ const Create = () => {
       e.preventDefault();
       const status = statusList.find((s) => String(s.key) === String(form.status));
       const model: UserPlannerModel = {
-        id: "",
+        id: 0,
         title: form.title,
         desc: form.description,
         startDate: new Date(form.planStartDate),

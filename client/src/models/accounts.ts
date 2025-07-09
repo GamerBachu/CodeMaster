@@ -4,12 +4,12 @@ export interface ILogin {
 }
 
 export interface IAccount {
-  id: string;
+  id: number | string | undefined;
   name: string;
 
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdDate: Date;
+  updatedDate: Date;
 
   username: string;
   password: string;

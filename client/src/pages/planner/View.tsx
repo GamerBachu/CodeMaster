@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import TableForm from "../../components/table/TableForm";
 import appRoute from "../../routes/appRoute";
 import locale from "../../resources";
-import type { UserPlannerModel, keyValueModel } from "../../models";
+import type { keyValueModel } from "../../models";
 import { createToast } from "../../components/toasts/toastSlicer";
 import db from "../../database/";
 

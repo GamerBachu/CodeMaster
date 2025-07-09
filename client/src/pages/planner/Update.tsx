@@ -41,7 +41,7 @@ const Update = () => {
     async function loadData() {
 
 
-      const result = await db.tblActionStatus.search({});
+      const result = await db.tblActionStatus.search();
       if (result) {
         const data = result.map((item) => ({
           key: String(item.id ?? ""),

@@ -2,7 +2,7 @@ import LocalDb from "./localDb/LocalDb.ts";
 import { type UserPlannerModel, UserPlanner } from "./localDb/model/UserPlannerModel.ts";
 
 
-const search = async (user: Partial<UserPlannerModel>): Promise<UserPlannerModel[] | null> => {
+const search = async (): Promise<UserPlannerModel[] | null> => {
 
     const db = new LocalDb();
     const data = await db.getAll<UserPlannerModel>(UserPlanner.name);

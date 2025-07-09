@@ -17,8 +17,8 @@ export const login = async (account: ILogin): Promise<IAccount | null> => {
         username: r.username,
         password: "******", // Do not return the password
         isActive: r.isActive,
-        createdAt: r.createdAt ?? new Date(),
-        updatedAt: r.updatedAt ?? new Date(),
+        createdDate: r.createdDate ?? new Date(),
+        updatedDate: r.updatedDate ?? new Date(),
         token: generateGuid(),
       };
     } else {
@@ -29,21 +29,21 @@ export const login = async (account: ILogin): Promise<IAccount | null> => {
   }
 };
 
-export const createNew = async (account: ILogin): Promise<string | null> => {
+export const createNew = async (account: ILogin): Promise<string | number | null> => {
   if (account.password === "" || account.username === "") return null;
   try {
-    const already = await tblUser.findByUserName({
+    const already = await db.tblUser.findByUserName({
       username: account.username,
     });
     if (already) return null;
 
-    const r = await tblUser.post({
-      id: generateGuid(),
+    const r = await db.tblUser.post({
+
       name: account.username,
       email: account.username,
       isActive: true,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdDate: new Date(),
+      updatedDate: new Date(),
       username: account.username,
       password: account.password,
     });

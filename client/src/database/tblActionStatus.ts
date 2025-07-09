@@ -30,7 +30,7 @@ const remove = async (user: ActionStatusModel): Promise<string | number | null> 
     return user.id;
 };
 
-const search = async (user: Partial<ActionStatusModel>): Promise<ActionStatusModel[] | null> => {
+const search = async (): Promise<ActionStatusModel[] | null> => {
 
     const db = new LocalDb();
     const data = await db.getAll<ActionStatusModel>(ActionStatus.name);

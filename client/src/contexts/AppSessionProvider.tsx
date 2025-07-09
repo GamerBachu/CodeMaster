@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useMemo, useState, type ReactNode } from "react";
 import type { IAppSession } from "./interfaces";
 import AppSessionContext from "./AppSessionContext";
 import defaultSession from "./defaultSession";

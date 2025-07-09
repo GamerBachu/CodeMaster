@@ -2,10 +2,8 @@ import { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router";
 import { AppLoader } from "../components/progress";
 import NotFound from "../pages/common/NotFound";
-import AuthLayout from "../layouts/AuthLayout";
-import Trending from "../pages/concerts/Trending";
-import Dashboard from "../pages/dashboard/Dashboard";
-import About from "../pages/about/About";
+import AuthLayout from "../layouts/AuthLayout"; 
+import Dashboard from "../pages/dashboard/Dashboard"; 
 import {
   PlannerList,
   PlannerCreate,
@@ -25,10 +23,7 @@ const InitializeRoutes = () => {
         <Route index element={<Navigate to="/account/login" replace />} />
 
         <Route element={<AuthLayout />}>
-          <Route path="account">
-            <Route path="trending" element={<Trending />} />
-          </Route>
-          <Route path="about" element={<About />} />
+      
           <Route path="dashboard" element={<Dashboard />} />
 
           <Route path="planner">
