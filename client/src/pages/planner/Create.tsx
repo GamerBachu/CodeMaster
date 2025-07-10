@@ -8,10 +8,13 @@ import locale from "../../resources";
 import type { UserPlannerModel, keyValueModel } from "../../models";
 import { createToast } from "../../components/toasts/toastSlicer";
 import db from "../../database/";
+import { useAppSession } from "../../contexts";
 
 
 
 const Create = () => {
+  const appSession = useAppSession();
+  const userId = appSession.info.account?.id;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -81,7 +84,7 @@ const Create = () => {
           startDate: model.startDate,
           endDate: model.endDate,
           status: model.status,
-          createdDate: new Date(),
+          createdBy:Number(userId),
           isActive: true,
         })
         .then((result) => {
@@ -123,7 +126,7 @@ const Create = () => {
           );
         });
     },
-    [dispatch, form, navigate, statusList]
+    [dispatch, form.description, form.planEndDate, form.planStartDate, form.status, form.title, navigate, statusList, userId]
   );
 
   const onAddButtonClick = useCallback(() => {

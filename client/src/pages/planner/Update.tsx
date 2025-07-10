@@ -8,10 +8,13 @@ import locale from "../../resources";
 import type { UserPlannerModel, keyValueModel } from "../../models";
 import { createToast } from "../../components/toasts/toastSlicer";
 import db from "../../database/";
+import { useAppSession } from "../../contexts";
 
 
 
 const Update = () => {
+  const appSession = useAppSession();
+  const userId = appSession.info.account?.id;
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -112,7 +115,7 @@ const Update = () => {
           startDate: model.startDate,
           endDate: model.endDate,
           status: model.status,
-          createdDate: new Date(),
+          updatedBy: Number(userId),
           isActive: true,
         })
         .then((result) => {
@@ -154,7 +157,7 @@ const Update = () => {
           );
         });
     },
-    [dispatch, form.description, form.id, form.planEndDate, form.planStartDate, form.status, form.title, navigate, statusList]
+    [dispatch, form.description, form.id, form.planEndDate, form.planStartDate, form.status, form.title, navigate, statusList, userId]
   );
 
 

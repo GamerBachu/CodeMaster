@@ -8,10 +8,13 @@ import locale from "../../resources";
 import type { keyValueModel } from "../../models";
 import { createToast } from "../../components/toasts/toastSlicer";
 import db from "../../database/";
+import { useAppSession } from "../../contexts";
 
 
 
 const Delete = () => {
+  const appSession = useAppSession();
+  const userId = appSession.info.account?.id;
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -67,7 +70,10 @@ const Delete = () => {
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      db.tblUserPlanner.remove({ id: Number(id) })
+      db.tblUserPlanner.remove({
+        id: Number(id),
+        deletedBy: Number(userId)
+      })
         .then(() => {
           dispatch(createToast({
             id: new Date().toISOString(),
@@ -89,7 +95,7 @@ const Delete = () => {
           }));
         });
       onAddButtonClick();
-    }, [dispatch, id, onAddButtonClick]);
+    }, [dispatch, id, onAddButtonClick, userId]);
 
   return (
     <TableForm

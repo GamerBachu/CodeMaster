@@ -18,7 +18,7 @@ const get = async (user: Partial<UserPlannerModel>): Promise<UserPlannerModel | 
 
 const post = async (user: Partial<UserPlannerModel>): Promise<string | number | null> => {
     user.createdDate = new Date();
-    user.createdBy = 0;
+
     user.updatedDate = new Date();
     user.updatedBy = 0;
     user.deletedDate = new Date();
@@ -32,13 +32,18 @@ const post = async (user: Partial<UserPlannerModel>): Promise<string | number | 
 
 const put = async (user: Partial<UserPlannerModel>): Promise<string | number | null> => {
     if (!user?.id) return null;
-    user.createdDate = new Date();
-    user.createdBy = 0;
+
+    const old = await get(user);
+    if (old === null) return null;
+
+    user.createdDate = old.createdDate;
+    user.createdBy = old.createdBy;
     user.updatedDate = new Date();
-    user.updatedBy = 0;
-    user.deletedDate = new Date();
-    user.deletedBy = 0;
+
+    user.deletedDate = old.deletedDate;
+    user.deletedBy = old.deletedBy;
     user.isActive = true;
+
     const db = new LocalDb();
     const data = await db.put(UserPlanner.name, user);
     return data as number;
@@ -46,6 +51,7 @@ const put = async (user: Partial<UserPlannerModel>): Promise<string | number | n
 
 const remove = async (user: Partial<UserPlannerModel>): Promise<string | number | null> => {
     if (!user?.id) return null;
+
     const db = new LocalDb();
     await db.delete(UserPlanner.name, user.id);
     return user.id;
