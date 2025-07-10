@@ -38,7 +38,6 @@ export const createNew = async (account: ILogin): Promise<string | number | null
     if (already) return null;
 
     const r = await db.tblUser.post({
-
       name: account.username,
       email: account.username,
       isActive: true,

@@ -38,8 +38,14 @@ const get = async (user: Partial<UserModel>): Promise<UserModel | null> => {
   return data.find((u: UserModel) => u.id === user.id) ?? null;
 };
 
-const post = async (user: UserModel): Promise<string | number | null> => {
+const post = async (user: Partial<UserModel>): Promise<string | number | null> => {  
   user.createdDate = new Date();
+  user.createdBy = 0;
+  user.updatedDate = new Date();
+  user.updatedBy = 0;
+  user.deletedDate = new Date();
+  user.deletedBy = 0;
+  user.isActive = true; 
   user.password = encryptPassword(user.password ?? "");
   const db = new LocalDb();
   const data: IDBValidKey = await db.create(User.name, user);

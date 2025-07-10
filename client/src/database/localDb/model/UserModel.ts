@@ -1,13 +1,9 @@
 import type { IDBStoreSchema } from "../Interfaces";
+import type PrimaryModel from "./PrimaryModel";
 
-export interface UserModel {
-  id?: number;
+export interface UserModel extends PrimaryModel {
   name: string;
-
   email: string;
-  createdDate: Date;
-  updatedDate: Date;
-
   username: string;
   password: string;
   isActive: boolean;

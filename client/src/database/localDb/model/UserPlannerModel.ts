@@ -1,14 +1,13 @@
 import type { IDBStoreSchema } from "../Interfaces"; 
+import type PrimaryModel from "./PrimaryModel";
 
-export interface UserPlannerModel {
-  id?: number;
+export interface UserPlannerModel extends PrimaryModel {
+  
   title: string;
   desc: string;
   startDate: Date;
   endDate: Date;
   status: { key: string; value: string; };
-  createdDate: Date;
-  isActive: boolean;
 }
 
 export const UserPlanner: IDBStoreSchema = {
