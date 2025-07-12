@@ -4,13 +4,11 @@ import { BrowserRouter } from "react-router";
 
 import "@bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import InitializeRoutes from "./routes/InitializeRoutes.tsx";
 import { AppSessionProvider } from "./contexts/";
 import { Provider } from "react-redux";
 import store from "./redux/store.ts";
 import { ToastContainer } from "./components/toasts/index.ts";
-
- 
+import AppLayout from "./layouts/AppLayout.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <>
@@ -18,7 +16,8 @@ createRoot(document.getElementById("root")!).render(
       <ToastContainer></ToastContainer>
       <BrowserRouter>
         <AppSessionProvider>
-          <InitializeRoutes></InitializeRoutes>
+          <AppLayout>
+          </AppLayout>
         </AppSessionProvider>
       </BrowserRouter>
     </Provider>
