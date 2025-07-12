@@ -17,18 +17,18 @@ import { useAppSession } from "../contexts";
 import appRoute from "./appRoute";
 import Logout from "../pages/account/Logout";
 import Profile from "../pages/account/Profile";
+import { appAuthRoute } from "./appRoute";
 
 const InitializeRoutes = () => {
   const appSession = useAppSession();
   const navigate = useNavigate();
-
   useEffect(() => {
-    if (!appSession.info.isAuthorized) {
+    const urls = Object.values(appAuthRoute);
+    const d = urls.some(v => String(v.path) === String(window.location.pathname));
+    if (d && !appSession.info.isAuthorized) {
       navigate(appRoute.LOGIN.path, { replace: true });
     }
-
   }, [appSession.info.isAuthorized, navigate]);
-
 
   return (
     <Suspense fallback={<AppLoader></AppLoader>}>

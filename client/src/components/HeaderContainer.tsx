@@ -1,50 +1,41 @@
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import appRoute from "../routes/appRoute";
-import { useAppSession } from "../contexts"; 
+import { useAppSession } from "../contexts";
+import { useState } from "react";
 const HeaderContainer = () => {
-console.log("==Header=")
+
   const appSession = useAppSession();
+
+  const [authLink, setAuthLink] = useState([
+    { id: 1, path: appRoute.DASHBOARD.path, value: appRoute.DASHBOARD.value, active: true },
+    { id: 2, path: appRoute.PLAN_LIST.path, value: appRoute.PLAN_LIST.value, active: false },
+    { id: 3, path: appRoute.PROFILE.path, value: appRoute.PROFILE.value, active: false },
+    { id: 4, path: appRoute.DASHBOARD.path, value: appRoute.DASHBOARD.value, active: false },
+  ]);
+
+
+  const linkClick = (id: number) => {
+    const d = authLink;
+    setAuthLink(d.map((link) => { link.active = link.id === id; return link; }));
+  };
 
   if (appSession.info.isAuthorized)
     return (
       <nav className="bg-body-tertiary border-bottom">
         <div className="d-flex flex-wrap">
           <ul className="nav me-auto">
-            <li className="nav-item">
-              <NavLink
-                to={appRoute.DASHBOARD.path}
-                className={({ isActive }) =>
-                  "nav-link link-body-emphasis px-2 text-capitalize" +
-                  (isActive ? " active" : "")
-                }
-              >
-                {appRoute.DASHBOARD.value}
-              </NavLink>
-            </li>
-
-            <li className="nav-item">
-              <NavLink
-                to={appRoute.PLAN_LIST.path}
-                className={({ isActive }) =>
-                  "nav-link link-body-emphasis px-2 text-capitalize" +
-                  (isActive ? " active" : "")
-                }
-              >
-                {appRoute.PLAN_LIST.value}
-              </NavLink>
-            </li>
-
-            <li className="nav-item">
-              <NavLink
-                to={appRoute.PROFILE.path}
-                className={({ isActive }) =>
-                  "nav-link link-body-emphasis px-2 text-capitalize" +
-                  (isActive ? " active" : "")
-                }
-              >
-                {appRoute.PROFILE.value}
-              </NavLink>
-            </li>
+            {
+              authLink.map((link) => <li className="nav-item">
+                <Link
+                  key={link.id}
+                  to={link.path}
+                  className={`nav-link link-body-emphasis px-2 text-capitalize ${link.active ? "active" : ""}`}
+                  onClick={() => linkClick(link.id)}
+                >
+                  {link.value}
+                </Link>
+              </li>)
+            }
           </ul>
 
           <ul className="nav">
