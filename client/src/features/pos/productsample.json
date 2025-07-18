@@ -1,0 +1,108 @@
+    {
+    "id": "PROD001", 
+    "productName": "Eco-Friendly Reusable Water Bottle",
+    "description": "A durable, insulated water bottle made from recycled materials, perfect for everyday use.",
+    "shortDescription": "Reusable insulated water bottle",
+    "sku": "WB-ECO-BLUE-750ML",
+    "categoryID": "CAT001",
+    "brandID": "BRAND005",
+    "price": 24.99,
+    "costPrice": 12.5,
+    "discount": {
+        "onSale": true,
+        "salePrice": 19.99,
+        "discountPercentage": 20
+    },
+    "stockAvailability": {
+        "currentStock": 500,
+        "minimumOrderQuantity": 1
+    },
+    "dateAdded": "2025-01-15T10:00:00Z",
+    "dateUpdated": "2025-07-14T21:00:00Z",
+    "isActive": true,
+    "specifications": {
+        "size": "750ml",
+        "dimensions": "H: 25cm, D: 7cm",
+        "weight": {
+        "value": 300,
+        "unit": "grams"
+        },
+        "color": "Ocean Blue",
+        "materialComposition": "Recycled Stainless Steel, BPA-Free Plastic",
+        "functionalAttributes": [
+        "Double-wall insulation",
+        "Leak-proof lid",
+        "Wide mouth for ice cubes"
+        ],
+        "technicalSpecifications": {
+        "insulationDuration": "24 hours cold, 12 hours hot",
+        "closureType": "Screw cap"
+        },
+        "countryOfOrigin": "China"
+    },
+    "media": {
+        "images": [
+        {
+            "url": "https://example.com/images/prod001-main.jpg",
+            "altText": "Eco-Friendly Water Bottle - Main View"
+        },
+        {
+            "url": "https://example.com/images/prod001-lifestyle.jpg",
+            "altText": "Water Bottle in use"
+        }
+        ],
+        "videos": [
+        {
+            "url": "https://example.com/videos/prod001-demo.mp4",
+            "title": "Water Bottle Features Demo"
+        }
+        ],
+        "3dModelURL": "https://example.com/3d/prod001.glb"
+    },
+    "marketing": {
+        "claims": ["Sustainable Choice", "Long-lasting Quality"],
+        "certifications": ["BPA-Free", "FSC Certified Packaging"],
+        "seo": {
+        "metaTitle": "Eco-Friendly Reusable Water Bottle | [Brand Name]",
+        "metaDescription": "Shop our sustainable water bottle made from recycled materials. Durable, insulated, and leak-proof.",
+        "keywords": [
+            "reusable water bottle",
+            "insulated bottle",
+            "eco-friendly bottle",
+            "sustainable hydration"
+        ]
+        },
+        "relatedProductIDs": ["PROD002", "ACC001"]
+    },
+    "supplierInfo": {
+        "supplierID": "SUPP010",
+        "packagingType": "Cardboard Box",
+        "packagingDimensions": "L: 26cm, W: 8cm, H: 8cm"
+    },
+    "reviews": {
+        "averageRating": 4.8,
+        "reviewCount": 125
+    },
+    "variations": [
+        {
+        "variantID": "VAR001-BLUE",
+        "color": "Ocean Blue",
+        "size": "750ml",
+        "price": 24.99,
+        "stock": 500,
+        "imageURL": "https://example.com/images/prod001-blue.jpg"
+        },
+        {
+        "variantID": "VAR001-GREEN",
+        "color": "Forest Green",
+        "size": "750ml",
+        "price": 24.99,
+        "stock": 300,
+        "imageURL": "https://example.com/images/prod001-green.jpg"
+        }
+    ],
+    "hierarchy": {
+        "parentCategoryID": "CAT000",
+        "level": 1
+    }
+    }

@@ -34,6 +34,7 @@
   "link_Settings": "Settings",
   "link_About": "About",
   "link_Planner": "Planner",
+  "link_Pos": "PointOfSale",
 
   "Planner": "Planner",
   "planStartDate": "Plan Start Date",
@@ -42,6 +43,7 @@
   "description": "Description",
   "status": "Status",
 
+  "action": "Action",
   "AddNew": "Add New",
   "Back": "Back",
   "Cancel": "Cancel",
@@ -50,6 +52,13 @@
   "AddNewSuccess": "Added successfully!",
   "UpdateSuccess": "Updated successfully!",
   "DeleteSuccess": "Deleted successfully!",
+
+  "Pos": "PointOfSale",
+  "planStartDate": "Plan Start Date",
+  "planEndDate": "Plan End Date",
+  "title": "Title",
+  "description": "Description",
+  "status": "Status",
 
   "pageNotFound": "Requested page not found or not available.",
 

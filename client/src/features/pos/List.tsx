@@ -1,5 +1,5 @@
 
-import { useNavigate } from "react-router";
+import { Link, Links, useNavigate } from "react-router";
 import {
   icons_file_view,
   icons_file_edit,
@@ -39,16 +39,16 @@ const List = () => {
 
   const handleRowAction = (id: number | string, type: number) => {
     if (type === 0) {
-      navigate(`${appRoute.PLAN_Action.path}/create/${id}`);
+      navigate(`${appRoute.POS_Action.path}/create/${id}`);
     }
     else if (type === 1) {
-      navigate(`${appRoute.PLAN_Action.path}/view/${id}`);
+      navigate(`${appRoute.POS_Action.path}/view/${id}`);
     }
     else if (type === 2) {
-      navigate(`${appRoute.PLAN_Action.path}/update/${id}`);
+      navigate(`${appRoute.POS_Action.path}/update/${id}`);
     }
     else if (type === 3) {
-      navigate(`${appRoute.PLAN_Action.path}/delete/${id}`);
+      navigate(`${appRoute.POS_Action.path}/delete/${id}`);
     }
     else {
       return;
@@ -60,10 +60,11 @@ const List = () => {
   return (
     <Table
       id={"pl"}
-      title={locale.Planner}
+      title={locale.Pos}
       addButtonLabel={locale.AddNew}
       onAddButtonClick={() => handleRowAction(0, 0)}
     >
+
       <thead>
         <tr>
           <th>#</th>
@@ -76,7 +77,7 @@ const List = () => {
       <tbody>
         {
           apiData.map((row, idx) => (
-            <tr key={row.id ?? idx} className="align-middle">
+            <tr key={row.id ?? idx}>
               <td>{idx + 1}</td>
               <td>{row.title}</td>
               <td>{toViewString(row.endDate)}</td>

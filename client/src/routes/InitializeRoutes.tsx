@@ -10,6 +10,16 @@ import {
   PlannerUpdate,
   PlannerDelete,
 } from "../pages/planner";
+
+import {
+  PosList,
+  PosCreate,
+  PosView,
+  PosUpdate,
+  PosDelete,
+} from "../features/pos";
+
+
 import Login from "../pages/account/Login";
 import Register from "../pages/account/Register";
 import MigrationDB from "../pages/common/MigrationDB";
@@ -48,6 +58,14 @@ const InitializeRoutes = () => (
         <Route path="delete/:id" element={<PrivateRoute><PlannerDelete /></PrivateRoute>} />
       </Route>
 
+<Route path="feature/pos">
+          <Route index path="list/:q?" element={<PosList />} ></Route>
+          <Route path="create/:id" element={<PosCreate />}></Route>
+          <Route path="view/:id" element={<PosView />}></Route>
+          <Route path="update/:id" element={<PosUpdate />} ></Route>
+          <Route path="delete/:id" element={<PosDelete />} ></Route>
+        </Route>
+        
       {/* Default and catch-all */}
       <Route index element={<Navigate to="/account/login" replace />} />
       <Route
