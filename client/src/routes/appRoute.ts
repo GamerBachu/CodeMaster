@@ -8,6 +8,9 @@ export const appAuthRoute = {
 
   PLAN_LIST: { path: "/planner/list", value: locale.link_Planner },
   PLAN_Action: { path: "/planner", value: locale.link_Planner },
+
+  POS_Action: { path: "/feature/pos", value: locale.link_Pos },
+
 };
 
 const appRoute = {
