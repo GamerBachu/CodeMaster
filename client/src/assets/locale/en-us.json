@@ -61,6 +61,13 @@
   "description": "Description",
   "status": "Status",
 
+  "Pos": "PointOfSale",
+  "planStartDate": "Plan Start Date",
+  "planEndDate": "Plan End Date",
+  "title": "Title",
+  "description": "Description",
+  "status": "Status",
+
   "pageNotFound": "Requested page not found or not available.",
 
   "welcomeMessage": "Welcome to our application!",
