@@ -14,9 +14,7 @@ import {
 import {
   PosList,
   PosCreate,
-  PosView,
   PosUpdate,
-  PosDelete,
 } from "../features/pos";
 
 
@@ -32,11 +30,12 @@ import { appAuthRoute } from "./appRoute";
 const InitializeRoutes = () => {
   const appSession = useAppSession();
   const navigate = useNavigate();
-  useEffect(() => {
+  useEffect(() => { 
     const urls = Object.values(appAuthRoute);
     const d = urls.some(v => window.location.pathname.startsWith(String(v.path)));
     
     if (d && !appSession.info.isAuthorized) {
+     
       navigate(appRoute.LOGIN.path, { replace: true });
     }
   }, [appSession.info.isAuthorized, navigate]);
@@ -56,12 +55,10 @@ const InitializeRoutes = () => {
           <Route path="delete/:id" element={<PlannerDelete />} ></Route>
         </Route>
 
-         <Route path="feature/pos">
+        <Route path="feature/pos">
           <Route index path="list/:q?" element={<PosList />} ></Route>
-          <Route path="create/:id" element={<PosCreate />}></Route>
-          <Route path="view/:id" element={<PosView />}></Route>
+          <Route path="create/:id" element={<PosCreate />}></Route> 
           <Route path="update/:id" element={<PosUpdate />} ></Route>
-          <Route path="delete/:id" element={<PosDelete />} ></Route>
         </Route>
 
 
