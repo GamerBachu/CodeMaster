@@ -14,9 +14,7 @@ import {
 import {
   PosList,
   PosCreate,
-  PosView,
   PosUpdate,
-  PosDelete,
 } from "../features/pos";
 
 
@@ -60,10 +58,8 @@ const InitializeRoutes = () => (
 
 <Route path="feature/pos">
           <Route index path="list/:q?" element={<PosList />} ></Route>
-          <Route path="create/:id" element={<PosCreate />}></Route>
-          <Route path="view/:id" element={<PosView />}></Route>
+          <Route path="create/:id" element={<PosCreate />}></Route> 
           <Route path="update/:id" element={<PosUpdate />} ></Route>
-          <Route path="delete/:id" element={<PosDelete />} ></Route>
         </Route>
         
       {/* Default and catch-all */}

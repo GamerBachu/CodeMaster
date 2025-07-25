@@ -15,8 +15,8 @@
   "email": "Email",
   "createNow": "Create Now",
 
-  "name":"name",
-  "createDate":"Create On",
+  "name": "name",
+  "createDate": "Create On",
   "registerSuccess": "Registration successful! Please log in.",
   "registerFailed": "Registration failed. Please try again.",
   "createAccount": "Create Account",
@@ -52,6 +52,7 @@
   "AddNewSuccess": "Added successfully!",
   "UpdateSuccess": "Updated successfully!",
   "DeleteSuccess": "Deleted successfully!",
+  "CreateNew": "Create New",
 
   "Pos": "PointOfSale",
   "planStartDate": "Plan Start Date",
@@ -74,5 +75,13 @@
   "profileTitle": "Profile",
 
   "demoDisclaimerContent": "Please note that this is a demo application. Any data entered will not be saved permanently and is for demonstration purposes only.",
-  "migrationDBDescription": "This section allows you to migrate your database to the latest version."
+  "migrationDBDescription": "This section allows you to migrate your database to the latest version.",
+
+  "productId": "productId",
+  "productName": "productName",
+  "shortDescription": "shortDescription",
+  "sku": "sku",
+  "price": "price",
+  "costPrice": "costPrice",
+  "liveDate": "Online Start Date"
 }

@@ -118,14 +118,13 @@ export const ReviewsSchema: IDBStoreSchema = { name: "posReviews", option: { key
 export interface IProduct {
     productId: string;
     productName: string;
-    description: string;
     shortDescription: string;
+    description: string;
     sku: string;
-    categoryID: string;
-    brandID: string;
     price: number;
     costPrice: number;
     status: number;
+    liveDate: Date;
 }
 export const ProductSchema: IDBStoreSchema = { name: "posProduct", option: { keyPath: "productId", autoIncrement: false }, };
 
