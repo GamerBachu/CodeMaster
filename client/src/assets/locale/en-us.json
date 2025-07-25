@@ -17,6 +17,8 @@
 
   "name": "name",
   "createDate": "Create On",
+  "name": "name",
+  "createDate": "Create On",
   "registerSuccess": "Registration successful! Please log in.",
   "registerFailed": "Registration failed. Please try again.",
   "createAccount": "Create Account",
@@ -53,13 +55,6 @@
   "UpdateSuccess": "Updated successfully!",
   "DeleteSuccess": "Deleted successfully!",
   "CreateNew": "Create New",
-
-  "Pos": "PointOfSale",
-  "planStartDate": "Plan Start Date",
-  "planEndDate": "Plan End Date",
-  "title": "Title",
-  "description": "Description",
-  "status": "Status",
 
   "Pos": "PointOfSale",
   "planStartDate": "Plan Start Date",
