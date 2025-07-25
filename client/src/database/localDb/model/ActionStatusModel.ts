@@ -4,7 +4,7 @@ export interface ActionStatusModel {
   id?: number;
   name: string;
   isActive: boolean;
-  createdDate: Date;
+  createdDate: string;
 }
 
 export const ActionStatus: IDBStoreSchema = {

@@ -1,4 +1,3 @@
-import { use } from "react";
 import LocalDb from "./localDb/LocalDb";
 import { type UserModel, User } from "./localDb/model/UserModel";
 import { encryptPassword } from "./utils";
@@ -40,11 +39,11 @@ const get = async (user: Partial<UserModel>): Promise<UserModel | null> => {
 };
 
 const post = async (user: Partial<UserModel>): Promise<string | number | null> => {
-  user.createdDate = new Date();
+  user.createdDate = new Date().toISOString();
   user.createdBy = 0;
-  user.updatedDate = new Date();
+  user.updatedDate = new Date().toISOString();
   user.updatedBy = 0;
-  user.deletedDate = new Date();
+  user.deletedDate = new Date().toISOString();
   user.deletedBy = 0;
   user.isActive = true;
   user.password = encryptPassword(user.password ?? "");
@@ -63,7 +62,7 @@ const put = async (user: Partial<UserModel>): Promise<string | number | null> =>
   old.name = user.name ?? old.name;
   old.email = user.email ?? old.email;
 
-  user.updatedDate = new Date();
+  user.updatedDate = new Date().toISOString();
 
   const data = await db.put(User.name, old);
   return data as number;

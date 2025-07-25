@@ -5,8 +5,8 @@ export interface UserPlannerModel extends PrimaryModel {
   
   title: string;
   desc: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   status: { key: string; value: string; };
 }
 

@@ -10,7 +10,7 @@ const get = async (user: Partial<ActionStatusModel>): Promise<ActionStatusModel 
 };
 
 const post = async (user: ActionStatusModel): Promise<string | number | null> => {
-    user.createdDate = new Date();
+    user.createdDate = new Date().toISOString();
     const db = new LocalDb();
     const data: IDBValidKey = await db.create(ActionStatus.name, user);
     return data as number;

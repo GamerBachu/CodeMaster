@@ -1,11 +1,10 @@
 import { useEffect, useState, useCallback } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 
 import TableForm from "../../components/table/TableForm";
 import appRoute from "../../routes/appRoute";
-import locale from "../../resources";
-import type { UserPlannerModel, keyValueModel } from "../../models";
+import locale from "../../resources"; 
 import { createToast } from "../../components/toasts/toastSlicer";
 import db from "../../database/";
 import { useAppSession } from "../../contexts";

@@ -24,7 +24,8 @@ const InitializeRoutes = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const urls = Object.values(appAuthRoute);
-    const d = urls.some(v => String(v.path) === String(window.location.pathname));
+    const d = urls.some(v => window.location.pathname.startsWith(String(v.path)));
+    
     if (d && !appSession.info.isAuthorized) {
       navigate(appRoute.LOGIN.path, { replace: true });
     }

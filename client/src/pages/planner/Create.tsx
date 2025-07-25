@@ -70,8 +70,8 @@ const Create = () => {
         id: 0,
         title: form.title,
         desc: form.description,
-        startDate: new Date(form.planStartDate),
-        endDate: new Date(form.planEndDate),
+        startDate: new Date(form.planStartDate).toISOString(),
+        endDate: new Date(form.planEndDate).toISOString(),
         status: status
           ? { key: status.key, value: status.value }
           : { key: "0", value: "" },

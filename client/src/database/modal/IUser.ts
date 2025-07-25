@@ -3,8 +3,8 @@ export default interface IUser {
   name: string;
 
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 
   username: string;
   password: string;

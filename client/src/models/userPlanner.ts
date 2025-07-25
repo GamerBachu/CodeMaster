@@ -4,9 +4,9 @@ export interface UserPlannerModel {
     id: number;
     title: string;
     desc: string;
-    startDate: Date;
-    endDate: Date;
+    startDate: string;
+    endDate: string;
     status: keyValueModel;
-    createdDate?: Date;
+    createdDate?: string;
     isActive?: boolean;
 }

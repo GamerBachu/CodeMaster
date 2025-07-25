@@ -41,8 +41,8 @@ export const createNew = async (account: ILogin): Promise<string | number | null
       name: account.username,
       email: account.username,
       isActive: true,
-      createdDate: new Date(),
-      updatedDate: new Date(),
+      createdDate: new Date().toISOString(),
+      updatedDate: new Date().toISOString(),
       username: account.username,
       password: account.password,
     });

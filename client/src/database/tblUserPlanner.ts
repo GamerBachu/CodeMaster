@@ -17,11 +17,11 @@ const get = async (user: Partial<UserPlannerModel>): Promise<UserPlannerModel | 
 };
 
 const post = async (user: Partial<UserPlannerModel>): Promise<string | number | null> => {
-    user.createdDate = new Date();
+    user.createdDate = new Date().toISOString();
 
-    user.updatedDate = new Date();
+    user.updatedDate = new Date().toISOString();
     user.updatedBy = 0;
-    user.deletedDate = new Date();
+    user.deletedDate = new Date().toISOString() ;
     user.deletedBy = 0;
     user.isActive = true;
 
@@ -38,7 +38,7 @@ const put = async (user: Partial<UserPlannerModel>): Promise<string | number | n
 
     user.createdDate = old.createdDate;
     user.createdBy = old.createdBy;
-    user.updatedDate = new Date();
+    user.updatedDate = new Date().toISOString();
 
     user.deletedDate = old.deletedDate;
     user.deletedBy = old.deletedBy;

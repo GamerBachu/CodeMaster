@@ -1,10 +1,10 @@
 export default interface PrimaryModel {
     id: number;
-    createdDate: Date;
+    createdDate: string;
     createdBy: number;
-    updatedDate: Date;
+    updatedDate: string;
     updatedBy: number;
-    deletedDate: Date;
+    deletedDate: string;
     deletedBy: number;
     isActive: boolean;
 };

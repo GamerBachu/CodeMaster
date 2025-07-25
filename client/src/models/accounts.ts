@@ -8,8 +8,8 @@ export interface IAccount {
   name: string;
 
   email: string;
-  createdDate: Date;
-  updatedDate: Date;
+  createdDate: string;
+  updatedDate: string;
 
   username: string;
   password: string;
