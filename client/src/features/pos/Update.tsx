@@ -58,12 +58,12 @@ const Update = () => {
           if (result) {
             const status: keyValueModel = result.status;
             setForm({
-              planStartDate: result.startDate.toISOString().split("T")[0],
-              planEndDate: result.endDate.toISOString().split("T")[0],
+              planStartDate: result.startDate.split("T")[0],
+              planEndDate: result.endDate.split("T")[0],
               title: result.title,
               description: result.desc,
               status: status.key,
-              createdAt: result.createdDate.toISOString(),
+              createdAt: result.createdDate,
               id: result.id ? result.id : 0,
             });
           }
@@ -100,8 +100,8 @@ const Update = () => {
         id: (form.id),
         title: form.title,
         desc: form.description,
-        startDate: new Date(form.planStartDate),
-        endDate: new Date(form.planEndDate),
+        startDate: (form.planStartDate),
+        endDate: (form.planEndDate),
         status: status
           ? { key: status.key, value: status.value }
           : { key: "0", value: "" },

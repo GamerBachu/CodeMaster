@@ -25,11 +25,11 @@ export class tblProduct {
 
         const db = new LocalDb();
 
-        subPayload.createdDate = new Date();
+        subPayload.createdDate = new Date().toISOString();
 
-        subPayload.updatedDate = new Date();
+        subPayload.updatedDate = new Date().toISOString();
         subPayload.updatedBy = 0;
-        subPayload.deletedDate = new Date();
+        subPayload.deletedDate = new Date().toISOString();
         subPayload.deletedBy = 0;
         subPayload.isActive = true;
 
@@ -67,7 +67,7 @@ export class tblProduct {
 
     createProductId(payload: IProduct, subPayload: Partial<IProductIdModel>): string {
 
-        const createdDate = subPayload.createdDate instanceof Date ? subPayload.createdDate : new Date();
+        const createdDate = new Date(subPayload.createdDate ?? new Date());
         const id = subPayload.id ?? 0;
         const sku = payload?.sku.length > 3 ? payload?.sku.slice(0, 3) : "";
         const name = payload?.productName.length > 3 ? payload?.sku.slice(0, 1) : "";

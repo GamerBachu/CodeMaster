@@ -18,7 +18,7 @@ const Create = () => {
 
 
   const updateProductID = useCallback((newId: string) => {
-   
+
     setProductId(newId);
     const segments = location.pathname.split("/");
     segments[segments.length - 1] = newId;
@@ -43,7 +43,7 @@ const Create = () => {
   return (
     <TableForm
       id="frm"
-      title={`${locale.Pos}`}
+      title={`${locale.Pos} ${progress}`}
       addButtonLabel={locale.Back}
       onAddButtonClick={onAddButtonClick}
     >

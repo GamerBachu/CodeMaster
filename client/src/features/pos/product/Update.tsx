@@ -101,7 +101,7 @@ const Update = ({ id, productId }: Props) => {
             api.post({
                 productId: form.productId,
                 status: Number(status?.key),
-                liveDate: new Date(form.liveDate),
+                liveDate:form.liveDate,
                 productName: form.productName,
                 sku: form.sku,
                 costPrice: form.costPrice,
@@ -122,7 +122,7 @@ const Update = ({ id, productId }: Props) => {
                             })
                         );
                     } else {
-                        setProductId(result);
+                        setProductId(String(result));
                         dispatch(
                             createToast({
                                 id: new Date().toISOString(),
