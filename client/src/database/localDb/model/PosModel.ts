@@ -124,7 +124,7 @@ export interface IProduct {
     price: number;
     costPrice: number;
     status: number;
-    liveDate: Date;
+    liveDate: string;
 }
 export const ProductSchema: IDBStoreSchema = { name: "posProduct", option: { keyPath: "productId", autoIncrement: false }, };
 
