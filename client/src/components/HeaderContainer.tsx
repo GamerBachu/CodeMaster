@@ -25,9 +25,9 @@ const HeaderContainer = () => {
         <div className="d-flex flex-wrap">
           <ul className="nav me-auto">
             {
-              authLink.map((link) => <li className="nav-item">
+              authLink.map((link) => <li className="nav-item" key={link.id}>
                 <Link
-                  key={link.id}
+                  
                   to={link.path}
                   className={`nav-link link-body-emphasis px-2 text-capitalize ${link.active ? "active" : ""}`}
                   onClick={() => linkClick(link.id)}
