@@ -27,8 +27,8 @@ const ActionStatusMaster: ActionStatusModel[] = [
     { id: 21, name: "Cancelled", isActive: true, createdDate: new Date().toISOString() },
     { id: 22, name: "In Review", isActive: true, createdDate: new Date().toISOString() },
     { id: 23, name: "Awaiting Feedback", isActive: true, createdDate: new Date().toISOString() },
-    { id: 23, name: "To Be Live", isActive: true, createdDate: new Date().toISOString() },
-    { id: 23, name: "Live", isActive: true, createdDate: new Date().toISOString() },
+    { id: 24, name: "To Be Live", isActive: true, createdDate: new Date().toISOString() },
+    { id: 25, name: "Live", isActive: true, createdDate: new Date().toISOString() },
 
 
 ];
