@@ -5,7 +5,11 @@ import type { keyValueModel } from "../../../models";
 import { createToast } from "../../../components/toasts/toastSlicer";
 import db from "../../../database/";
 import { useAppSession } from "../../../contexts";
-import statusUnit from "../enums/statusUinit";
+import statusUnit from "../enums/statusUnit";
+import { saveToDb } from "../../../utils/helper/dateUtils";
+
+import type { IProduct } from "./service";
+import { initialForm, isValid, onlyNumber } from "./service";
 
 type Props = {
     id: string;
@@ -18,18 +22,7 @@ const Create = ({ id, setProductId }: Props) => {
     const userId = appSession.info.account?.id;
     const dispatch = useDispatch();
 
-    const [form, setForm] = useState({
-        productId: "*******",
-        productName: "",
-        description: "",
-        shortDescription: "",
-        sku: "",
-        price: 0,
-        costPrice: 0,
-        status: "0",
-        createdDate: "",
-        liveDate: ""
-    });
+    const [form, setForm] = useState<IProduct>(initialForm);
 
     const [statusList, setStatusList] = useState<keyValueModel[]>([]);
 
@@ -62,17 +55,30 @@ const Create = ({ id, setProductId }: Props) => {
             });
     }, [dispatch]);
 
-    const handleChange = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-            const { name, value } = e.target;
-            setForm((prev) => ({ ...prev, [name]: value }));
-        },
-        []
-    );
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        if (onlyNumber(name, value) === false) return;
+        setForm((prev) => ({ ...prev, [name]: value }));
+    }, []);
 
     const handleSubmit = useCallback(
         (e: React.FormEvent) => {
             e.preventDefault();
+
+            if (isValid(form) === false) {
+                dispatch(
+                    createToast({
+                        id: new Date().toUTCString(),
+                        show: true,
+                        title: locale.Planner,
+                        time: "",
+                        description: locale.validateForm,
+                        type: "warning",
+                    })
+                );
+                return;
+            }
+
             const status = statusList.find((s) => String(s.key) === String(form.status));
 
             const api = new db.tblProduct();
@@ -80,7 +86,7 @@ const Create = ({ id, setProductId }: Props) => {
             api.post({
                 productId: form.productId,
                 status: Number(status?.key),
-                liveDate: form.liveDate,
+                liveDate: saveToDb(form.liveDate),
                 productName: form.productName,
                 sku: form.sku,
                 costPrice: form.costPrice,
@@ -128,7 +134,7 @@ const Create = ({ id, setProductId }: Props) => {
                     );
                 });
         },
-        [dispatch, form.costPrice, form.description, form.liveDate, form.price, form.productId, form.productName, form.shortDescription, form.sku, form.status, statusList, userId]
+        [dispatch, form, setProductId, statusList, userId]
     );
 
 

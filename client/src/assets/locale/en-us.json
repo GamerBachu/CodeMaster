@@ -67,6 +67,7 @@
 
   "welcomeMessage": "Welcome to our application!",
   "errorMessage": "An error has occurred. Please try again.",
+  "validateForm": "please check out all flied and re validate.",
   "loadingMessage": "Loading, please wait...",
   "logoutMessage": "You have been successfully logged out.",
   "loginPrompt": "Please enter your username and password to log in.",

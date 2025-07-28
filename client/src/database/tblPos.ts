@@ -25,11 +25,11 @@ export class tblProduct {
 
         const db = new LocalDb();
 
-        subPayload.createdDate = new Date().toISOString();
+        subPayload.createdDate = new Date().toUTCString();
 
-        subPayload.updatedDate = new Date().toISOString();
+        subPayload.updatedDate = new Date().toUTCString();
         subPayload.updatedBy = 0;
-        subPayload.deletedDate = new Date().toISOString();
+        subPayload.deletedDate = new Date().toUTCString();
         subPayload.deletedBy = 0;
         subPayload.isActive = true;
 
@@ -44,12 +44,24 @@ export class tblProduct {
         return data as string;
     };
 
-    // put = async (user: ActionStatusModel): Promise<string | number | null> => {
-    //     if (!user?.id) return null;
-    //     const db = new LocalDb();
-    //     const data = await db.put(ActionStatus.name, user);
-    //     return data as number;
-    // };
+    put = async (payload: Partial<IProduct>): Promise<string | number | null> => {
+        if (!payload?.productId) return null;
+        const db = new LocalDb();
+        const data = await db.get<IProduct>(ProductSchema.name, payload?.productId);
+        if (!data) return null;
+
+        data.productName = payload.productName ?? data.productName;
+        data.shortDescription = payload.shortDescription ?? data.shortDescription;
+        data.description = payload.description ?? data.description;
+        data.sku = payload.sku ?? data.sku;
+        data.price = payload.price ?? data.price;
+        data.status = payload.status ?? data.status;
+        data.liveDate = payload.liveDate ?? data.liveDate;
+
+
+        const resultId = await db.put(ProductSchema.name, data);
+        return resultId as string;
+    };
 
     // remove = async (user: ActionStatusModel): Promise<string | number | null> => {
     //     if (!user?.id) return null;

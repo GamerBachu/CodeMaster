@@ -5,7 +5,10 @@ import type { keyValueModel } from "../../../models";
 import { createToast } from "../../../components/toasts/toastSlicer";
 import db from "../../../database/";
 import { useAppSession } from "../../../contexts";
-import statusUnit from "../enums/statusUinit";
+import statusUnit from "../enums/statusUnit";
+import { dbToDateTimeInput } from "../../../utils/helper/dateUtils";
+import type { IProduct } from "./service";
+import { initialForm, isValid, onlyNumber } from "./service";
 
 type Props = {
     id: string;
@@ -18,22 +21,12 @@ const Update = ({ id, productId }: Props) => {
     const userId = appSession.info.account?.id;
     const dispatch = useDispatch();
 
-    const [form, setForm] = useState({
-        productId: "*******",
-        productName: "",
-        description: "",
-        shortDescription: "",
-        sku: "",
-        price: 0,
-        costPrice: 0,
-        status: "0",
-        createdDate: "",
-        liveDate: ""
-    });
+    const [form, setForm] = useState<IProduct>(initialForm);
 
     const [statusList, setStatusList] = useState<keyValueModel[]>([]);
 
     useEffect(() => {
+
         loadData();
 
         async function loadData() {
@@ -53,25 +46,25 @@ const Update = ({ id, productId }: Props) => {
             api.get(productId)
                 .then((result) => {
                     if (result) {
-                        console.log(result);
                         setForm((prev) => ({
                             ...prev,
                             productId: result.productId,
                             status: String(result.status),
-                            liveDate: new Date(result.liveDate).toISOString().slice(0, 16),
+                            liveDate: dbToDateTimeInput(new Date(result.liveDate)),
                             productName: result.productName,
                             sku: result.sku,
                             costPrice: result.costPrice,
                             price: result.price,
                             shortDescription: result.shortDescription,
                             description: result.description,
+                            userId: userId
                         }));
                     }
                 })
                 .catch(() => {
                     dispatch(
                         createToast({
-                            id: new Date().toISOString(),
+                            id: new Date().toUTCString(),
                             show: true,
                             title: locale.Planner,
                             time: "",
@@ -81,65 +74,55 @@ const Update = ({ id, productId }: Props) => {
                     );
                 });
         }
-    }, [dispatch, productId]);
+    }, [dispatch, productId, userId]);
 
-    const handleChange = useCallback(
-        (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-            const { name, value } = e.target;
-            setForm((prev) => ({ ...prev, [name]: value }));
-        },
-        []
-    );
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        if (onlyNumber(name, value) === false) return;
+        setForm((prev) => ({ ...prev, [name]: value }));
+    }, []);
+
+
+
+
 
     const handleSubmit = useCallback(
         (e: React.FormEvent) => {
             e.preventDefault();
+
+            if (isValid(form) === false) {
+                dispatch(
+                    createToast({
+                        id: new Date().toUTCString(),
+                        show: true,
+                        title: locale.Planner,
+                        time: "",
+                        description: locale.validateForm,
+                        type: "warning",
+                    })
+                );
+                return;
+            }
+
             const status = statusList.find((s) => String(s.key) === String(form.status));
 
             const api = new db.tblProduct();
 
-            api.post({
+            api.put({
                 productId: form.productId,
                 status: Number(status?.key),
-                liveDate:form.liveDate,
+                liveDate: form.liveDate,
                 productName: form.productName,
                 sku: form.sku,
                 costPrice: form.costPrice,
                 price: form.price,
                 shortDescription: form.shortDescription,
                 description: form.description,
-            }, { createdBy: Number(userId) })
-                .then((result) => {
-                    if (result === null) {
-                        dispatch(
-                            createToast({
-                                id: new Date().toISOString(),
-                                show: true,
-                                title: locale.Planner,
-                                time: "",
-                                description: locale.errorMessage,
-                                type: "warning",
-                            })
-                        );
-                    } else {
-                        setProductId(String(result));
-                        dispatch(
-                            createToast({
-                                id: new Date().toISOString(),
-                                show: true,
-                                title: locale.Planner,
-                                time: "",
-                                description: locale.AddNewSuccess,
-                                type: "success",
-                            })
-                        );
-
-                    }
-                })
-                .catch(() => {
+            }).then((result) => {
+                if (result === null) {
                     dispatch(
                         createToast({
-                            id: new Date().toISOString(),
+                            id: new Date().toUTCString(),
                             show: true,
                             title: locale.Planner,
                             time: "",
@@ -147,9 +130,33 @@ const Update = ({ id, productId }: Props) => {
                             type: "warning",
                         })
                     );
-                });
+                } else {
+                    dispatch(
+                        createToast({
+                            id: new Date().toUTCString(),
+                            show: true,
+                            title: locale.Planner,
+                            time: "",
+                            description: locale.UpdateSuccess,
+                            type: "success",
+                        })
+                    );
+
+                }
+            }).catch(() => {
+                dispatch(
+                    createToast({
+                        id: new Date().toUTCString(),
+                        show: true,
+                        title: locale.Planner,
+                        time: "",
+                        description: locale.errorMessage,
+                        type: "warning",
+                    })
+                );
+            });
         },
-        [dispatch, form.costPrice, form.description, form.liveDate, form.price, form.productId, form.productName, form.shortDescription, form.sku, form.status, statusList, userId]
+        [dispatch, form, statusList]
     );
 
 
@@ -169,7 +176,7 @@ const Update = ({ id, productId }: Props) => {
                     aria-controls="collapseOne"
                     onClick={() => { setIsCollapse(!isCollapse); }}
                 >
-                    Product
+                    Product - {form.productId}
                 </button>
             </h2>
             <div
@@ -187,7 +194,6 @@ const Update = ({ id, productId }: Props) => {
                                     className="form-control"
                                     name="productId"
                                     value={form.productId}
-                                    onChange={handleChange}
                                     readOnly disabled
                                 />
                             </div>
@@ -239,7 +245,7 @@ const Update = ({ id, productId }: Props) => {
                                     value={form.sku}
                                     onChange={handleChange}
                                     required
-                                />
+                                />     setProductId(String(result));
                             </div>
                         </div>
                         <div className="mb-3 row">

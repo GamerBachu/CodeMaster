@@ -39,7 +39,7 @@ const List = () => {
 
   const handleRowAction = (id: number | string, type: number) => {
     if (type === 0) {
-      navigate(`${appRoute.POS_Action.path}/create/S2525SKO18546940012`);
+      navigate(`${appRoute.POS_Action.path}/create/0`);
     }
     else if (type === 1) {
       navigate(`${appRoute.POS_Action.path}/view/${id}`);
