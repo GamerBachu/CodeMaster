@@ -70,12 +70,12 @@ export class tblProduct {
     //     return user.id;
     // };
 
-    // search = async (): Promise<ActionStatusModel[] | null> => {
+    search = async (): Promise<IProduct[] | null> => {
 
-    //     const db = new LocalDb();
-    //     const data = await db.getAll<ActionStatusModel>(ActionStatus.name);
-    //     return data ?? null;
-    // };
+        const db = new LocalDb();
+        const data = await db.getAll<IProduct>(ProductSchema.name);
+        return data ?? null;
+    };
 
     createProductId(payload: IProduct, subPayload: Partial<IProductIdModel>): string {
 

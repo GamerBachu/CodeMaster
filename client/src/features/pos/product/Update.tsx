@@ -282,7 +282,7 @@ const Update = ({ id, productId }: Props) => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">{locale.description}</label>
+                            <label className="form-label">{locale.fullDescription}</label>
                             <textarea
                                 className="form-control"
                                 name="description"

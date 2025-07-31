@@ -80,11 +80,13 @@
   "demoDisclaimerContent": "Please note that this is a demo application. Any data entered will not be saved permanently and is for demonstration purposes only.",
   "migrationDBDescription": "This section allows you to migrate your database to the latest version.",
 
-  "productId": "productId",
-  "productName": "productName",
-  "shortDescription": "shortDescription",
-  "sku": "sku",
-  "price": "price",
-  "costPrice": "costPrice",
+  "btnProduct": "Product",
+  "productId": "Product Id",
+  "productName": "Product Name",
+  "shortDescription": "Quick Description",
+  "fullDescription": "Complete Description",
+  "sku": "SKU",
+  "price": "Sell Price",
+  "costPrice": "Cost Price",
   "liveDate": "Online Start Date"
 }

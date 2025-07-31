@@ -154,7 +154,7 @@ const Create = ({ id, setProductId }: Props) => {
                     aria-controls="collapseOne"
                     onClick={() => { setIsCollapse(!isCollapse); }}
                 >
-                    Product
+                    {locale.btnProduct}
                 </button>
             </h2>
             <div
@@ -261,7 +261,7 @@ const Create = ({ id, setProductId }: Props) => {
                             />
                         </div>
                         <div className="mb-3">
-                            <label className="form-label">{locale.description}</label>
+                            <label className="form-label">{locale.fullDescription}</label>
                             <textarea
                                 className="form-control"
                                 name="description"

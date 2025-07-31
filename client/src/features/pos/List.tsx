@@ -1,31 +1,62 @@
 
-import {  useNavigate } from "react-router";
-import {
-  icons_file_view,
-  icons_file_edit,
-  icons_file_delete,
-} from "../../components/Icons";
+import { useNavigate } from "react-router";
+import { icons_file_edit, } from "../../components/Icons";
 import Table from "../../components/table/Table";
 import appRoute from "../../routes/appRoute";
 import locale from "../../resources";
 import { useEffect, useState } from "react";
 import { toViewString } from "../../utils/helper/stringFormat";
-import type { UserPlannerModel } from "../../models/userPlanner";
-import tblUserPlanner from "../../database/tblUserPlanner";
+import type { ProductModel } from "./models/productModel";
+import db from "../../database/";
+import type { keyValueModel } from "../../models";
+import statusUnit from "./enums/statusUnit";
+import { useDispatch } from "react-redux";
+import { createToast } from "../../components/toasts/toastSlicer";
+
 const List = () => {
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
 
-  const [apiData, setApiData] = useState<UserPlannerModel[]>([]);
+  const [apiData, setApiData] = useState<ProductModel[]>([]);
+  const [statusList, setStatusList] = useState<keyValueModel[]>([]);
 
   useEffect(() => {
-    tblUserPlanner.search()
+    db.tblActionStatus
+      .search()
+      .then((result) => {
+        if (result) {
+
+          const allowedKeys = statusUnit.map(c => String(c));
+          const data = result.map((item) => ({
+            key: String(item.id ?? ""),
+            value: item.name,
+          })).filter(p => allowedKeys.includes(p.key));
+          setStatusList(data);
+        }
+      })
+      .catch(() => {
+        dispatch(
+          createToast({
+            id: new Date().toISOString(),
+            show: true,
+            title: locale.Planner,
+            time: "",
+            description: locale.errorMessage,
+            type: "warning",
+          })
+        );
+      });
+  }, [dispatch]);
+  useEffect(() => {
+    const api = new db.tblProduct();
+    api.search()
       .then((response) => {
         if (response === undefined || response === null) {
           setApiData([]);
           return;
         }
-        const d = response as unknown as UserPlannerModel[];
+        const d = response as unknown as ProductModel[];
         setApiData(d);
       })
       .catch(() => {
@@ -41,17 +72,8 @@ const List = () => {
     if (type === 0) {
       navigate(`${appRoute.POS_Action.path}/create/0`);
     }
-    else if (type === 1) {
-      navigate(`${appRoute.POS_Action.path}/view/${id}`);
-    }
-    else if (type === 2) {
-      navigate(`${appRoute.POS_Action.path}/update/${id}`);
-    }
-    else if (type === 3) {
-      navigate(`${appRoute.POS_Action.path}/delete/${id}`);
-    }
     else {
-      return;
+      navigate(`${appRoute.POS_Action.path}/create/${id}`);
     }
 
   };
@@ -66,10 +88,11 @@ const List = () => {
     >
 
       <thead>
-        <tr>
+        <tr className="align-middle">
           <th>#</th>
-          <th>{locale.title}</th>
-          <th>{locale.planEndDate}</th>
+          <th>{locale.productName}</th>
+          <th>{locale.price}</th>
+          <th>{locale.liveDate}</th>
           <th>{locale.status}</th>
           <th>{locale.action}</th>
         </tr>
@@ -77,25 +100,27 @@ const List = () => {
       <tbody>
         {
           apiData.map((row, idx) => (
-            <tr key={row.id ?? idx}>
+            <tr key={row.productId ?? idx} className="align-middle">
               <td>{idx + 1}</td>
-              <td>{row.title}</td>
-              <td>{toViewString(row.endDate)}</td>
-              <td>{row.status.value}</td>
+              <td className="d-flex flex-column">
+                {row.productName}
+                <small>{row.productId}</small>
+              </td>
+              <td>{row.price}</td>
+              <td>{toViewString(row.liveDate, true)}</td>
+              <td>
+                {
+                  statusList.find(s => s.key === String(row.status))?.value ?? ""
+                }
+              </td>
               <td>
                 <div
                   className="btn-group btn-group-sm gap-1"
                   role="group"
                   aria-label="action"
                 >
-                  <button type="button" className="btn btn-sm btn-outline-primary" onClick={() => handleRowAction(row.id, 1)}>
-                    <img src={icons_file_view} />
-                  </button>
-                  <button type="button" className="btn btn-sm btn-outline-info" onClick={() => handleRowAction(row.id, 2)}>
+                  <button type="button" className="btn btn-sm btn-outline-info" onClick={() => handleRowAction(row.productId, 2)}>
                     <img src={icons_file_edit} />
-                  </button>
-                  <button type="button" className="btn btn-sm btn-outline-danger" onClick={() => handleRowAction(row.id, 3)}>
-                    <img src={icons_file_delete} />
                   </button>
                 </div>
               </td>
