@@ -76,7 +76,7 @@ const List = () => {
       <tbody>
         {
           apiData.map((row, idx) => (
-            <tr key={row.id ?? idx}>
+            <tr key={row.id ?? idx} className="align-middle">
               <td>{idx + 1}</td>
               <td>{row.title}</td>
               <td>{toViewString(row.endDate)}</td>
