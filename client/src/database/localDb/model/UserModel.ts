@@ -2,6 +2,7 @@ import type { IDBStoreSchema } from "../Interfaces";
 import type PrimaryModel from "./PrimaryModel";
 
 export interface UserModel extends PrimaryModel {
+  guid: string;
   name: string;
   email: string;
   username: string;

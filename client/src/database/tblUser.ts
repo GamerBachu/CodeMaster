@@ -1,6 +1,7 @@
 import LocalDb from "./localDb/LocalDb";
 import { type UserModel, User } from "./localDb/model/UserModel";
-import { encryptPassword } from "./utils";
+import { type UserTokenModel, UserToken } from "./localDb/model/UserTokenModel";
+import { encryptPassword, generateGuid, tokenCreate } from "./utils";
 
 const findByUserName = async (user: Partial<UserModel>): Promise<string | number | null> => {
   if (!user?.username) return null;
@@ -13,22 +14,23 @@ const findByUserName = async (user: Partial<UserModel>): Promise<string | number
   return result.id as number;
 };
 
-const getByLogin = async (
-  user: Partial<UserModel>
-): Promise<UserModel | null> => {
+const getByLogin = async (user: Partial<UserModel>, device: string): Promise<{ UserModel: UserModel; UserTokenModel: UserTokenModel; } | null> => {
   if (!user?.username) return null;
   if (!user?.password) return null;
 
   const db = new LocalDb();
   const data = await db.getAll<UserModel>(User.name);
-  const result =
-    data.find(
-      (u: UserModel) =>
-        u.username === user.username &&
-        u.password === encryptPassword(user.password ?? "")
-    ) ?? null;
+  const result = data.find((u: UserModel) =>
+    u.username === user.username && u.password === encryptPassword(user.password ?? "")
+  ) ?? null;
 
-  return result;
+  if (result === null) return null;
+
+  const sub = tokenCreate(result);
+  sub.deviceName = device;
+  await db.create(UserToken.name, sub);
+
+  return { UserModel: result, UserTokenModel: sub };
 };
 
 const get = async (user: Partial<UserModel>): Promise<UserModel | null> => {
@@ -47,6 +49,7 @@ const post = async (user: Partial<UserModel>): Promise<string | number | null> =
   user.deletedBy = 0;
   user.isActive = true;
   user.password = encryptPassword(user.password ?? "");
+  user.guid = generateGuid();
   const db = new LocalDb();
   const data: IDBValidKey = await db.create(User.name, user);
   return data as number;

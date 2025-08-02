@@ -1,25 +1,23 @@
 import type { IAccount, ILogin } from "../models/accounts";
 import db from "../database/index";
-import { generateGuid } from "../utils/helper/guid";
 
 export const login = async (account: ILogin): Promise<IAccount | null> => {
   if (account.password === "" || account.username === "") return null;
   try {
-    const r = await db.tblUser.getByLogin({
-      username: account.username,
-      password: account.password,
-    });
-    if (r) {
+    const res = await db.tblUser.getByLogin({ username: account.username, password: account.password, }, "web");
+
+    if (res) {
+
       return {
-        id: r.id,
-        name: r.name,
-        email: r.email,
-        username: r.username,
+        id: res.UserModel.id,
+        name: res.UserModel.name,
+        email: res.UserModel.email,
+        username: res.UserModel.username,
         password: "******", // Do not return the password
-        isActive: r.isActive,
-        createdDate: r.createdDate ?? new Date(),
-        updatedDate: r.updatedDate ?? new Date(),
-        token: generateGuid(),
+        isActive: res.UserModel.isActive,
+        createdDate: res.UserModel.createdDate,
+        updatedDate: res.UserModel.updatedDate,
+        token: res.UserTokenModel.token,
       };
     } else {
       return null;

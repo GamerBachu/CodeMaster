@@ -10,6 +10,10 @@ const MigrationDB = () => {
   const [msg, setMsg] = useState("apply migration...");
 
   const handleClick = () => {
+
+    if (msg === "migration applied successfully")
+      return;
+
     const d = new LocalDb();
     d.init().then(() => {
       setMsg("migration applied successfully");
@@ -29,7 +33,7 @@ const MigrationDB = () => {
         </p>
       </div>
 
-      <div className="mt-3"  >
+      <div className="mt-3 text-center"  >
         <button
           className="btn btn-primary"
           onClick={handleClick}
@@ -38,7 +42,7 @@ const MigrationDB = () => {
         </button>
       </div>
 
-      <div className="mt-3"  >
+      <div className="mt-3 text-center"  >
         <Link className="btn btn-link text-secondary" to={appRoute.LOGIN.path}>
           {locale.alreadyHaveAccount}
         </Link>
