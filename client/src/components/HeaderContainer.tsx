@@ -18,7 +18,7 @@ const HeaderContainer = () => {
     const d = authLink;
     setAuthLink(d.map((link) => { link.active = link.id === id; return link; }));
   };
-
+  console.log(appSession);
   if (appSession.info.isAuthorized)
     return (
       <nav className="bg-body-tertiary border-bottom">
@@ -27,7 +27,7 @@ const HeaderContainer = () => {
             {
               authLink.map((link) => <li className="nav-item" key={link.id}>
                 <Link
-                  
+
                   to={link.path}
                   className={`nav-link link-body-emphasis px-2 text-capitalize ${link.active ? "active" : ""}`}
                   onClick={() => linkClick(link.id)}

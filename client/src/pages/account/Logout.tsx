@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useAppSession, defaultSession } from "../../contexts";
 import locale from "../../resources/index";
 import LinkBackToHome from "../../components/LinkBackToHome";
+import sessionStorage from "../../utils/web/sessionStorage";
+import { storageKey } from "../../constant";
 
 
 const Logout = () => {
@@ -9,9 +11,15 @@ const Logout = () => {
     const appSession = useAppSession();
 
     useEffect(() => {
+
+        const storage = new sessionStorage(storageKey.tokenKey);
+
+        storage.remove();
+
         const d = appSession.info;
         if (d.isAuthorized)
             appSession.setInfo(defaultSession);
+
     }, [appSession]);
 
     return (
