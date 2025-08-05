@@ -14,6 +14,22 @@ const findByUserName = async (user: Partial<UserModel>): Promise<string | number
   return result.id as number;
 };
 
+const getByLogOut = async (user: Partial<UserModel>, device: string): Promise<void> => {
+ 
+  if (!user?.username) return;
+  if (!user?.password) return;
+  await cleanUpToken();
+
+  const db = new LocalDb();
+  const data = await db.getAll<UserTokenModel>(UserToken.name);
+
+  const result = data.filter((u: UserTokenModel) => u.username === user.username && u.deviceName === device) ?? null;
+
+  result.forEach((p: UserTokenModel) => {
+    if (p.id) db.delete(UserToken.name, p.id);
+  });
+};
+
 const getByLogin = async (user: Partial<UserModel>, device: string):
   Promise<{ UserModel: UserModel; UserTokenModel: UserTokenModel; } | null> => {
   if (!user?.username) return null;
@@ -130,6 +146,7 @@ const tblUser = {
   post,
   put,
   remove,
-  validateToken
+  validateToken,
+  getByLogOut
 };
 export default tblUser;

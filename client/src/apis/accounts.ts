@@ -13,6 +13,16 @@ export const login = async (account: ILogin): Promise<IAccount | null> => {
   }
 };
 
+export const logout = (user: Partial<UserModel>): void => {
+  if (user.id === undefined || user.username === undefined) return;
+  try {
+    db.tblUser.getByLogOut(user, "web");
+    return;
+  } catch {
+    return;
+  }
+};
+
 export const createNew = async (account: ILogin): Promise<string | number | null> => {
   if (account.password === "" || account.username === "") return null;
   try {
@@ -66,3 +76,23 @@ function mapUserResultToAccount(res: { UserModel: UserModel; UserTokenModel: Use
   }
 }
 
+
+export const getUserDetail = async (id: number): Promise<UserModel | null> => {
+  if (isNaN(id)) return null;
+  try {
+    const res = await db.tblUser.get({ id: id });
+    return res;
+  } catch {
+    return null;
+  }
+};
+
+export const putUserDetail = async (user: Partial<UserModel>): Promise<string | number | null> => {
+  if (user === undefined) return null;
+  try {
+    const res = await db.tblUser.put(user);
+    return res;
+  } catch {
+    return null;
+  }
+};

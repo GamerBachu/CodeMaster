@@ -4,6 +4,7 @@ import locale from "../../resources/index";
 import LinkBackToHome from "../../components/LinkBackToHome";
 import sessionStorage from "../../utils/web/sessionStorage";
 import { storageKey } from "../../constant";
+import apis from "../../apis";
 
 
 const Logout = () => {
@@ -17,8 +18,15 @@ const Logout = () => {
         storage.remove();
 
         const d = appSession.info;
-        if (d.isAuthorized)
+
+        if (d.isAuthorized && d.account?.id !== undefined) {
             appSession.setInfo(defaultSession);
+            apis.accounts.logout({
+                id: Number(d.account.id),
+                username: (d.account.username),
+            });
+        }
+
 
     }, [appSession]);
 

@@ -4,11 +4,11 @@ import { useDispatch } from "react-redux";
 
 import TableForm from "../../components/table/TableForm";
 import appRoute from "../../routes/appRoute";
-import locale from "../../resources"; 
+import locale from "../../resources";
 import { createToast } from "../../components/toasts/toastSlicer";
-import db from "../../database/";
 import { useAppSession } from "../../contexts";
 import { toViewString } from "../../utils/helper/stringFormat";
+import apis from "../../apis";
 
 
 
@@ -35,7 +35,7 @@ const Profile = () => {
       onAddButtonClick();
       return;
     }
-    db.tblUser.get({ id: Number(userId) })
+    apis.accounts.getUserDetail(Number(userId))
       .then((result) => {
         if (result) {
           setForm({
@@ -74,12 +74,11 @@ const Profile = () => {
     (e: React.FormEvent) => {
       e.preventDefault();
 
-      db.tblUser
-        .put({
-          id: Number(form.id),
-          name: form.name,
-          email: form.email,
-        })
+      apis.accounts.putUserDetail({
+        id: Number(form.id),
+        name: form.name,
+        email: form.email,
+      })
         .then((result) => {
           if (result === null) {
             dispatch(
