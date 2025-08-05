@@ -44,7 +44,7 @@ const getValidTil = (validMinutes: number): string => {
 };
 
 
-export const tokenValidate = (token: string) => {
+export const tokenValidate = (token: string): UserTokenModel | null => {
 
   const splitToken = token.split(".");
   if (splitToken.length !== 3) return null;
@@ -60,6 +60,10 @@ export const tokenValidate = (token: string) => {
   if (guid === "" || validTil === "" || username === "" || name === "") return null;
 
 
+  const date1 = new Date(validTil);
+  const date2 = new Date();
+
+  if (date1 <= date2) return null;
 
   const headerA = atob(base64UrlHeader);
   const random = xorDecrypt(headerA, guid);
@@ -69,8 +73,12 @@ export const tokenValidate = (token: string) => {
   const headerS = JSON.parse(atob(signature));
   if (headerS === undefined) return null;
 
-
-  return random;
+  return {
+    username: username,
+    validTil: validTil,
+    token: token,
+    deviceName: ""
+  };
 };
 
 

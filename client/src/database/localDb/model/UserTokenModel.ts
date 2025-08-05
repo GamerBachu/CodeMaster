@@ -1,6 +1,7 @@
 import type { IDBStoreSchema } from "../Interfaces";
 
 export interface UserTokenModel {
+    id?: number;
     username: string;
     validTil: string;
     token: string;

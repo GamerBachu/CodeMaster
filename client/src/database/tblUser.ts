@@ -1,7 +1,7 @@
 import LocalDb from "./localDb/LocalDb";
 import { type UserModel, User } from "./localDb/model/UserModel";
 import { type UserTokenModel, UserToken } from "./localDb/model/UserTokenModel";
-import { encryptPassword, generateGuid, tokenCreate } from "./utils";
+import { encryptPassword, generateGuid, tokenCreate, tokenValidate } from "./utils";
 
 const findByUserName = async (user: Partial<UserModel>): Promise<string | number | null> => {
   if (!user?.username) return null;
@@ -14,10 +14,11 @@ const findByUserName = async (user: Partial<UserModel>): Promise<string | number
   return result.id as number;
 };
 
-const getByLogin = async (user: Partial<UserModel>, device: string): Promise<{ UserModel: UserModel; UserTokenModel: UserTokenModel; } | null> => {
+const getByLogin = async (user: Partial<UserModel>, device: string):
+  Promise<{ UserModel: UserModel; UserTokenModel: UserTokenModel; } | null> => {
   if (!user?.username) return null;
   if (!user?.password) return null;
-
+  await cleanUpToken();
   const db = new LocalDb();
   const data = await db.getAll<UserModel>(User.name);
   const result = data.find((u: UserModel) =>
@@ -31,6 +32,36 @@ const getByLogin = async (user: Partial<UserModel>, device: string): Promise<{ U
   await db.create(UserToken.name, sub);
 
   return { UserModel: result, UserTokenModel: sub };
+};
+
+
+const validateToken = async (token: string, device: string):
+  Promise<{ UserModel: UserModel; UserTokenModel: UserTokenModel; } | null> => {
+  const d = tokenValidate(token);
+  await cleanUpToken();
+  if (!d) return null;
+  d.deviceName = device;
+  const db = new LocalDb();
+
+  const data = await db.getAll<UserTokenModel>(UserToken.name);
+  const result = data.find((u: UserTokenModel) =>
+    u.username === d.username && u.validTil === d.validTil && u.token === d.token && u.deviceName === d.deviceName
+  ) ?? null;
+
+  if (result === null) return null;
+
+  const data2 = await db.getAll<UserModel>(User.name);
+  const result2 = data2.find((u: UserModel) =>
+    u.username === d.username
+  ) ?? null;
+
+  if (result2 === null) return null;
+
+  const sub = tokenCreate(result2);
+  sub.deviceName = device;
+  await db.create(UserToken.name, sub);
+
+  return { UserModel: result2, UserTokenModel: sub };
 };
 
 const get = async (user: Partial<UserModel>): Promise<UserModel | null> => {
@@ -78,6 +109,20 @@ const remove = async (user: UserModel): Promise<string | number | null> => {
   return user.id;
 };
 
+const cleanUpToken = async (): Promise<void> => {
+  const db = new LocalDb();
+  const data = await db.getAll<UserTokenModel>(UserToken.name);
+
+  const result = data.filter((u: UserTokenModel) =>
+    new Date(u.validTil) <= new Date()
+  ) ?? null;
+
+  result.forEach((p: UserTokenModel) => {
+    if (p.id) db.delete(UserToken.name, p.id);
+  });
+};
+
+
 const tblUser = {
   findByUserName,
   getByLogin,
@@ -85,5 +130,6 @@ const tblUser = {
   post,
   put,
   remove,
+  validateToken
 };
 export default tblUser;
