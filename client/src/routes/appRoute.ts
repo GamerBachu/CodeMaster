@@ -18,7 +18,7 @@ const appRoute = {
   REGISTER: { path: "/account/register", value: locale.link_Register },
   LOGOUT: { path: "/account/logout", value: locale.link_Logout },
   VERIFY: { path: "/account/validating", value: locale.link_Verify },
-  
+
 
   MigrationDB: { path: "/activity/migration", value: locale.link_MigrationDB },
 

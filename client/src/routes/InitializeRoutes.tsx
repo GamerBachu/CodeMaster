@@ -56,12 +56,12 @@ const InitializeRoutes = () => (
         <Route path="delete/:id" element={<PrivateRoute><PlannerDelete /></PrivateRoute>} />
       </Route>
 
-<Route path="feature/pos">
-          <Route index path="list/:q?" element={<PosList />} ></Route>
-          <Route path="create/:id" element={<PosCreate />}></Route> 
-          <Route path="update/:id" element={<PosUpdate />} ></Route>
-        </Route>
-        
+      <Route path="feature/pos">
+        <Route index path="list/:q?" element={<PosList />} ></Route>
+        <Route path="create/:id" element={<PosCreate />}></Route>
+        <Route path="update/:id" element={<PosUpdate />} ></Route>
+      </Route>
+
       {/* Default and catch-all */}
       <Route index element={<Navigate to="/account/login" replace />} />
       <Route
