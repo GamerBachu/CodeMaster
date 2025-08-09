@@ -57,10 +57,7 @@ const Delete = () => {
       })
       .catch(() => {
         dispatch(createToast({
-          id: new Date().toISOString(),
-          show: true,
           title: locale.Planner,
-          time: "",
           description: locale.errorMessage,
           type: "warning",
         }));
@@ -76,20 +73,14 @@ const Delete = () => {
       })
         .then(() => {
           dispatch(createToast({
-            id: new Date().toISOString(),
-            show: true,
             title: locale.Planner,
-            time: "",
             description: locale.DeleteSuccess,
             type: "success",
           }));
         })
         .catch(() => {
           dispatch(createToast({
-            id: new Date().toISOString(),
-            show: true,
             title: locale.Planner,
-            time: "",
             description: locale.errorMessage,
             type: "warning",
           }));

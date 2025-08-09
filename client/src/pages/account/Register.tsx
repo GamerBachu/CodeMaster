@@ -30,10 +30,7 @@ const Register = () => {
         if (account) {
           dispatch(
             createToast({
-              id: new Date().toISOString(),
-              show: true,
               title: pgTitle,
-              time: "",
               description: locale.registerSuccess,
               type: "success",
             })
@@ -43,10 +40,7 @@ const Register = () => {
         } else {
           dispatch(
             createToast({
-              id: new Date().toISOString(),
-              show: true,
               title: pgTitle,
-              time: "",
               description: locale.registerFailed,
               type: "warning",
             })
@@ -57,10 +51,7 @@ const Register = () => {
       .catch(() => {
         dispatch(
           createToast({
-            id: new Date().toISOString(),
-            show: true,
             title: pgTitle,
-            time: "",
             description: locale.errorMessage,
             type: "warning",
           })

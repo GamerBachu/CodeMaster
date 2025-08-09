@@ -41,11 +41,8 @@ const Login = () => {
             appToken: account.token,
           });
           dispatch(
-            createToast({
-              id: new Date().toISOString(),
-              show: true,
+            createToast({             
               title: pgTitle,
-              time: "",
               description: locale.loginSuccess,
               type: "success",
             })
@@ -55,10 +52,7 @@ const Login = () => {
         } else {
           dispatch(
             createToast({
-              id: new Date().toISOString(),
-              show: true,
               title: pgTitle,
-              time: "",
               description: locale.loginFailed,
               type: "warning",
             })
@@ -69,10 +63,7 @@ const Login = () => {
       .catch(() => {
         dispatch(
           createToast({
-            id: new Date().toISOString(),
-            show: true,
             title: pgTitle,
-            time: "",
             description: locale.errorMessage,
             type: "warning",
           })

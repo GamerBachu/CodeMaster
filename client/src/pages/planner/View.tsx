@@ -59,10 +59,7 @@ const View = () => {
       .catch(() => {
         dispatch(
           createToast({
-            id: new Date().toISOString(),
-            show: true,
             title: locale.Planner,
-            time: "",
             description: locale.errorMessage,
             type: "warning",
           })

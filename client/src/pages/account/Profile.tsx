@@ -51,10 +51,7 @@ const Profile = () => {
       .catch(() => {
         dispatch(
           createToast({
-            id: new Date().toISOString(),
-            show: true,
             title: locale.profileTitle,
-            time: "",
             description: locale.errorMessage,
             type: "warning",
           })
@@ -83,10 +80,7 @@ const Profile = () => {
           if (result === null) {
             dispatch(
               createToast({
-                id: new Date().toISOString(),
-                show: true,
                 title: locale.profileTitle,
-                time: "",
                 description: locale.errorMessage,
                 type: "warning",
               })
@@ -94,10 +88,7 @@ const Profile = () => {
           } else {
             dispatch(
               createToast({
-                id: new Date().toISOString(),
-                show: true,
                 title: locale.profileTitle,
-                time: "",
                 description: locale.UpdateSuccess,
                 type: "success",
               })
@@ -107,10 +98,7 @@ const Profile = () => {
         .catch(() => {
           dispatch(
             createToast({
-              id: new Date().toISOString(),
-              show: true,
               title: locale.profileTitle,
-              time: "",
               description: locale.errorMessage,
               type: "warning",
             })

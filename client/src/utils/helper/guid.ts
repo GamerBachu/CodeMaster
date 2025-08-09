@@ -13,3 +13,8 @@ export function generateGuid(): string {
         s4() + s4() + s4()
     );
 }
+
+export function generateGuidV2(): string {
+
+  return crypto.randomUUID();
+}

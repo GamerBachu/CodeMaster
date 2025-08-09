@@ -71,10 +71,7 @@ const Update = () => {
         .catch(() => {
           dispatch(
             createToast({
-              id: new Date().toISOString(),
-              show: true,
               title: locale.Planner,
-              time: "",
               description: locale.errorMessage,
               type: "warning",
             })
@@ -122,10 +119,7 @@ const Update = () => {
           if (result === null) {
             dispatch(
               createToast({
-                id: new Date().toISOString(),
-                show: true,
                 title: locale.Planner,
-                time: "",
                 description: locale.errorMessage,
                 type: "warning",
               })
@@ -133,10 +127,7 @@ const Update = () => {
           } else {
             dispatch(
               createToast({
-                id: new Date().toISOString(),
-                show: true,
                 title: locale.Planner,
-                time: "",
                 description: locale.UpdateSuccess,
                 type: "success",
               })
@@ -147,10 +138,7 @@ const Update = () => {
         .catch(() => {
           dispatch(
             createToast({
-              id: new Date().toISOString(),
-              show: true,
               title: locale.Planner,
-              time: "",
               description: locale.errorMessage,
               type: "warning",
             })
