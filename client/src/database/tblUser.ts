@@ -15,19 +15,12 @@ const findByUserName = async (user: Partial<UserModel>): Promise<string | number
 };
 
 const getByLogOut = async (user: Partial<UserModel>, device: string): Promise<void> => {
- 
+
   if (!user?.username) return;
-  if (!user?.password) return;
+  if (!device) return;
   await cleanUpToken();
+  await cleanUpUserDeviceToken({ username: user.username, deviceName: device } as UserTokenModel);
 
-  const db = new LocalDb();
-  const data = await db.getAll<UserTokenModel>(UserToken.name);
-
-  const result = data.filter((u: UserTokenModel) => u.username === user.username && u.deviceName === device) ?? null;
-
-  result.forEach((p: UserTokenModel) => {
-    if (p.id) db.delete(UserToken.name, p.id);
-  });
 };
 
 const getByLogin = async (user: Partial<UserModel>, device: string):
@@ -56,6 +49,7 @@ const validateToken = async (token: string, device: string):
   const d = tokenValidate(token);
   await cleanUpToken();
   if (!d) return null;
+
   d.deviceName = device;
   const db = new LocalDb();
 
@@ -65,6 +59,7 @@ const validateToken = async (token: string, device: string):
   ) ?? null;
 
   if (result === null) return null;
+  await cleanUpUserDeviceToken(d);
 
   const data2 = await db.getAll<UserModel>(User.name);
   const result2 = data2.find((u: UserModel) =>
@@ -138,6 +133,18 @@ const cleanUpToken = async (): Promise<void> => {
   });
 };
 
+const cleanUpUserDeviceToken = async (tokenModel: UserTokenModel): Promise<void> => {
+  const db = new LocalDb();
+  const data = await db.getAll<UserTokenModel>(UserToken.name);
+
+  const result = data.filter((u: UserTokenModel) =>
+    u.username === tokenModel.username &&
+    u.deviceName === tokenModel.deviceName
+  ) ?? null;
+  result.forEach((p: UserTokenModel) => {
+    if (p.id) db.delete(UserToken.name, p.id);
+  });
+};
 
 const tblUser = {
   findByUserName,
