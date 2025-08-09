@@ -24,6 +24,7 @@
 
   "doNotHaveCreateNewAccount": "Don't have an account? Create one.",
 
+  "link_Verify": "Verify",
   "link_Login": "Login",
   "link_Register": "Register",
   "link_Logout": "Logout",
