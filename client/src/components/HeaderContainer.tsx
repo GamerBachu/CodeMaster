@@ -19,7 +19,9 @@ const HeaderContainer = () => {
     const d = authLink;
     setAuthLink(d.map((link) => { link.active = link.id === id; return link; }));
   };
-  console.log(appSession);
+  console.log(appSession.info);
+  console.log(authLink);
+  
   if (appSession.info.isAuthorized)
     return (
       <nav className="bg-body-tertiary border-bottom">

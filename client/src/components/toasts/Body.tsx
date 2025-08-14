@@ -16,13 +16,13 @@ const Body = ({ data }: ToastProps) => {
   const dispatch = useAppDispatch();
 
   const onClick = () => {
-    dispatch(removeToast(data.id));
+    dispatch(removeToast(data.id ?? "0"));
   };
 
   useEffect(() => {
     if (!show) return;
     const timer = setTimeout(() => {
-      dispatch(removeToast(data.id));
+      dispatch(removeToast(data.id ?? "0"));
     }, utils.timeOut);
     return () => clearTimeout(timer);
   }, [show, dispatch, data.id]);

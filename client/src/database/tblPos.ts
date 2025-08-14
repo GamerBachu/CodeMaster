@@ -15,39 +15,43 @@ export class tblProduct {
         return result;
     };
 
-    get = async (productId: string): Promise<IProduct | undefined> => {
+    get = async (productId: string): Promise<IProduct | null> => {
         const db = new LocalDb();
-        const data = await db.get<IProduct>(ProductSchema.name, productId);
+        const result = await db.getAll<IProduct>(ProductSchema.name);
+        const data = result.find((f: IProduct) => f.productId === productId) ?? null;
+       
         return data;
     };
 
-    post = async (payload: IProduct, subPayload: Partial<IProductIdModel>): Promise<string | number | null> => {
+    post = async (payload: Partial<IProduct>, parentPayload: Partial<IProductIdModel>): Promise<string | number | null> => {
 
         const db = new LocalDb();
 
-        subPayload.createdDate = new Date().toUTCString();
+        parentPayload.createdDate = new Date().toUTCString();
 
-        subPayload.updatedDate = new Date().toUTCString();
-        subPayload.updatedBy = 0;
-        subPayload.deletedDate = new Date().toUTCString();
-        subPayload.deletedBy = 0;
-        subPayload.isActive = true;
+        parentPayload.updatedDate = new Date().toUTCString();
+        parentPayload.updatedBy = 0;
+        parentPayload.deletedDate = new Date().toUTCString();
+        parentPayload.deletedBy = 0;
+        parentPayload.isActive = true;
 
-        const parent: IDBValidKey = await db.create(ProductIdSchema.name, subPayload);
-        subPayload.id = Number(parent);
-        subPayload.productId = this.createProductId(payload, subPayload);
-        payload.productId = subPayload.productId;
+        const parentId: IDBValidKey = await db.create(ProductIdSchema.name, parentPayload);
+        parentPayload.id = Number(parentId);
+        parentPayload.productId = this.createProductId(payload, parentPayload);
+        payload.productId = parentPayload.productId;
 
-        await db.put(ProductIdSchema.name, subPayload);
+        await db.put(ProductIdSchema.name, parentPayload);
 
-        const data: IDBValidKey = await db.create(ProductSchema.name, payload);
-        return data as string;
+        await db.create(ProductSchema.name, payload);
+        return parentPayload.productId as string;
     };
 
     put = async (payload: Partial<IProduct>): Promise<string | number | null> => {
         if (!payload?.productId) return null;
+        if (!payload?.id) return null;
+
         const db = new LocalDb();
-        const data = await db.get<IProduct>(ProductSchema.name, payload?.productId);
+        const data = await db.get<IProduct>(ProductSchema.name, payload?.id);
         if (!data) return null;
 
         data.productName = payload.productName ?? data.productName;
@@ -77,12 +81,13 @@ export class tblProduct {
         return data ?? null;
     };
 
-    createProductId(payload: IProduct, subPayload: Partial<IProductIdModel>): string {
+    createProductId(payload: Partial<IProduct>, subPayload: Partial<IProductIdModel>): string {
 
         const createdDate = new Date(subPayload.createdDate ?? new Date());
         const id = subPayload.id ?? 0;
-        const sku = payload?.sku.length > 3 ? payload?.sku.slice(0, 3) : "";
-        const name = payload?.productName.length > 3 ? payload?.sku.slice(0, 1) : "";
+
+        const sku = this.truncateString(payload?.sku, 3);
+        const name = this.truncateString(payload?.productName, 2);
 
 
         const dd = String(createdDate.getDate()).padStart(2, '0');
@@ -96,12 +101,21 @@ export class tblProduct {
             hash = hash & 0x7FFFFFFF; // keep positive
         }
         // Get 7 digits from hash
-        const pseudoRandom = String(hash).padStart(7, '0').slice(0, 7);
+        const pseudoRandom = String(hash).padStart(5, '0').slice(0, 7);
 
 
         const idStr = String(id).padStart(4, '0');
 
         return (`${name}${dd}${yy}${sku}${pseudoRandom}${idStr}`).toUpperCase();
 
+    }
+
+    truncateString(str: string | undefined, maxLength: number) {
+        if (!str) return "";
+        else if (str.length <= maxLength) {
+            return str;
+        } else {
+            return str.slice(0, maxLength);
+        }
     }
 };

@@ -88,5 +88,6 @@
   "sku": "SKU",
   "price": "Sell Price",
   "costPrice": "Cost Price",
-  "liveDate": "Online Start Date"
+  "liveDate": "Online Start Date",
+  "invalidProduct":"Invalid Product"
 }

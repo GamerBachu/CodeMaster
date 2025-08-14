@@ -13,6 +13,7 @@ export interface IProduct {
 }
 
 export const initialForm = {
+    id: "0",
     productId: "*******",
     productName: "",
     description: "",
@@ -25,7 +26,9 @@ export const initialForm = {
     userId: ""
 };
 
-export function isValid(form: IProduct): boolean {
+export function isValid(form: IProduct, isRequiredAll: boolean): boolean {
+
+
     if (
         (form.productId?.trim?.() ?? "") === "" ||
         (form.productName?.trim?.() ?? "") === "" ||
@@ -33,7 +36,7 @@ export function isValid(form: IProduct): boolean {
         (form.status?.trim?.() ?? "") === "" ||
         isNaN(form.price) ||
         isNaN(form.costPrice) ||
-        (form.liveDate?.trim?.() ?? "") === ""
+        (isRequiredAll !== false && (form.liveDate?.trim?.() ?? "") === "")
     ) {
         return false;
     }

@@ -26,8 +26,9 @@ const Update = ({ id, productId }: Props) => {
     const [statusList, setStatusList] = useState<keyValueModel[]>([]);
 
     useEffect(() => {
-
-        loadData();
+        if (productId !== "0") {
+            loadData();
+        }
 
         async function loadData() {
 
@@ -43,20 +44,24 @@ const Update = ({ id, productId }: Props) => {
             }
             const api = new db.tblProduct();
 
+
             api.get(productId)
-                .then((result) => {
-                    if (result) {
+                .then((resultP) => {
+                   
+                    if (resultP) {
+                        console.log(dbToDateTimeInput(resultP.liveDate));
                         setForm((prev) => ({
                             ...prev,
-                            productId: result.productId,
-                            status: String(result.status),
-                            liveDate: dbToDateTimeInput(new Date(result.liveDate)),
-                            productName: result.productName,
-                            sku: result.sku,
-                            costPrice: result.costPrice,
-                            price: result.price,
-                            shortDescription: result.shortDescription,
-                            description: result.description,
+                            id: String(resultP.id),
+                            productId: resultP.productId,
+                            status: String(resultP.status),
+                            // liveDate: dbToDateTimeInput(result.liveDate),
+                            productName: resultP.productName,
+                            sku: resultP.sku,
+                            costPrice: resultP.costPrice,
+                            price: resultP.price,
+                            shortDescription: resultP.shortDescription,
+                            description: resultP.description,
                             userId: userId
                         }));
                     }
@@ -64,10 +69,7 @@ const Update = ({ id, productId }: Props) => {
                 .catch(() => {
                     dispatch(
                         createToast({
-                            id: new Date().toUTCString(),
-                            show: true,
                             title: locale.Planner,
-                            time: "",
                             description: locale.errorMessage,
                             type: "warning",
                         })
@@ -90,13 +92,10 @@ const Update = ({ id, productId }: Props) => {
         (e: React.FormEvent) => {
             e.preventDefault();
 
-            if (isValid(form) === false) {
+            if (isValid(form, true) === false) {
                 dispatch(
                     createToast({
-                        id: new Date().toUTCString(),
-                        show: true,
                         title: locale.Planner,
-                        time: "",
                         description: locale.validateForm,
                         type: "warning",
                     })
@@ -109,6 +108,7 @@ const Update = ({ id, productId }: Props) => {
             const api = new db.tblProduct();
 
             api.put({
+                id: Number(form?.id),
                 productId: form.productId,
                 status: Number(status?.key),
                 liveDate: form.liveDate,
@@ -122,10 +122,7 @@ const Update = ({ id, productId }: Props) => {
                 if (result === null) {
                     dispatch(
                         createToast({
-                            id: new Date().toUTCString(),
-                            show: true,
                             title: locale.Planner,
-                            time: "",
                             description: locale.errorMessage,
                             type: "warning",
                         })
@@ -133,10 +130,7 @@ const Update = ({ id, productId }: Props) => {
                 } else {
                     dispatch(
                         createToast({
-                            id: new Date().toUTCString(),
-                            show: true,
                             title: locale.Planner,
-                            time: "",
                             description: locale.UpdateSuccess,
                             type: "success",
                         })
@@ -146,10 +140,7 @@ const Update = ({ id, productId }: Props) => {
             }).catch(() => {
                 dispatch(
                     createToast({
-                        id: new Date().toUTCString(),
-                        show: true,
                         title: locale.Planner,
-                        time: "",
                         description: locale.errorMessage,
                         type: "warning",
                     })
@@ -245,7 +236,8 @@ const Update = ({ id, productId }: Props) => {
                                     value={form.sku}
                                     onChange={handleChange}
                                     required
-                                />     setProductId(String(result));
+                                />    
+                                
                             </div>
                         </div>
                         <div className="mb-3 row">

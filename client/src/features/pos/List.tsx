@@ -38,10 +38,7 @@ const List = () => {
       .catch(() => {
         dispatch(
           createToast({
-            id: new Date().toISOString(),
-            show: true,
             title: locale.Planner,
-            time: "",
             description: locale.errorMessage,
             type: "warning",
           })
@@ -71,6 +68,9 @@ const List = () => {
   const handleRowAction = (id: number | string, type: number) => {
     if (type === 0) {
       navigate(`${appRoute.POS_Action.path}/create/0`);
+    }
+    if (type === 2) {
+      navigate(`${appRoute.POS_Action.path}/update/${id}`);
     }
     else {
       navigate(`${appRoute.POS_Action.path}/create/${id}`);

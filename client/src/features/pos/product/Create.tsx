@@ -13,7 +13,6 @@ import { initialForm, isValid, onlyNumber } from "./service";
 
 type Props = {
     id: string;
-    setProgress: (progress: number) => void;
     setProductId: (productId: string) => void;
 };
 
@@ -44,10 +43,7 @@ const Create = ({ id, setProductId }: Props) => {
             .catch(() => {
                 dispatch(
                     createToast({
-                        id: new Date().toISOString(),
-                        show: true,
                         title: locale.Planner,
-                        time: "",
                         description: locale.errorMessage,
                         type: "warning",
                     })
@@ -65,13 +61,10 @@ const Create = ({ id, setProductId }: Props) => {
         (e: React.FormEvent) => {
             e.preventDefault();
 
-            if (isValid(form) === false) {
+            if (isValid(form, false) === false) {
                 dispatch(
                     createToast({
-                        id: new Date().toUTCString(),
-                        show: true,
                         title: locale.Planner,
-                        time: "",
                         description: locale.validateForm,
                         type: "warning",
                     })
@@ -98,10 +91,7 @@ const Create = ({ id, setProductId }: Props) => {
                     if (result === null) {
                         dispatch(
                             createToast({
-                                id: new Date().toISOString(),
-                                show: true,
                                 title: locale.Planner,
-                                time: "",
                                 description: locale.errorMessage,
                                 type: "warning",
                             })
@@ -110,10 +100,7 @@ const Create = ({ id, setProductId }: Props) => {
                         setProductId(String(result));
                         dispatch(
                             createToast({
-                                id: new Date().toISOString(),
-                                show: true,
                                 title: locale.Planner,
-                                time: "",
                                 description: locale.AddNewSuccess,
                                 type: "success",
                             })
@@ -124,10 +111,7 @@ const Create = ({ id, setProductId }: Props) => {
                 .catch(() => {
                     dispatch(
                         createToast({
-                            id: new Date().toISOString(),
-                            show: true,
                             title: locale.Planner,
-                            time: "",
                             description: locale.errorMessage,
                             type: "warning",
                         })
@@ -183,7 +167,7 @@ const Create = ({ id, setProductId }: Props) => {
                                     name="status"
                                     value={form.status}
                                     onChange={handleChange}
-                                    required
+
                                 >
                                     {statusList.map((status) => (
                                         <option key={status.key} value={status.key}>
@@ -200,7 +184,7 @@ const Create = ({ id, setProductId }: Props) => {
                                     name="liveDate"
                                     value={form.liveDate}
                                     onChange={handleChange}
-                                    required
+
                                 />
                             </div>
                         </div>
@@ -245,7 +229,7 @@ const Create = ({ id, setProductId }: Props) => {
                                     name="price"
                                     value={form.price}
                                     onChange={handleChange}
-                                    required
+
                                 />
                             </div>
                         </div>

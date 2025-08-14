@@ -6,7 +6,7 @@ export interface IToast {
   title: string;
   description: string;
   time?: string;
-  type?: "success" | "error" | "info" | "warning";
+  type?: "success" | "danger" | "info" | "warning";
   show?: boolean;
 }
 export type ToastProps = {
