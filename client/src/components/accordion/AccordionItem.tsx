@@ -1,12 +1,15 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 type AccordionItemProps = {
     id: string;
     title: string;
+    className?: string;
+    isCollapse?: boolean;
     children?: React.ReactNode;
+
 };
 
-const AccordionItem = ({ id, title, children }: AccordionItemProps) => {
+const AccordionItem = ({ id, title, className = "", isCollapse = false, children }: AccordionItemProps) => {
     const { titleId, buttonId, bodyId } = useMemo(() => {
         return {
             titleId: `acd-${id}`,
@@ -15,26 +18,29 @@ const AccordionItem = ({ id, title, children }: AccordionItemProps) => {
         };
     }, [id]);
 
-    const [isCollapse, setIsCollapse] = useState(true);
+    const [isOpen, setIsOpen] = useState(true);
+
+    useEffect(() => {
+        setIsOpen(!isCollapse);
+    }, [isCollapse]);
+
     return (
-        <div className="accordion-item" id={titleId} data-testid={titleId}>
+        <div className={`accordion-item ${className}`} id={titleId} data-testid={titleId}>
             <h2 className="accordion-header">
                 <button
-                    className={`accordion-button ${isCollapse ? "" : "collapsed"}`}
+                    className={`accordion-button shadow-none ${isOpen ? "" : "collapsed"}`}
                     type="button"
                     aria-expanded="true"
                     aria-controls="collapseOne"
-                    onClick={() => {
-                        setIsCollapse(!isCollapse);
-                    }}
+                    onClick={() => {setIsOpen(prev=>!prev);}}
                     id={buttonId}
                     data-testid={buttonId}
                 >
                     {title}
                 </button>
             </h2>
-            <div className={`accordion-collapse ${isCollapse ? "show" : "collapse"}`}>
-                <div className="accordion-body" id={bodyId} data-testid={bodyId}>
+            <div className={`accordion-collapse ${isOpen ? "show" : "collapse"}`}>
+                <div className="accordion-body " id={bodyId} data-testid={bodyId}>
                     {children}
                 </div>
             </div>

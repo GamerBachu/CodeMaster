@@ -1,23 +1,24 @@
 import AccordionItem from "../../../components/accordion/AccordionItem";
-import List from "./List";
+import Update from "./Update";
 
 
-type discountProps = {
+type stockAvailabilityProps = {
     id: string;
     productId: string;
 };
 
-const Index = ({ id, productId }: discountProps) => {
+const Index = ({ id, productId }: stockAvailabilityProps) => {
     return (
         <AccordionItem
             id={id}
-            title={"Discount"}
+            title={"Stock Availability"}
             isCollapse={true}
             className="border border-info-subtle mt-1"
         >
-            <List
+            <Update
+                id={id}
                 productId={productId}
-            ></List>
+            ></Update>
         </AccordionItem>
     );
 };

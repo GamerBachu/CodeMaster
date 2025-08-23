@@ -7,6 +7,7 @@ import locale from "../../resources";
 import db from "../../database/";
 import ProductUpdate from "./product/Update";
 import ProductDiscount from "./discount/Index";
+import ProductStock from "./stock/Index";
 
 import { useDispatch } from "react-redux";
 import { createToast } from "../../components/toasts/toastSlicer";
@@ -83,6 +84,11 @@ const Update = () => {
           id="pr2"
           productId={productId}>
         </ProductDiscount>
+
+        <ProductStock
+          id="pr3"
+          productId={productId}>
+        </ProductStock>
 
         <div className="accordion-item">
           <h2 className="accordion-header">

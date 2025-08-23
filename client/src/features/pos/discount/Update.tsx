@@ -15,7 +15,7 @@ const Update = ({ form, onChange, onUpdate, onDelete }: DiscountFormProps) => {
         <form className="border p-2" onSubmit={(e) => { e.preventDefault(); }} key={form.rowId} data-testid={`frm-dis-${form.rowId}`}>
             <div className="mb-3 row">
                 <div className="col-4">
-                    <label className="form-label small">{locale.discountName}-{form.id} rowId-{form.rowId}</label>
+                    <label className="form-label small">{locale.discountName}</label>
                     <input
                         className="form-control form-control-sm"
                         name="name"

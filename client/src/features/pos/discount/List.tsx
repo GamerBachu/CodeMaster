@@ -1,16 +1,12 @@
-import { useState, useEffect } from "react";
-import {
-    AddButton,
-} from "../../../components/button/";
+import { useState, useEffect, useCallback } from "react";
+import { AddButton, } from "../../../components/button/";
 import locale from "../../../resources";
-import tblDiscount from "../../../database/tblDiscount";
+import tblPosDiscount from "../../../database/tblPosDiscount";
 import type { discountModel } from "../../../models/posModels";
 import { onlyNumberAllowed } from "../../../utils/helper/numberUtils";
 import Update from "./Update";
 
-type ListProps = {
-    productId: string;
-};
+type ListProps = { productId: string; };
 
 const List = ({ productId }: ListProps) => {
     const [apiData, setApiData] = useState<discountModel[]>([]);
@@ -29,22 +25,20 @@ const List = ({ productId }: ListProps) => {
         ]);
     };
 
-    const handleChange = (
+    const handleChange = useCallback((
         rowId: number,
         field: keyof discountModel,
         value: string
     ) => {
-        if (field === "percentage") {
-            if (!onlyNumberAllowed(value)) {
-                return;
-            }
+        if (field === "percentage" && !onlyNumberAllowed(value)) {
+            return;
         }
-        setApiData(
-            apiData.map((form) =>
+        setApiData(prevApiData =>
+            prevApiData.map((form) =>
                 form.rowId === rowId ? { ...form, [field]: value } : form
             )
         );
-    };
+    }, []);
 
     const onUpdateClick = (form: discountModel) => {
         const temp = apiData;
@@ -53,11 +47,11 @@ const List = ({ productId }: ListProps) => {
         const row = temp[findIndex];
         if (row === undefined) return;
 
-       
+
         if (row.id < 1) {
 
-            tblDiscount
-                .post({ ...row })
+            tblPosDiscount
+                .post({ id: row.id, productId: row.productId, name: row.name, percentage: row.percentage })
                 .then((res) => {
                     if (res) {
                         temp[findIndex].id = Number(res);
@@ -66,7 +60,7 @@ const List = ({ productId }: ListProps) => {
                 })
                 .catch(() => { });
         } else {
-            tblDiscount.put({ ...row });
+            tblPosDiscount.put({ id: row.id, productId: row.productId, name: row.name, percentage: row.percentage });
         }
     };
 
@@ -77,30 +71,29 @@ const List = ({ productId }: ListProps) => {
         const row = temp[findIndex];
         temp.splice(findIndex, 1);
         setApiData([...temp]);
-        tblDiscount.remove({ ...row });
+        tblPosDiscount.remove({ id: row.id, productId: row.productId, name: row.name, percentage: row.percentage });
     };
 
     useEffect(() => {
-        tblDiscount
+        let isMounted = true;
+        tblPosDiscount
             .search({ productId })
             .then((response) => {
+                if (!isMounted) return;
                 if (response === undefined || response === null) {
                     setApiData([]);
                     return;
                 }
-                const d: discountModel[] = [];
-                response
+                const d: discountModel[] = response
                     ?.sort((a, b) => b.id - a.id)
-                    .forEach((r, i) => {
-                        d.push({ ...r, rowId: i });
-                    });
+                    .map((r, i) => ({ ...r, rowId: i })) || [];
                 setApiData(d);
             })
             .catch(() => {
-                setApiData([]);
+                if (isMounted) setApiData([]);
             });
-
         return () => {
+            isMounted = false;
             setApiData([]);
         };
     }, [productId]);

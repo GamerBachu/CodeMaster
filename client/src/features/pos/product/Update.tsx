@@ -9,6 +9,7 @@ import statusUnit from "../enums/statusUnit";
 import { dbToDateTimeInput } from "../../../utils/helper/dateUtils";
 import type { IProduct } from "./service";
 import { initialForm, isValid, onlyNumber } from "./service";
+import AccordionItem from "../../../components/accordion/AccordionItem";
 
 type Props = {
     id: string;
@@ -47,7 +48,7 @@ const Update = ({ id, productId }: Props) => {
 
             api.get(productId)
                 .then((resultP) => {
-                   
+
                     if (resultP) {
                         console.log(dbToDateTimeInput(resultP.liveDate));
                         setForm((prev) => ({
@@ -151,148 +152,128 @@ const Update = ({ id, productId }: Props) => {
     );
 
 
-    const [isCollapse, setIsCollapse] = useState<boolean>(true);
-
     return (
-        <div
-            className="accordion-item"
+        <AccordionItem
             id={`pr-${id}`}
-            data-testid={`pr-${id}`}
+            title={`${locale.btnProduct}-${form.productId}`}
+            isCollapse={true}
+            className="border border-primary-subtle"
         >
-            <h2 className="accordion-header">
-                <button
-                    className={`accordion-button ${isCollapse ? "" : "collapsed"}`}
-                    type="button"
-                    aria-expanded="true"
-                    aria-controls="collapseOne"
-                    onClick={() => { setIsCollapse(!isCollapse); }}
-                >
-                    Product - {form.productId}
-                </button>
-            </h2>
-            <div
-                id={`prb-${id}`}
-                data-testid={`prb-${id}`}
-                className={`accordion-collapse ${isCollapse ? "show" : "collapse"}`}
 
-            >
-                <div className="accordion-body">
-                    <form className="mb-4" onSubmit={handleSubmit}>
-                        <div className="mb-3 row">
-                            <div className="col-4">
-                                <label className="form-label">{locale.productId}</label>
-                                <input
-                                    className="form-control"
-                                    name="productId"
-                                    value={form.productId}
-                                    readOnly disabled
-                                />
-                            </div>
-                            <div className="col-4">
-                                <label className="form-label">{locale.status}</label>
-                                <select
-                                    className="form-select"
-                                    name="status"
-                                    value={form.status}
-                                    onChange={handleChange}
-                                    required
-                                >
-                                    {statusList.map((status) => (
-                                        <option key={status.key} value={status.key}>
-                                            {status.value}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="col-4">
-                                <label className="form-label">{locale.liveDate}</label>
-                                <input
-                                    type="datetime-local"
-                                    className="form-control"
-                                    name="liveDate"
-                                    value={form.liveDate}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-3 row">
-                            <div className="col-6">
-                                <label className="form-label">{locale.productName}</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    name="productName"
-                                    value={form.productName}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <div className="col-6">
-                                <label className="form-label">{locale.sku}</label>
-                                <input
-                                    className="form-control"
-                                    name="sku"
-                                    value={form.sku}
-                                    onChange={handleChange}
-                                    required
-                                />    
-                                
-                            </div>
-                        </div>
-                        <div className="mb-3 row">
-                            <div className="col-6">
-                                <label className="form-label">{locale.costPrice}</label>
-                                <input
-                                    className="form-control"
-                                    name="costPrice"
-                                    value={form.costPrice}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <div className="col-6">
-                                <label className="form-label">{locale.price}</label>
-                                <input
-                                    className="form-control"
-                                    name="price"
-                                    value={form.price}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">{locale.shortDescription}</label>
-                            <textarea
-                                rows={3}
-                                className="form-control"
-                                name="shortDescription"
-                                value={form.shortDescription}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <div className="mb-3">
-                            <label className="form-label">{locale.fullDescription}</label>
-                            <textarea
-                                className="form-control"
-                                name="description"
-                                value={form.description}
-                                onChange={handleChange}
-                                rows={3}
-                                required
-                            />
-                        </div>
-
-                        <button type="submit" className="btn btn-primary">
-                            {locale.Update}
-                        </button>
-
-                    </form>
+            <form className="mb-4" onSubmit={handleSubmit}>
+                <div className="mb-3 row">
+                    <div className="col-4">
+                        <label className="form-label">{locale.productId}</label>
+                        <input
+                            className="form-control"
+                            name="productId"
+                            value={form.productId}
+                            readOnly disabled
+                        />
+                    </div>
+                    <div className="col-4">
+                        <label className="form-label">{locale.status}</label>
+                        <select
+                            className="form-select"
+                            name="status"
+                            value={form.status}
+                            onChange={handleChange}
+                            required
+                        >
+                            {statusList.map((status) => (
+                                <option key={status.key} value={status.key}>
+                                    {status.value}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="col-4">
+                        <label className="form-label">{locale.liveDate}</label>
+                        <input
+                            type="datetime-local"
+                            className="form-control"
+                            name="liveDate"
+                            value={form.liveDate}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
                 </div>
-            </div>
-        </div>
+                <div className="mb-3 row">
+                    <div className="col-6">
+                        <label className="form-label">{locale.productName}</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="productName"
+                            value={form.productName}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="col-6">
+                        <label className="form-label">{locale.sku}</label>
+                        <input
+                            className="form-control"
+                            name="sku"
+                            value={form.sku}
+                            onChange={handleChange}
+                            required
+                        />
+
+                    </div>
+                </div>
+                <div className="mb-3 row">
+                    <div className="col-6">
+                        <label className="form-label">{locale.costPrice}</label>
+                        <input
+                            className="form-control"
+                            name="costPrice"
+                            value={form.costPrice}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                    <div className="col-6">
+                        <label className="form-label">{locale.price}</label>
+                        <input
+                            className="form-control"
+                            name="price"
+                            value={form.price}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">{locale.shortDescription}</label>
+                    <textarea
+                        rows={3}
+                        className="form-control"
+                        name="shortDescription"
+                        value={form.shortDescription}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">{locale.fullDescription}</label>
+                    <textarea
+                        className="form-control"
+                        name="description"
+                        value={form.description}
+                        onChange={handleChange}
+                        rows={3}
+                        required
+                    />
+                </div>
+
+                <button type="submit" className="btn btn-primary">
+                    {locale.Update}
+                </button>
+
+            </form>
+        </AccordionItem>
     );
 };
 

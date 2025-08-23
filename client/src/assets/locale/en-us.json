@@ -94,5 +94,8 @@
 
   "AddNewDiscount": "Add New Discount",
   "discountName": "Name",
-  "discountPercentage": "Percentage"
+  "discountPercentage": "Percentage",
+
+  "currentStock": "Current Stock",
+  "minimumOrderQuantity": "Minimum Order Quantity"
 }

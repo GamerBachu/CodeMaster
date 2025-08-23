@@ -48,11 +48,11 @@ const remove = async (payload: Partial<IDiscount>): Promise<string | number | nu
     return payload.id;
 };
 
-const tblDiscount = {
+const tblPosDiscount = {
     get,
     post,
     put,
     remove,
     search,
 };
-export default tblDiscount; 
+export default tblPosDiscount; 
