@@ -45,6 +45,7 @@
   "description": "Description",
   "status": "Status",
 
+  "save": "Save",
   "action": "Action",
   "AddNew": "Add New",
   "Back": "Back",
@@ -89,5 +90,9 @@
   "price": "Sell Price",
   "costPrice": "Cost Price",
   "liveDate": "Online Start Date",
-  "invalidProduct":"Invalid Product"
+  "invalidProduct": "Invalid Product",
+
+  "AddNewDiscount": "Add New Discount",
+  "discountName": "Name",
+  "discountPercentage": "Percentage"
 }

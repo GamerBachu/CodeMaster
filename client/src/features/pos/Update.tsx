@@ -6,6 +6,7 @@ import appRoute from "../../routes/appRoute";
 import locale from "../../resources";
 import db from "../../database/";
 import ProductUpdate from "./product/Update";
+import ProductDiscount from "./discount/Index";
 
 import { useDispatch } from "react-redux";
 import { createToast } from "../../components/toasts/toastSlicer";
@@ -77,6 +78,11 @@ const Update = () => {
           setProgress={setProgress}
           productId={productId} >
         </ProductUpdate>
+        
+        <ProductDiscount
+          id="pr2"
+          productId={productId}>
+        </ProductDiscount>
 
         <div className="accordion-item">
           <h2 className="accordion-header">

@@ -4,9 +4,8 @@ import type PrimaryModel from "./PrimaryModel";
 export interface IDiscount {
     id: number;
     productId: string;
-    onSale: boolean;
-    salePrice: number;
-    discountPercentage: number;
+    name: string;
+    percentage: number;
 }
 export const DiscountSchema: IDBStoreSchema = { name: "posDiscount", option: { keyPath: "id", autoIncrement: true }, };
 
