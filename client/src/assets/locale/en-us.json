@@ -92,10 +92,16 @@
   "liveDate": "Online Start Date",
   "invalidProduct": "Invalid Product",
 
-  "AddNewDiscount": "Add New Discount",
+  "addNewDiscount": "Add New Discount",
   "discountName": "Name",
   "discountPercentage": "Percentage",
 
   "currentStock": "Current Stock",
-  "minimumOrderQuantity": "Minimum Order Quantity"
+  "minimumOrderQuantity": "Minimum Order Quantity",
+
+  "addNewSpecification": "Add New Specification",
+  "selectSpecification": "Select Specification",
+  "specificationType": "Type",
+  "specificationUnit": "Unit",
+  "specificationValue": "Value"
 }

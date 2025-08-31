@@ -4,6 +4,8 @@ import locale from "../../../resources";
 
 import tblPosStock from "../../../database/tblPosStock";
 import { onlyNumberAllowed } from '../../../utils/helper/numberUtils';
+import { useDispatch } from 'react-redux';
+import { createToast } from '../../../components/toasts/toastSlicer';
 
 type stockAvailabilityFormProps = {
     id: string;
@@ -19,7 +21,7 @@ interface StockAvailabilityModel {
 const initialForm = { id: 0, productId: "0", currentStock: 0, minimumOrderQuantity: 0 };
 
 const Update = ({ productId, id }: stockAvailabilityFormProps) => {
-
+    const dispatch = useDispatch();
     const [form, setForm] = useState<StockAvailabilityModel>(initialForm);
     useEffect(() => {
         if (productId === "0") return;
@@ -58,6 +60,13 @@ const Update = ({ productId, id }: stockAvailabilityFormProps) => {
                 .then((res) => {
                     if (res) {
                         setForm((prev) => ({ ...prev, id: Number(res) }));
+                        dispatch(
+                            createToast({
+                                title: locale.Planner,
+                                description: locale.AddNewSuccess,
+                                type: "success",
+                            })
+                        );
                     }
                 })
                 .catch(() => { });

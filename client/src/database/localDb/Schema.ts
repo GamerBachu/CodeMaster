@@ -6,9 +6,7 @@ import UserToken from "./model/UserTokenModel";
 import {
     DiscountSchema,
     StockAvailabilitySchema,
-    WeightSchema,
-    ProductVariationSchema,
-    TechSpecSchema,
+    SpecificationMasterSchema,
     SpecificationsSchema,
     MediaSchema,
     SeoSchema,
@@ -27,9 +25,7 @@ export const schema: IDBStoreSchema[] = [
 
     DiscountSchema,
     StockAvailabilitySchema,
-    WeightSchema,
-    ProductVariationSchema,
-    TechSpecSchema,
+    SpecificationMasterSchema,
     SpecificationsSchema,
     MediaSchema,
     SeoSchema,

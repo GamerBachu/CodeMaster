@@ -15,53 +15,25 @@ export interface IStockAvailability {
     currentStock: number;
     minimumOrderQuantity: number;
 }
+
 export const StockAvailabilitySchema: IDBStoreSchema = { name: "posStockAvailability", option: { keyPath: "id", autoIncrement: true }, };
 
-export interface IWeight {
-    id: number;
-    productId: string;
-    value: number;
-    unit: string;
+
+export interface ISpecificationMasterModel {
+    id?: number;
+    name: string;
+    isActive: boolean;
+    createdDate: string;
 }
-export const WeightSchema: IDBStoreSchema = { name: "posWeight", option: { keyPath: "id", autoIncrement: true }, };
 
-
-
-export interface IProductVariation {
-    id: number;
-    productId: string;
-}
-export const ProductVariationSchema: IDBStoreSchema = { name: "posProductVariation", option: { keyPath: "id", autoIncrement: true }, };
-
-
-
-
-
-
-export interface ITechnicalSpecifications {
-    id: number;
-    productId: string;
-    type: string;
-    value: string;
-}
-export const TechSpecSchema: IDBStoreSchema = { name: "posTechSpec", option: { keyPath: "id", autoIncrement: true }, };
-
-
-
-
-
-
-
+export const SpecificationMasterSchema: IDBStoreSchema = { name: "posSpecificationsMaster", option: { keyPath: "id", autoIncrement: true }, };
 
 export interface ISpecifications {
     id: number;
     productId: string;
-    size: string;
-    dimensions: string;
-    color: string;
-    materialComposition: string;
-    functionalAttributes: string;
-    countryOfOrigin: string;
+    type: string;
+    unit: string;
+    value: string;
 }
 export const SpecificationsSchema: IDBStoreSchema = { name: "posSpecifications", option: { keyPath: "id", autoIncrement: true }, };
 

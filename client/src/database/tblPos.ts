@@ -1,5 +1,5 @@
 import LocalDb from "./localDb/LocalDb";
-import { type IProduct, type IProductIdModel, ProductSchema, ProductIdSchema } from "./localDb/model/PosModel";
+import { type IProduct, type IProductIdModel, ProductSchema, ProductIdSchema, type ISpecificationMasterModel, SpecificationMasterSchema } from "./localDb/model/PosModel";
 
 
 
@@ -19,7 +19,7 @@ export class tblProduct {
         const db = new LocalDb();
         const result = await db.getAll<IProduct>(ProductSchema.name);
         const data = result.find((f: IProduct) => f.productId === productId) ?? null;
-       
+
         return data;
     };
 
@@ -118,4 +118,18 @@ export class tblProduct {
             return str.slice(0, maxLength);
         }
     }
+
+
+    postSpecificationMaster = async (payload: ISpecificationMasterModel): Promise<string | number | null> => {
+        delete payload.id;
+        const db = new LocalDb();
+        const data: IDBValidKey = await db.create(SpecificationMasterSchema.name, payload);
+        return data as number;
+    };
+
+    getSpecificationMaster = async (): Promise<ISpecificationMasterModel[] | null> => {
+        const db = new LocalDb();
+        const data = await db.getAll<ISpecificationMasterModel>(SpecificationMasterSchema.name);
+        return data ?? null;
+    };
 };

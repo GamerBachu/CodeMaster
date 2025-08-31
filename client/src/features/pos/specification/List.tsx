@@ -1,20 +1,24 @@
 import { useState, useEffect, useCallback } from "react";
 import { AddButton, } from "../../../components/button/";
 import locale from "../../../resources";
-import tblPosDiscount from "../../../database/tblPosDiscount";
-import type { discountModel } from "../../../models/posModels";
-import { onlyNumberAllowed } from "../../../utils/helper/numberUtils";
+import db from "../../../database/";
+import type { specificationModel } from "../../../models/posModels";
 import Update from "./Update";
+import type { keyValueModel } from "../../../models";
 import { useDispatch } from "react-redux";
 import { createToast } from "../../../components/toasts/toastSlicer";
 
 type ListProps = { productId: string; };
 
 const List = ({ productId }: ListProps) => {
+    const [apiData, setApiData] = useState<specificationModel[]>([]);
+    const [specList, setSpecList] = useState<keyValueModel[]>([]);
+    const [selectedSpec, setSelectedSpec] = useState<string>("");
     const dispatch = useDispatch();
-    const [apiData, setApiData] = useState<discountModel[]>([]);
 
     const onAddButtonClick = () => {
+        if (selectedSpec === "") return;
+
         const minRowId =
             apiData.length > 0
                 ? Math.min(
@@ -23,19 +27,17 @@ const List = ({ productId }: ListProps) => {
                 : 0;
         const newRowId = minRowId - 1;
         setApiData([
-            { rowId: newRowId, productId, id: 0, name: "", percentage: 0 },
+            { rowId: newRowId, productId, id: 0, type: selectedSpec, unit: "", value: "" },
             ...apiData,
         ]);
     };
 
     const handleChange = useCallback((
         rowId: number,
-        field: keyof discountModel,
+        field: keyof specificationModel,
         value: string
     ) => {
-        if (field === "percentage" && !onlyNumberAllowed(value)) {
-            return;
-        }
+
         setApiData(prevApiData =>
             prevApiData.map((form) =>
                 form.rowId === rowId ? { ...form, [field]: value } : form
@@ -43,7 +45,7 @@ const List = ({ productId }: ListProps) => {
         );
     }, []);
 
-    const onUpdateClick = (form: discountModel) => {
+    const onUpdateClick = (form: specificationModel) => {
         const temp = apiData;
         const findIndex = temp.findIndex((r) => r.rowId === form.rowId);
         if (findIndex < 0) return;
@@ -53,8 +55,8 @@ const List = ({ productId }: ListProps) => {
 
         if (row.id < 1) {
 
-            tblPosDiscount
-                .post({ id: row.id, productId: row.productId, name: row.name, percentage: row.percentage })
+            db.tblPosSpecification
+                .post({ id: row.id, productId: row.productId, type: row.type, unit: row.unit, value: row.value })
                 .then((res) => {
                     if (res) {
                         temp[findIndex].id = Number(res);
@@ -70,7 +72,7 @@ const List = ({ productId }: ListProps) => {
                 })
                 .catch(() => { });
         } else {
-            tblPosDiscount.put({ id: row.id, productId: row.productId, name: row.name, percentage: row.percentage });
+            db.tblPosSpecification.put({ id: row.id, productId: row.productId, type: row.type, unit: row.unit, value: row.value });
             dispatch(
                 createToast({
                     title: locale.Planner,
@@ -81,14 +83,14 @@ const List = ({ productId }: ListProps) => {
         }
     };
 
-    const onDeleteClick = (form: discountModel) => {
+    const onDeleteClick = (form: specificationModel) => {
         const temp = apiData;
         const findIndex = temp.findIndex((r) => r.rowId === form.rowId);
         if (findIndex < 0) return;
         const row = temp[findIndex];
         temp.splice(findIndex, 1);
         setApiData([...temp]);
-        tblPosDiscount.remove({ id: row.id, productId: row.productId, name: row.name, percentage: row.percentage });
+        db.tblPosSpecification.remove({ id: row.id, productId: row.productId, type: row.type, unit: row.unit, value: row.value });
         dispatch(
             createToast({
                 title: locale.Planner,
@@ -100,7 +102,20 @@ const List = ({ productId }: ListProps) => {
 
     useEffect(() => {
         let isMounted = true;
-        tblPosDiscount
+
+        const apiMaster = new db.tblProduct();
+        apiMaster.getSpecificationMaster().then((res) => {
+            if (!isMounted) return;
+            if (res === undefined || res === null) {
+                setApiData([]);
+                return;
+            }
+            const d = res.map((item) => ({ key: String(item.id ?? item.createdDate), value: item.name }));
+            setSpecList(d);
+            if (d.length > 0) setSelectedSpec(d[0].value);
+        });
+
+        db.tblPosSpecification
             .search({ productId })
             .then((response) => {
                 if (!isMounted) return;
@@ -108,7 +123,7 @@ const List = ({ productId }: ListProps) => {
                     setApiData([]);
                     return;
                 }
-                const d: discountModel[] = response
+                const d: specificationModel[] = response
                     ?.sort((a, b) => b.id - a.id)
                     .map((r, i) => ({ ...r, rowId: i })) || [];
                 setApiData(d);
@@ -122,15 +137,36 @@ const List = ({ productId }: ListProps) => {
         };
     }, [productId]);
 
+    const onSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = event.target.value;
+        const isValidKey = specList.findIndex(s => s.key === value);
+        if (isValidKey > -1) setSelectedSpec(specList[isValidKey].value);
+        else setSelectedSpec("");
+    };
+
     return (
         <>
-            <AddButton
-                buttonId="dis-add-btn"
-                onClick={onAddButtonClick}
-                label={locale.addNewDiscount}
-            ></AddButton>
+            <div className="row align-items-center">
+                <div className="col-6">
+                    <select className="form-select form-select-sm" value={selectedSpec} onChange={onSelectChange}>
+
+                        {specList.map((spec) => (
+                            <option key={spec.key} value={spec.key}>
+                                {spec.value}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="col-6">
+                    <AddButton
+                        buttonId="dis-add-btn"
+                        onClick={onAddButtonClick}
+                        label={locale.addNewSpecification}
+                    ></AddButton>
+                </div>
+            </div>
             <hr className="mt-3" />
-            {apiData.map((form: discountModel) => (
+            {apiData.map((form: specificationModel) => (
                 <Update
                     key={form.rowId}
                     form={form}
