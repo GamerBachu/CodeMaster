@@ -1,6 +1,7 @@
 export function saveToDb(date: string | Date): string {
     let formattedDate: string;
-    if (typeof date === 'string') {
+    if (!date) return "";
+    else if (typeof date === 'string') {
         formattedDate = new Date(date).toUTCString();
     }
     else {
@@ -14,8 +15,16 @@ export function dbToDate(date: string): Date {
     return new Date(date);
 }
 
-export function dbToDateTimeInput(now: Date): string {
+export function dbToDateTimeInput(now: Date | string | undefined): string {
+    let value = new Date();
+    if (!now) return "";
+    else if (typeof now === 'string') {
+        value = new Date(now);
+    }
+    else {
+        value = now;
+    }
 
-    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-    return now.toISOString().slice(0, 16);
+    value.setMinutes(value.getMinutes() - value.getTimezoneOffset());
+    return value.toISOString().slice(0, 16);
 }

@@ -7,10 +7,11 @@ const HeaderContainer = () => {
   const appSession = useAppSession();
 
   const [authLink, setAuthLink] = useState([
-    { id: 1, path: appRoute.DASHBOARD.path, value: appRoute.DASHBOARD.value, active: true },
-    { id: 2, path: appRoute.PLAN_LIST.path, value: appRoute.PLAN_LIST.value, active: false },
-    { id: 3, path: appRoute.PROFILE.path, value: appRoute.PROFILE.value, active: false },
-    { id: 4, path: appRoute.DASHBOARD.path, value: appRoute.DASHBOARD.value, active: false },
+    { id: 10, path: appRoute.DASHBOARD.path, value: appRoute.DASHBOARD.value, active: true },
+    { id: 20, path: (appRoute.PLAN_Action.path + "/list"), value: appRoute.PLAN_Action.value, active: false },
+    { id: 30, path: (appRoute.POS_Action.path + "/list"), value: appRoute.POS_Action.value, active: false },
+    { id: 80, path: appRoute.PROFILE.path, value: appRoute.PROFILE.value, active: false },
+    { id: 90, path: appRoute.DASHBOARD.path, value: appRoute.DASHBOARD.value, active: false },
   ]);
 
 
@@ -18,7 +19,9 @@ const HeaderContainer = () => {
     const d = authLink;
     setAuthLink(d.map((link) => { link.active = link.id === id; return link; }));
   };
-  console.log(appSession);
+  console.log(appSession.info);
+  console.log(authLink);
+  
   if (appSession.info.isAuthorized)
     return (
       <nav className="bg-body-tertiary border-bottom">

@@ -70,7 +70,7 @@ const List = () => {
           <th>{locale.title}</th>
           <th>{locale.planEndDate}</th>
           <th>{locale.status}</th>
-          <th>Action</th>
+          <th>{locale.action}</th>
         </tr>
       </thead>
       <tbody>

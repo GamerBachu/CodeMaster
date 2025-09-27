@@ -4,9 +4,9 @@ import { useAppSession } from "../../contexts";
 const Dashboard = () => {
   const appSession = useAppSession();
 
-  console.log("Dashboard props", appSession.info);
+ 
 
-  return <div>Dashboard</div>;
+  return <div>Dashboard{ appSession.info.isAuthorized}</div>;
 };
 
 export default Dashboard;
