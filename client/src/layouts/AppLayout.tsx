@@ -3,10 +3,13 @@ import HeaderContainer from "../components/HeaderContainer";
 import InitializeRoutes from "../routes/InitializeRoutes";
 
 const AppLayout = () => {
-    return (<AppContainer>
-        <HeaderContainer></HeaderContainer>
-        <InitializeRoutes></InitializeRoutes>
-    </AppContainer>
+    return (
+        <>
+            <HeaderContainer></HeaderContainer>
+            <AppContainer>
+                <InitializeRoutes></InitializeRoutes>
+            </AppContainer>
+        </>
     );
 };
 

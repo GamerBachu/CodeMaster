@@ -3,6 +3,8 @@
   --bg-color-box: #fff;
   --bg-color-input: #9eeaf9;
   --bg-color-input-border: #008080;
+  --header-height: 40px;
+  --header-height-mt: 5px;
 }
 
 html,
@@ -25,12 +27,21 @@ body {
   min-height: 100vh;
   overflow-y: auto;
 }
+.wrapper .wrapper-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  z-index: 1000;
+  background: #fff;
+  margin-bottom: 5px;
+}
 
 .wrapper .wrapper-body {
   flex: 1 0 auto;
+  margin-top: calc(var(--header-height) + var(--header-height-mt));
 }
-
- 
 
 .wrapper .sidebar {
   width: 6.5rem;
@@ -43,9 +54,9 @@ body {
   background-color: var(--bg-color-box);
 }
 
-input[type="text"]
-, input[type="email"]
-, input[type="password"] {
+input[type="text"],
+input[type="email"],
+input[type="password"] {
   border-color: var(--bg-color-input-border);
 }
 .app-loader {
@@ -53,15 +64,14 @@ input[type="text"]
   top: 0;
   left: 0;
   width: 100%;
-  
 }
-.app-loader .progress{
+.app-loader .progress {
   height: 10px;
 }
 
-.nav-link.active{
+.nav-link.active {
   color: var(--bg-color-input-border) !important;
 }
-.btn-sm-align{
+.btn-sm-align {
   margin-top: -3px;
 }
