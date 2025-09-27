@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router";
 import appRoute from "../routes/appRoute";
 import { useAppSession } from "../contexts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const HeaderContainer = () => {
 
   const appSession = useAppSession();
@@ -21,10 +21,23 @@ const HeaderContainer = () => {
   };
   console.log(appSession.info);
   console.log(authLink);
-  
+
+  useEffect(() => {
+    if (appSession.info.isAuthorized) {
+      document.documentElement.style.setProperty('--header-height-mt', '5px');
+      document.documentElement.style.setProperty('--header-height', '40px');
+    }
+    else {
+      document.documentElement.style.setProperty('--header-height-mt', '0px');
+      document.documentElement.style.setProperty('--header-height', '0px');
+    }
+  }, [appSession.info.isAuthorized]);
+
+
+
   if (appSession.info.isAuthorized)
     return (
-      <nav className="bg-body-tertiary border-bottom">
+      <nav className="wrapper-header bg-body-tertiary border-bottom">
         <div className="d-flex flex-wrap">
           <ul className="nav me-auto">
             {
