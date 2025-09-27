@@ -170,15 +170,16 @@ const Status = ({
     return (
         <AccordionItem
             id={`pr-${id}`}
-            title={`${locale.btnProduct}-${form.productId}`}
+            title={`${locale.btnStatus}`}
             isCollapse={false}
-            className="border border-primary-subtle"
+            className=" border border-primary-subtle"
+            classNameBtn=""
         >
 
             <form className="mb-4" onSubmit={handleSubmit}>
                 <div className="mb-3 row">
 
-                    <div className="col-4">
+                    <div className="col-3">
                         <label className="form-label">{locale.status}</label>
                         <select
                             className="form-select"
@@ -194,7 +195,7 @@ const Status = ({
                             ))}
                         </select>
                     </div>
-                    <div className="col-4">
+                    <div className="col-5">
                         <label className="form-label">{locale.liveDate}</label>
                         <input
                             type="datetime-local"

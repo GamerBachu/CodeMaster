@@ -71,7 +71,7 @@ const Update = () => {
   return (
     <TableForm
       id="frm"
-      title={`${locale.Pos} ${progress}`}
+      title={`${locale.PosTitle} ${productId}`}
       addButtonLabel={locale.Back}
       onAddButtonClick={onAddButtonClick}
     >

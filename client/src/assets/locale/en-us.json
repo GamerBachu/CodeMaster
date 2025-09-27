@@ -36,7 +36,7 @@
   "link_Settings": "Settings",
   "link_About": "About",
   "link_Planner": "Planner",
-  "link_Pos": "PointOfSale",
+  "link_Pos": "Product Master",
 
   "Planner": "Planner",
   "planStartDate": "Plan Start Date",
@@ -57,12 +57,9 @@
   "DeleteSuccess": "Deleted successfully!",
   "CreateNew": "Create New",
 
-  "Pos": "PointOfSale",
-  "planStartDate": "Plan Start Date",
-  "planEndDate": "Plan End Date",
-  "title": "Title",
-  "description": "Description",
-  "status": "Status",
+  "Pos": "Product Master",
+  "PosTitle": "Product",
+
 
   "pageNotFound": "Requested page not found or not available.",
 
@@ -82,6 +79,7 @@
   "migrationDBDescription": "This section allows you to migrate your database to the latest version.",
 
   "btnProduct": "Product",
+  "btnStatus": "Status",
   "productId": "Product Id",
   "productName": "Product Name",
   "shortDescription": "Quick Description",
@@ -89,7 +87,7 @@
   "sku": "SKU",
   "price": "Sell Price",
   "costPrice": "Cost Price",
-  "liveDate": "Online Start Date",
+  "liveDate": "Online Start from",
   "invalidProduct": "Invalid Product",
 
   "addNewDiscount": "Add New Discount",

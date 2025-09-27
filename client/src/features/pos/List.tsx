@@ -79,6 +79,26 @@ const List = () => {
   };
 
 
+  const getRowColor = (status: string) => {
+
+    switch (status) {
+      case "2":
+        return "";
+      case "6":
+        return "table-danger";
+      case "24":
+        return "table-warning";
+      case "25":
+        return "table-success";
+      default:
+        break ;
+    }
+
+
+    return `row-clr-${status}`;
+  }
+
+
   return (
     <Table
       id={"pl"}
@@ -100,7 +120,8 @@ const List = () => {
       <tbody>
         {
           apiData.map((row, idx) => (
-            <tr key={row.productId ?? idx} className="align-middle">
+            <tr key={row.productId ?? idx} 
+            className={`align-middle ${getRowColor(String(row.status))}`}>
               <td>{idx + 1}</td>
               <td className="d-flex flex-column">
                 {row.productName}

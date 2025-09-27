@@ -25,28 +25,13 @@ const Update = ({ id, productId }: Props) => {
 
     const [form, setForm] = useState<IProduct>(initialForm);
 
-    const [statusList, setStatusList] = useState<keyValueModel[]>([]);
-
-    useEffect(() => {
+     useEffect(() => {
         if (productId !== "0") {
             loadData();
         }
 
         async function loadData() {
-
-            const result = await db.tblActionStatus.search();
-            if (result) {
-                const allowedKeys = statusUnit.map(c => String(c));
-                const data = result.map((item) => ({
-                    key: String(item.id ?? ""),
-                    value: item.name,
-                })).filter(p => allowedKeys.includes(p.key));
-                setStatusList(data);
-                setForm((prev) => ({ ...prev, status: data[0]?.key }));
-            }
             const api = new db.tblProduct();
-
-
             api.get(productId)
                 .then((resultP) => {
 
@@ -57,7 +42,6 @@ const Update = ({ id, productId }: Props) => {
                             id: String(resultP.id),
                             productId: resultP.productId,
                             status: String(resultP.status),
-                            // liveDate: dbToDateTimeInput(result.liveDate),
                             productName: resultP.productName,
                             sku: resultP.sku,
                             costPrice: resultP.costPrice,
@@ -153,7 +137,7 @@ const Update = ({ id, productId }: Props) => {
     return (
         <AccordionItem
             id={`pr-${id}`}
-            title={`${locale.btnProduct}-${form.productId}`}
+            title={`${locale.btnProduct}`}
             isCollapse={true}
             className="border border-primary-subtle mt-1"
         >
