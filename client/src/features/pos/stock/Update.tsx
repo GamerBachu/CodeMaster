@@ -106,6 +106,7 @@ const Update = ({ productId, id }: stockAvailabilityFormProps) => {
                                 buttonId={`st-upd-btn${id}`}
                                 onClick={() => onUpdateClick(form)}
                                 label={locale.save}
+                                type="button"
                             ></UpdateButton>
                         </div>
                     </div>

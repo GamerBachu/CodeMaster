@@ -33,10 +33,10 @@ export function isValid(form: IProduct, isRequiredAll: boolean): boolean {
         (form.productId?.trim?.() ?? "") === "" ||
         (form.productName?.trim?.() ?? "") === "" ||
         (form.sku?.trim?.() ?? "") === "" ||
-        (form.status?.trim?.() ?? "") === "" ||
+
         isNaN(form.price) ||
-        isNaN(form.costPrice) ||
-        (isRequiredAll !== false && (form.liveDate?.trim?.() ?? "") === "")
+        isNaN(form.costPrice)
+
     ) {
         return false;
     }
@@ -52,3 +52,20 @@ export function onlyNumber(name: string, value: string): boolean {
     }
     return true;
 }
+
+
+
+
+export interface IProductStatus {
+    id?: string;
+    productId: string;
+    status: string;
+    liveDate: string;
+}
+
+export const initialFormStatus = {
+    id: "0",
+    productId: "*******",
+    status: "0",
+    liveDate: "",
+};

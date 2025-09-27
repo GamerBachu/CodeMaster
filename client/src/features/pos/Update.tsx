@@ -12,6 +12,7 @@ import ProductSpecification from "./specification/Index";
 
 import { useDispatch } from "react-redux";
 import { createToast } from "../../components/toasts/toastSlicer";
+import Status from "./product/Status";
 
 const Update = () => {
   const dispatch = useDispatch();
@@ -74,7 +75,15 @@ const Update = () => {
       addButtonLabel={locale.Back}
       onAddButtonClick={onAddButtonClick}
     >
+
+
       <div className="accordion">
+        <Status
+          id="pr0"
+          setProgress={setProgress}
+          productId={productId} >
+        </Status>
+
         <ProductUpdate
           id="pr1"
           setProgress={setProgress}

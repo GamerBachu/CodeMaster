@@ -10,6 +10,7 @@ import { dbToDateTimeInput } from "../../../utils/helper/dateUtils";
 import type { IProduct } from "./service";
 import { initialForm, isValid, onlyNumber } from "./service";
 import AccordionItem from "../../../components/accordion/AccordionItem";
+import { UpdateButton } from "../../../components/button";
 
 type Props = {
     id: string;
@@ -104,15 +105,12 @@ const Update = ({ id, productId }: Props) => {
                 return;
             }
 
-            const status = statusList.find((s) => String(s.key) === String(form.status));
-
             const api = new db.tblProduct();
 
             api.put({
                 id: Number(form?.id),
                 productId: form.productId,
-                status: Number(status?.key),
-                liveDate: form.liveDate,
+
                 productName: form.productName,
                 sku: form.sku,
                 costPrice: form.costPrice,
@@ -148,7 +146,7 @@ const Update = ({ id, productId }: Props) => {
                 );
             });
         },
-        [dispatch, form, statusList]
+        [dispatch, form]
     );
 
 
@@ -157,58 +155,18 @@ const Update = ({ id, productId }: Props) => {
             id={`pr-${id}`}
             title={`${locale.btnProduct}-${form.productId}`}
             isCollapse={true}
-            className="border border-primary-subtle"
+            className="border border-primary-subtle mt-1"
         >
 
             <form className="mb-4" onSubmit={handleSubmit}>
                 <div className="mb-3 row">
-                    <div className="col-4">
+                    <div className="col-6">
                         <label className="form-label">{locale.productId}</label>
                         <input
                             className="form-control"
                             name="productId"
                             value={form.productId}
                             readOnly disabled
-                        />
-                    </div>
-                    <div className="col-4">
-                        <label className="form-label">{locale.status}</label>
-                        <select
-                            className="form-select"
-                            name="status"
-                            value={form.status}
-                            onChange={handleChange}
-                            required
-                        >
-                            {statusList.map((status) => (
-                                <option key={status.key} value={status.key}>
-                                    {status.value}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="col-4">
-                        <label className="form-label">{locale.liveDate}</label>
-                        <input
-                            type="datetime-local"
-                            className="form-control"
-                            name="liveDate"
-                            value={form.liveDate}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                </div>
-                <div className="mb-3 row">
-                    <div className="col-6">
-                        <label className="form-label">{locale.productName}</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="productName"
-                            value={form.productName}
-                            onChange={handleChange}
-                            required
                         />
                     </div>
                     <div className="col-6">
@@ -222,6 +180,20 @@ const Update = ({ id, productId }: Props) => {
                         />
 
                     </div>
+                </div>
+                <div className="mb-3 row">
+                    <div className="col-12">
+                        <label className="form-label">{locale.productName}</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="productName"
+                            value={form.productName}
+                            onChange={handleChange}
+                            required
+                        />
+                    </div>
+
                 </div>
                 <div className="mb-3 row">
                     <div className="col-6">
@@ -268,9 +240,12 @@ const Update = ({ id, productId }: Props) => {
                     />
                 </div>
 
-                <button type="submit" className="btn btn-primary">
-                    {locale.Update}
-                </button>
+                <UpdateButton
+                    buttonId={`dis-upd-btn${form.id}`}
+                    onClick={() => () => { }}
+                    label={locale.save}
+                    type="submit"
+                ></UpdateButton>
 
             </form>
         </AccordionItem>
