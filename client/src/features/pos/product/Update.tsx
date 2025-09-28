@@ -1,11 +1,11 @@
 import { useEffect, useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import locale from "../../../resources";
-import type { keyValueModel } from "../../../models";
+
 import { createToast } from "../../../components/toasts/toastSlicer";
 import db from "../../../database/";
 import { useAppSession } from "../../../contexts";
-import statusUnit from "../enums/statusUnit";
+
 import { dbToDateTimeInput } from "../../../utils/helper/dateUtils";
 import type { IProduct } from "./service";
 import { initialForm, isValid, onlyNumber } from "./service";
@@ -15,7 +15,7 @@ import { UpdateButton } from "../../../components/button";
 type Props = {
     id: string;
     productId: string;
-    setProgress: (progress: number) => void;
+ 
 };
 
 const Update = ({ id, productId }: Props) => {

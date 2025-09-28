@@ -8,23 +8,21 @@ import { createToast } from "../../../components/toasts/toastSlicer";
 import db from "../../../database/";
 import { useAppSession } from "../../../contexts";
 import statusUnit from "../enums/statusUnit";
-import { dbToDateTimeInput } from "../../../utils/helper/dateUtils";
 import { initialFormStatus, type IProductStatus, } from "./service";
-import { initialForm, isValid, onlyNumber } from "./service";
+import { onlyNumber } from "./service";
 import AccordionItem from "../../../components/accordion/AccordionItem";
 import { UpdateButton } from "../../../components/button";
+import { getStatusColor2 } from "../statusColorUtils";
 
 
 type IStatusProps = {
     id: string;
     productId: string;
-    setProgress: (progress: number) => void;
 };
 
 const Status = ({
     id,
     productId,
-    setProgress
 }: IStatusProps) => {
 
     const appSession = useAppSession();
@@ -173,7 +171,7 @@ const Status = ({
             title={`${locale.btnStatus}`}
             isCollapse={false}
             className=" border border-primary-subtle"
-            classNameBtn=""
+            classNameBtn={`${getStatusColor2(Number(form.status))}-subtle`}
         >
 
             <form className="mb-4" onSubmit={handleSubmit}>

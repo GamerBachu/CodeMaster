@@ -1,12 +1,13 @@
 
 import { useNavigate } from "react-router";
 import { icons_file_edit, } from "../../components/Icons";
-import Table from "../../components/table/Table";
+import Table from "../../components/table/Table"; 
 import appRoute from "../../routes/appRoute";
 import locale from "../../resources";
 import { useEffect, useState } from "react";
 import { toViewString } from "../../utils/helper/stringFormat";
 import type { ProductModel } from "./models/productModel";
+import { getStatusColor } from "./statusColorUtils";
 import db from "../../database/";
 import type { keyValueModel } from "../../models";
 import statusUnit from "./enums/statusUnit";
@@ -78,27 +79,6 @@ const List = () => {
 
   };
 
-
-  const getRowColor = (status: string) => {
-
-    switch (status) {
-      case "2":
-        return "";
-      case "6":
-        return "table-danger";
-      case "24":
-        return "table-warning";
-      case "25":
-        return "table-success";
-      default:
-        break ;
-    }
-
-
-    return `row-clr-${status}`;
-  }
-
-
   return (
     <Table
       id={"pl"}
@@ -121,7 +101,7 @@ const List = () => {
         {
           apiData.map((row, idx) => (
             <tr key={row.productId ?? idx} 
-            className={`align-middle ${getRowColor(String(row.status))}`}>
+            className={`align-middle ${getStatusColor(row.status)}`}>
               <td>{idx + 1}</td>
               <td className="d-flex flex-column">
                 {row.productName}
