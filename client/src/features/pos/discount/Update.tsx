@@ -42,6 +42,7 @@ const Update = ({ form, onChange, onUpdate, onDelete }: DiscountFormProps) => {
                                 buttonId={`dis-upd-btn${form.id}`}
                                 onClick={() => onUpdate(form)}
                                 label={locale.save}
+                                type="button"
                             ></UpdateButton>
                         </div>
                         <div className="btn-group " role="group" aria-label="">

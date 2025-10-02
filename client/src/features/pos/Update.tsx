@@ -12,6 +12,7 @@ import ProductSpecification from "./specification/Index";
 
 import { useDispatch } from "react-redux";
 import { createToast } from "../../components/toasts/toastSlicer";
+import Status from "./product/Status";
 
 const Update = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const Update = () => {
   const navigate = useNavigate();
 
   const [productId, setProductId] = useState<string>("0");
-  const [progress, setProgress] = useState<number>(0);
+
 
   const onAddButtonClick = useCallback(() => {
     navigate(`${appRoute.POS_Action.path}/list?q=${productId}`);
@@ -70,14 +71,22 @@ const Update = () => {
   return (
     <TableForm
       id="frm"
-      title={`${locale.Pos} ${progress}`}
+      title={`${locale.PosTitle} ${productId}`}
       addButtonLabel={locale.Back}
       onAddButtonClick={onAddButtonClick}
     >
+
+
       <div className="accordion">
+        <Status
+          id="pr0"
+        
+          productId={productId} >
+        </Status>
+
         <ProductUpdate
           id="pr1"
-          setProgress={setProgress}
+       
           productId={productId} >
         </ProductUpdate>
 

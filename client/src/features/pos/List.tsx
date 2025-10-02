@@ -1,12 +1,13 @@
 
 import { useNavigate } from "react-router";
 import { icons_file_edit, } from "../../components/Icons";
-import Table from "../../components/table/Table";
+import Table from "../../components/table/Table"; 
 import appRoute from "../../routes/appRoute";
 import locale from "../../resources";
 import { useEffect, useState } from "react";
 import { toViewString } from "../../utils/helper/stringFormat";
 import type { ProductModel } from "./models/productModel";
+import { getStatusColor } from "./statusColorUtils";
 import db from "../../database/";
 import type { keyValueModel } from "../../models";
 import statusUnit from "./enums/statusUnit";
@@ -78,7 +79,6 @@ const List = () => {
 
   };
 
-
   return (
     <Table
       id={"pl"}
@@ -100,7 +100,8 @@ const List = () => {
       <tbody>
         {
           apiData.map((row, idx) => (
-            <tr key={row.productId ?? idx} className="align-middle">
+            <tr key={row.productId ?? idx} 
+            className={`align-middle ${getStatusColor(row.status)}`}>
               <td>{idx + 1}</td>
               <td className="d-flex flex-column">
                 {row.productName}

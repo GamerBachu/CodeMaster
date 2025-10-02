@@ -17,5 +17,5 @@ export default Toast;
 export { Container as ToastContainer };
 
 export const utils = {
-  timeOut: 30000 as number
+  timeOut: 3000 as number
 }
