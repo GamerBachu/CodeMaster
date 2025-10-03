@@ -12,6 +12,7 @@ const HeaderContainer = () => {
     { id: 30, path: (appRoute.POS_Action.path + "/list"), value: appRoute.POS_Action.value, active: false },
     { id: 80, path: appRoute.PROFILE.path, value: appRoute.PROFILE.value, active: false },
     { id: 90, path: appRoute.DASHBOARD.path, value: appRoute.DASHBOARD.value, active: false },
+    { id: 290, path: appRoute.SAMPLE_CANVAS.path, value: appRoute.SAMPLE_CANVAS.value, active: false },
   ]);
 
 
@@ -19,8 +20,7 @@ const HeaderContainer = () => {
     const d = authLink;
     setAuthLink(d.map((link) => { link.active = link.id === id; return link; }));
   };
-  console.log(appSession.info);
-  console.log(authLink);
+ 
 
   useEffect(() => {
     if (appSession.info.isAuthorized) {
