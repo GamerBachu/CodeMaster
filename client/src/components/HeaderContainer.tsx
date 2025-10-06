@@ -22,16 +22,7 @@ const HeaderContainer = () => {
   };
  
 
-  useEffect(() => {
-    if (appSession.info.isAuthorized) {
-      document.documentElement.style.setProperty('--header-height-mt', '5px');
-      document.documentElement.style.setProperty('--header-height', '40px');
-    }
-    else {
-      document.documentElement.style.setProperty('--header-height-mt', '0px');
-      document.documentElement.style.setProperty('--header-height', '0px');
-    }
-  }, [appSession.info.isAuthorized]);
+  
 
 
 
