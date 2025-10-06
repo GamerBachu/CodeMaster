@@ -13,13 +13,13 @@ import AppLayout from "./layouts/AppLayout.tsx";
 createRoot(document.getElementById("root")!).render(
   <>
     <Provider store={store}>
-      <ToastContainer></ToastContainer>
       <BrowserRouter>
         <AppSessionProvider>
           <AppLayout>
           </AppLayout>
         </AppSessionProvider>
       </BrowserRouter>
+      <ToastContainer></ToastContainer>
     </Provider>
   </>
 );

@@ -34,9 +34,10 @@ body {
   width: 100%;
   height: var(--header-height);
   z-index: 1000;
-  background: #fff;
-  margin-bottom: 5px;
-  transition: transform 0.5s ease-in-out;
+  background: #fff; 
+
+  overflow: hidden;
+  transition: transform 0.1s ease-in-out;
 }
 
 .wrapper .wrapper-body {
@@ -84,4 +85,8 @@ input[type="password"] {
 }
 .btn-sm-align {
   margin-top: -3px;
+}
+.toast-container{
+  min-height: 0px;
+  min-width: 0px;
 }
