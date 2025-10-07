@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import Konva from "konva";
+import CanvasAreaLayout from "./CanvasAreaLayout";
 
 const SampleCanvas = () => {
     const stageRef = useRef<Konva.Stage>(undefined);
@@ -114,13 +115,8 @@ const SampleCanvas = () => {
 
     return (
         <>
-            <div className="d-flex justify-content-center my-3">
-                <button onClick={onClickDownload}>onClickDownload</button>
-                <button onClick={onClickLoad}>onClickLoad</button>
-                <button onClick={addShape}>addShapeaddShape</button>
-            </div>
-            <div className="canvas-container" id={"canvas-container"}></div>
-        </>
+            <CanvasAreaLayout></CanvasAreaLayout>
+             </>
     );
 };
 

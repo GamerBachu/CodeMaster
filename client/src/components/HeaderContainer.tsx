@@ -20,9 +20,23 @@ const HeaderContainer = () => {
     const d = authLink;
     setAuthLink(d.map((link) => { link.active = link.id === id; return link; }));
   };
- 
 
-  
+
+  useEffect(() => {
+
+    const getUrl = window.location.pathname;
+    setAuthLink(prev => prev.map((a) => {
+
+      if (a.path.startsWith(getUrl)) a.active = true;
+      else a.active = false;
+      return a;
+    }));
+
+
+  }, []);
+
+
+
 
 
 

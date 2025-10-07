@@ -1,0 +1,45 @@
+.canvas-area {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: calc(100vh - var(--header-height) - 2px);
+  overflow: hidden;
+
+  .side-bar-1 {
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+    height: 100vh;
+    overflow: hidden;
+
+    .side-bar-c-1{
+
+        height: calc(100vh - calc(var(--header-height) + var(--header-mb) + 5px));
+        overflow: auto;
+
+    }
+
+    .card {
+      width: 100px;
+
+      .card-img-top {
+        width: 70px;
+        height: 70px;
+      }
+      .card-body {
+        .card-title {
+          max-width: 90px;
+        }
+        .card-text {
+          max-height: 50px;
+          overflow: auto;
+        }
+      }
+    }
+  }
+  .top-bar-1 {
+    height: 50px;
+    min-height: 50px;
+    max-height: 50px;
+  }
+}
