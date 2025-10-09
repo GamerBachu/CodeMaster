@@ -3,7 +3,7 @@
   --bg-color-box: #fff;
   --bg-color-input: #9eeaf9;
   --bg-color-input-border: #008080;
-  --header-height: 40px;
+  --header-height: 48px;
   --header-mb: 0px;
 }
 
@@ -34,8 +34,8 @@ body {
   width: 100%;
   height: var(--header-height);
   z-index: 1000;
-  background: #fff; 
-
+  background: #fff;
+  align-content: center;
   overflow: hidden;
   transition: transform 0.1s ease-in-out;
 }
@@ -86,7 +86,7 @@ input[type="password"] {
 .btn-sm-align {
   margin-top: -3px;
 }
-.toast-container{
+.toast-container {
   min-height: 0px;
   min-width: 0px;
 }
