@@ -18,7 +18,7 @@ const CanvasAreaLayout: React.FC = () => {
       {/* Right Container */}
       <div className="flex-grow-1 d-flex flex-column h-100 overflow-hidden">
         {/* Top Section */}
-        <div className="top-bar-1 border-bottom bg-white" >
+        <div className="top-bar-1" >
           <TopSection />
         </div>
         {/* Main Canvas */}
