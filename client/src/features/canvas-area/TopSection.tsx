@@ -4,11 +4,11 @@ import {
   icons_file_delete,
   icons_file_add,
   icons_keyboard_arrow_down,
-} from "../../components/Icons";  
+} from "../../components/Icons";
 const TopSection: React.FC = () => {
 
   return (
-    <div className="tabs-1">   
+    <div className="tabs-1">
 
       {[1, 2].map(() => <div
         className="tab btn-group"
@@ -42,7 +42,7 @@ const TopSection: React.FC = () => {
         </button>
       </div>
       <div
-        className="tab btn-group"
+        className="tab action btn-group"
         role="group"
         aria-label="action"
       >
@@ -52,7 +52,7 @@ const TopSection: React.FC = () => {
       </div>
 
       <div
-        className="tab btn-group"
+        className="tab action btn-group"
         role="group"
         aria-label="action"
       >

@@ -22,7 +22,7 @@ const CanvasAreaLayout: React.FC = () => {
           <TopSection />
         </div>
         {/* Main Canvas */}
-        <div className="flex-grow-1 overflow-hidden">
+        <div className="main-area">
           <MainCanvas />
         </div>
       </div>
