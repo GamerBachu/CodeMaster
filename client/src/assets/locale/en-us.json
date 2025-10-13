@@ -38,6 +38,7 @@
   "link_Planner": "Planner",
   "link_Pos": "Product Master",
   "link_SampleCanvas": "Sample Canvas",
+  "link_Universe_Canvas": "Universe Canvas",
 
   "Planner": "Planner",
   "planStartDate": "Plan Start Date",
@@ -60,7 +61,6 @@
 
   "Pos": "Product Master",
   "PosTitle": "Product",
-
 
   "pageNotFound": "Requested page not found or not available.",
 

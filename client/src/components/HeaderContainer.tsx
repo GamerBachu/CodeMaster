@@ -44,6 +44,12 @@ const HeaderContainer = () => {
       value: appRoute.SAMPLE_CANVAS.value,
       active: false,
     },
+     {
+      id: 190,
+      path: appRoute.Universe_Canvas.path,
+      value: appRoute.Universe_Canvas.value,
+      active: false,
+    },
   ]);
 
   const linkClick = (id: number) => {

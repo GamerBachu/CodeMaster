@@ -21,6 +21,7 @@ import Logout from "../pages/account/Logout";
 import Profile from "../pages/account/Profile";
 import Verify from "../pages/account/Verify";
 import SampleCanvas from "../features/canvas-area/sample-canvas";
+import UniverseCanvas from "../features/canvas-area/CanvasAreaLayout"
 
 const PrivateRoute = ({ children }: { children: JSX.Element; }) => {
   const appSession = useAppSession();
@@ -151,10 +152,10 @@ const InitializeRoutes = () => (
           }
         />
         <Route
-          path="create/:id"
+          path="universe-canvas"
           element={
             <PrivateRoute>
-              <PosCreate />
+              <UniverseCanvas />
             </PrivateRoute>
           }
         />
