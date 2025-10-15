@@ -1,3 +1,5 @@
+import type Konva from "konva";
+
 export interface IAccordionData {
     id: string;
     title: string;
@@ -11,4 +13,20 @@ export interface IAccordion {
     title: string;
     open: boolean;
     content: IAccordionData[];
+}
+
+
+
+export interface universeData {
+    id: string;
+    name: string;
+    updatedAt: string;
+    updatedBy: string;
+    shapes: any[];
+}
+
+export interface IUniverseCanvasState {
+    universe: universeData[];
+    konvaStage: Konva.Stage | undefined;
+    konvaLayer: Konva.Layer | undefined;
 }
