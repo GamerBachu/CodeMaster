@@ -1,6 +1,6 @@
 import { useReducer, type ReactNode } from "react";
 import UniverseCanvasContext from "./UniverseCanvasContext";
-import UniverseCanvasReducer from "./UniverseCanvasReducer";
+import UniverseCanvasReducer from "../reducers/UniverseCanvasReducer";
 import initialUniverseCanvasState from "./UniverseCanvasState";
 
 export const UniverseCanvasProvider = ({ children }: { children: ReactNode; }) => {

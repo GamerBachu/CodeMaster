@@ -1,6 +1,6 @@
-import React, { use, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Konva from "konva";
-import { useUniverseCanvas } from './context/useUniverseCanvas';
+import useUniverseCanvas from './hooks/useUniverseCanvas';
 
 const MainCanvas: React.FC = () => {
 
@@ -35,7 +35,7 @@ const MainCanvas: React.FC = () => {
   useEffect(() => {
 
     setTimeout(() => {
-     
+
 
       if (state.konvaStage && state.konvaLayer) {
         const rect = new Konva.Rect({

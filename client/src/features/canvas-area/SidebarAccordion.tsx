@@ -9,7 +9,7 @@ const accordionData = [
 const SidebarAccordion: React.FC = () => {
   return (
     <div className="accordion" id="sidebarAccordion">
-      {accordionData.map(({ id, title, content }, idx) => (
+      {accordionData.map(({ id, title,  }, idx) => (
         <div className="accordion-item" key={id}>
           <h2 className="accordion-header" id={`heading-${id}`}>
             <button

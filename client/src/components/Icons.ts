@@ -6,6 +6,9 @@ import icons_arrow_left_square from "../assets/arrow_left_square.svg";
 import icons_check_square from "../assets/check_square.svg";
 import icons_x_circle from "../assets/x_circle.svg";
 import icons_keyboard_arrow_down from "../assets/keyboard_arrow_down.svg";
+import icons_edit_complete from "../assets/check2.svg";
+import icons_edit_close from "../assets/x.svg";
+
 
 export {
   icons_file_add,
@@ -15,5 +18,7 @@ export {
   icons_arrow_left_square,
   icons_check_square,
   icons_x_circle,
-  icons_keyboard_arrow_down
+  icons_keyboard_arrow_down,
+  icons_edit_complete,
+  icons_edit_close
 };

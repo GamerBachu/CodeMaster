@@ -1,5 +1,12 @@
 import type Konva from "konva";
 
+
+import { generateGuidV2 } from "../../../utils/helper/guid";
+export { generateGuidV2 };
+
+import { getDateString } from "../../../utils/helper/dateUtils";
+export { getDateString };
+
 export interface IAccordionData {
     id: string;
     title: string;
@@ -15,9 +22,14 @@ export interface IAccordion {
     content: IAccordionData[];
 }
 
+export interface IUniverseArea {
+    id: string;
+    name: string;
+    isActive: boolean;
+}
 
 
-export interface universeData {
+export interface IUniverseData {
     id: string;
     name: string;
     updatedAt: string;
@@ -26,7 +38,7 @@ export interface universeData {
 }
 
 export interface IUniverseCanvasState {
-    universe: universeData[];
+    universe: IUniverseData[];
     konvaStage: Konva.Stage | undefined;
     konvaLayer: Konva.Layer | undefined;
 }

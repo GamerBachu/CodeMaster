@@ -57,6 +57,7 @@
   "AddNewSuccess": "Added successfully!",
   "UpdateSuccess": "Updated successfully!",
   "DeleteSuccess": "Deleted successfully!",
+  "DeleteError": "Can not delete this!",
   "CreateNew": "Create New",
 
   "Pos": "Product Master",
@@ -102,5 +103,7 @@
   "selectSpecification": "Select Specification",
   "specificationType": "Type",
   "specificationUnit": "Unit",
-  "specificationValue": "Value"
+  "specificationValue": "Value",
+
+  "universe_Canvas": "Universe Canvas"
 }

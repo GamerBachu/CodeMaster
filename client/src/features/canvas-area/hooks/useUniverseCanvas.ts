@@ -1,9 +1,11 @@
 import { useContext } from "react";
-import UniverseCanvasContext from "./UniverseCanvasContext";
+import UniverseCanvasContext from "../context/UniverseCanvasContext";
 
 
-export function useUniverseCanvas() {
+function useUniverseCanvas() {
     const context = useContext(UniverseCanvasContext);
     if (!context) throw new Error('useCanvasArea must be used within CanvasAreaProvider');
     return context;
 }
+
+export default useUniverseCanvas; 
