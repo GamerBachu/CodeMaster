@@ -4,21 +4,32 @@ import {
   icons_keyboard_arrow_down,
 } from "../../components/Icons";
 import useUniverseCanvas from "./hooks/useUniverseCanvas";
-import type { IUniverseArea } from "./interfaces";
+import type { IUniverseArea, IUniverseCanvasContext } from "./interfaces";
 import Area from "./components/Area";
 import { useDispatch } from "react-redux";
 import { createToast } from "../../components/toasts/toastSlicer";
 import locale from "../../resources";
+import findTotalAreaToShow from "./utils/findTotalAreaToShow";
 
 const TopSection: React.FC = () => {
-  const { state, dispatch } = useUniverseCanvas();
+  const {
+    isCanvasReady,
+    universeData,
+    addUniverseArea,
+    renameUniverseArea,
+    deleteUniverseArea,
+  }: IUniverseCanvasContext = useUniverseCanvas();
+
   const [areas, setAreas] = useState<IUniverseArea[]>([]);
-  const dispatch2 = useDispatch();
+  const dispatch = useDispatch();
   const refList = useRef<HTMLDivElement | null>(null);
   const totalShow = useRef<number>(1);
+  const totalArea = areas.length;
   const [visibleWidth, setVisibleWidth] = useState(0);
+  console.log("visibleWidth", { universeData, areas });
 
   useEffect(() => {
+    if (!isCanvasReady) return;
     const element = refList.current;
     if (!element) return;
 
@@ -31,10 +42,19 @@ const TopSection: React.FC = () => {
     return () => {
       resizeObserver.disconnect();
     };
-  }, []);
+  }, [isCanvasReady]);
 
   useEffect(() => {
-    const data = state.universe.map((area) => {
+    if (!isCanvasReady) return;
+    if (visibleWidth < 10) return;
+    if (
+      universeData.current === undefined ||
+      universeData.current.length === 0 ||
+      universeData.current === null
+    )
+      return;
+
+    const data = universeData.current.map((area) => {
       return {
         id: area.id,
         name: area.name,
@@ -48,10 +68,11 @@ const TopSection: React.FC = () => {
     }
 
     setAreas(data);
+    totalShow.current = findTotalAreaToShow(visibleWidth, data.length);
     return () => {
       setAreas([]);
     };
-  }, [state.universe]);
+  }, [isCanvasReady, universeData, visibleWidth]);
 
   const onRename = useCallback(
     (e: IUniverseArea) => {
@@ -60,9 +81,15 @@ const TopSection: React.FC = () => {
       if (findArea.name === e.name) return;
       findArea.name = e.name;
       setAreas([...areas]);
-      dispatch({ type: "SET_UNIVERSE_NAME", payload: e });
+      renameUniverseArea({
+        id: e.id,
+        name: e.name,
+        updatedAt: "",
+        updatedBy: "",
+        shapes: [],
+      });
     },
-    [areas, dispatch]
+    [areas, renameUniverseArea]
   );
 
   const onActive = useCallback(
@@ -80,7 +107,7 @@ const TopSection: React.FC = () => {
     (e: IUniverseArea) => {
       const copyAreas = [...areas];
       if (copyAreas.length === 1) {
-        dispatch2(
+        dispatch(
           createToast({
             title: locale.universe_Canvas,
             description: locale.DeleteError,
@@ -93,8 +120,16 @@ const TopSection: React.FC = () => {
       if (index !== -1) {
         copyAreas.splice(index, 1);
         setAreas(copyAreas);
-        dispatch({ type: "DELETE_UNIVERSE_AREA", payload: e });
-        dispatch2(
+        deleteUniverseArea({
+          id: e.id,
+          name: e.name,
+          updatedAt: "",
+          updatedBy: "",
+          shapes: [],
+        });
+
+        totalShow.current = findTotalAreaToShow(visibleWidth, copyAreas.length);
+        dispatch(
           createToast({
             title: locale.universe_Canvas,
             description: locale.DeleteSuccess,
@@ -103,22 +138,42 @@ const TopSection: React.FC = () => {
         );
       }
     },
-    [areas, dispatch, dispatch2]
+    [areas, deleteUniverseArea, dispatch, visibleWidth]
   );
 
   const onAdd = useCallback(() => {
+    // Create new area with unique id
+    let newName = "Room-1";
+    const existingNames = areas.map((area) => area.name);
+    let counter = 1;
+    while (existingNames.includes(newName)) {
+      newName = `Room-${counter}`;
+      counter++;
+    }
+
     const newArea: IUniverseArea = {
       id: Date.now().toString(),
-      name: "New Area",
+      name: newName,
       isActive: false,
     };
-    setAreas((prev) => [...prev, newArea]);
-    dispatch({ type: "ADD_UNIVERSE_AREA", payload: newArea });
-  }, [dispatch]);
+
+    // Update state using functional update to ensure latest state
+    const copyAreas = [...areas, newArea];
+    setAreas(copyAreas);
+    totalShow.current = findTotalAreaToShow(visibleWidth, copyAreas.length);
+    // Call the provided addUniverseArea function
+    addUniverseArea({
+      id: newArea.id,
+      name: newArea.name,
+      updatedAt: "",
+      updatedBy: "",
+      shapes: [],
+    });
+  }, [areas, addUniverseArea, visibleWidth]);
 
   return (
-    <div className="tabs-1" id="2341234" ref={refList}>
-      {areas.map((area) => (
+    <div className="tabs-1" ref={refList}>
+      {areas.slice(0, totalShow.current).map((area) => (
         <Area
           key={area.id}
           area={area}
@@ -129,8 +184,7 @@ const TopSection: React.FC = () => {
       ))}
 
       <div className="tab action btn-group" role="group" aria-label="action">
-        <button type="button" className="btn btn-sm"
-          onClick={onAdd}>
+        <button type="button" className="btn btn-sm" onClick={onAdd}>
           <img src={icons_file_add} />
         </button>
       </div>

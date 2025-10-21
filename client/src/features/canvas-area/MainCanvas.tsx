@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import Konva from "konva";
 import useUniverseCanvas from './hooks/useUniverseCanvas';
+import type { IUniverseCanvasContext } from './interfaces';
+import apiServices from "./apis";
+
 
 const MainCanvas: React.FC = () => {
 
   const canvasElement = React.useRef<HTMLDivElement | null>(null);
-  const { dispatch, state } = useUniverseCanvas();
+  const { initializeCanvas, initializeUniverse, isCanvasReady, konvaLayer, konvaStage }: IUniverseCanvasContext = useUniverseCanvas();
 
   useEffect(() => {
 
@@ -24,20 +27,19 @@ const MainCanvas: React.FC = () => {
 
     stage.add(layer);
 
-    dispatch({ type: 'SET_KONVA_STAGE', payload: stage });
-    dispatch({ type: 'SET_KONVA_LAYER', payload: layer });
+    initializeCanvas(stage, layer);
+
+  }, [initializeCanvas]);
 
 
-
-
-
-  }, [dispatch]);
   useEffect(() => {
 
+    apiServices.getData("a1s2").then((data) => {
+      initializeUniverse(data);
+    });
+
     setTimeout(() => {
-
-
-      if (state.konvaStage && state.konvaLayer) {
+      if (konvaStage && konvaLayer) {
         const rect = new Konva.Rect({
           x: 20,
           y: 20,
@@ -48,11 +50,11 @@ const MainCanvas: React.FC = () => {
           strokeWidth: 2,
           draggable: true,
         });
-        state.konvaLayer.add(rect);
-        state.konvaLayer.draw();
+        konvaLayer.current.add(rect);
+        konvaLayer.current.draw();
       }
     }, 5000);
-  }, [state.konvaStage, state.konvaLayer, state]);
+  }, [initializeUniverse, isCanvasReady, konvaLayer, konvaStage]);
 
   return (
     <div className="layer-1" ref={canvasElement}>    </div>

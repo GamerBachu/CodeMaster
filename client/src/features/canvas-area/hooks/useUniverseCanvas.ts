@@ -1,11 +1,13 @@
 import { useContext } from "react";
-import UniverseCanvasContext from "../context/UniverseCanvasContext";
+import { UniverseCanvasContext } from "../context/UniverseCanvasContext";
+import type { IUniverseCanvasContext } from "../interfaces";
 
 
-function useUniverseCanvas() {
-    const context = useContext(UniverseCanvasContext);
-    if (!context) throw new Error('useCanvasArea must be used within CanvasAreaProvider');
+const useUniverseCanvas = (): IUniverseCanvasContext => {
+    const context: IUniverseCanvasContext | null = useContext(UniverseCanvasContext);
+    if (!context) {
+        throw new Error('Universe');
+    }
     return context;
-}
-
+};
 export default useUniverseCanvas; 

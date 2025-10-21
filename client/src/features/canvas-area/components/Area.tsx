@@ -30,7 +30,7 @@ const Area: React.FC<AreaProps> = ({ area, onRename, onActive, onDelete }) => {
         return () => {
             setData(initialValue);
         };
-    }, [area, initialValue]);
+    }, [area, area.isActive, initialValue]);
 
     const onRenameComplete = () => {
         setIsRenaming(false);
@@ -54,6 +54,8 @@ const Area: React.FC<AreaProps> = ({ area, onRename, onActive, onDelete }) => {
     const onDeleteClick = () => {
         onDelete(data);
     };
+
+     
     return (
         <div
             className={`tab btn-group ${data.isActive ? "active" : ""}`}

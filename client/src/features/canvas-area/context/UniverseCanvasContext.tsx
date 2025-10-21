@@ -1,12 +1,4 @@
-import { createContext } from "react";
-import type { IUniverseCanvasState } from "../interfaces";
-import type { UniverseCanvasAction } from "./UniverseCanvasAction";
-import type { Dispatch } from "react";
+import { createContext } from 'react';
+import type { IUniverseCanvasContext } from '../interfaces';
 
-
-const UniverseCanvasContext = createContext<{
-    state: IUniverseCanvasState;
-    dispatch: Dispatch<UniverseCanvasAction>;
-} | undefined>(undefined);
-
-export default UniverseCanvasContext;
+export const UniverseCanvasContext = createContext<IUniverseCanvasContext | null>(null);

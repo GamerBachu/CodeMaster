@@ -22,6 +22,22 @@ export interface IAccordion {
     content: IAccordionData[];
 }
 
+
+
+export interface IUniverseCanvasContext {
+    refresh?: string;
+    isCanvasReady: boolean;
+    konvaStage: React.RefObject<Konva.Stage>;
+    konvaLayer: React.RefObject<Konva.Layer>;
+    universeData: React.RefObject<IUniverseData[]>;
+    initializeCanvas: (stage: Konva.Stage, layer: Konva.Layer) => void;
+    initializeUniverse: (data: IUniverseData[]) => void;
+    forceRefresh: (event: string) => void;
+    addUniverseArea: (area: IUniverseData) => void;
+    renameUniverseArea: (area: IUniverseData) => void;
+    deleteUniverseArea: (area: IUniverseData) => void;
+}
+
 export interface IUniverseArea {
     id: string;
     name: string;
@@ -42,3 +58,4 @@ export interface IUniverseCanvasState {
     konvaStage: Konva.Stage | undefined;
     konvaLayer: Konva.Layer | undefined;
 }
+
