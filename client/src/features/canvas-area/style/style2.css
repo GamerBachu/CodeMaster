@@ -82,9 +82,10 @@
           white-space: nowrap;
         }
         & .tab-1-text {
-          width: calc(var(--top-tab-width) + 16px); 
+          width: calc(var(--top-tab-width) + 16px);
         }
       }
+     
       .dropdown-menu {
         max-height: var(--drop-down-max-height);
         overflow: auto;
@@ -109,7 +110,7 @@
     }
   }
 
-  .btn{
+  .btn {
     box-shadow: none !important;
     border: none !important;
   }

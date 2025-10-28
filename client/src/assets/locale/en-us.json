@@ -59,6 +59,7 @@
   "DeleteSuccess": "Deleted successfully.",
   "DeleteError": "Can not delete this.",
   "CreateNew": "Create New",
+  "select": "Select",
 
   "Pos": "Product Master",
   "PosTitle": "Product",
@@ -106,4 +107,5 @@
   "specificationValue": "Value",
 
   "universe_Canvas": "Universe Canvas"
+
 }

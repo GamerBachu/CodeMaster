@@ -1,71 +1,52 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Area from "./Area";
 import type { IUniverseArea } from "../interfaces";
-import {
-    icons_keyboard_arrow_down,
-} from "../../../components/Icons";
+import { icons_keyboard_arrow_down } from "../../../components/Icons";
 import { truncateText } from "../utils";
+import locale from '../../../resources';
 
 interface AreaSelectionProps {
     areas: IUniverseArea[];
+    onActive: (area: IUniverseArea) => void;
+    onRename: (area: IUniverseArea) => void;
+    onDelete: (area: IUniverseArea) => void;
 }
 
-const AreaSelection: React.FC<AreaSelectionProps> = ({ areas }) => {
+const AreaSelection: React.FC<AreaSelectionProps> = ({
+    areas,
+    onActive,
+    onRename,
+    onDelete,
+}) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [areaData, setAreaData] = useState<IUniverseArea[]>([]);
-    useEffect(() => {
-        setAreaData([...areas]);
 
-        return () => {
-            setAreaData([]);
-        };
-    }, [areas]);
-
-
-    const handleRename = (updatedArea: IUniverseArea) => {
-        setAreaData(areaData.map(area => area.id === updatedArea.id ? updatedArea : area));
-    };
-
-    const handleActive = (updatedArea: IUniverseArea) => {
-        setAreaData(areaData.map(area => ({ ...area, isActive: area.id === updatedArea.id })));
-    };
-
-    const handleDelete = (areaToDelete: IUniverseArea) => {
-        setAreaData(areaData.filter(area => area.id !== areaToDelete.id));
-    };
-
-    const handleAddArea = () => {
-        const newArea: IUniverseArea = {
-            id: `${areaData.length + 1}`,
-            name: `New Area ${areaData.length + 1}`,
-            isActive: false,
-        };
-        setAreaData([...areaData, newArea]);
-    };
+    const isAnyActive = areas.find((area) => area.isActive);
 
     return (
-        <div className="dropdown">
-            <button className="tab btn-group" type="button" onClick={() => setIsOpen(!isOpen)}>
-                <div
-                    className="tab-1 tab-1-text"
-                >
-                    {truncateText("data.name")}
-                </div>
+        <div className={`dropdown`}>
+            <button
+                className={`tab btn-group ${isAnyActive ? "active" : ""}`}
+                type="button"
+                onClick={() => setIsOpen(!isOpen)}
+            >
+                <div className="tab-1 tab-1-text">{truncateText(isAnyActive ? isAnyActive.name : locale.select)}</div>
                 <img src={icons_keyboard_arrow_down} />
             </button>
 
             <div className={`dropdown-menu ${isOpen ? "show" : ""}`}>
-                {areaData.map(area => (
-                    <Area
-                        key={area.id}
-                        area={area}
-                        onRename={handleRename}
-                        onActive={handleActive}
-                        onDelete={handleDelete}
-                    />
+                {areas.map((area) => (
+                    <>
+            m"><            <Area
+                            key={area.id}
+                            area={area}
+                            onRename={onRename}
+                            onActive={onActive}
+                            onDelete={onDelete}
+                        />
+                        <hr className="mx-auto mt-0 mb-2"></hr>
+                    </>
                 ))}
             </div>
-
         </div>
     );
 };
