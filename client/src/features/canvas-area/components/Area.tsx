@@ -6,6 +6,7 @@ import {
     icons_edit_complete,
     icons_edit_close,
 } from "../../../components/Icons";
+import { truncateText } from "../utils";
 interface AreaProps {
     area: IUniverseArea;
     onRename: (e: IUniverseArea) => void;
@@ -42,10 +43,7 @@ const Area: React.FC<AreaProps> = ({ area, onRename, onActive, onDelete }) => {
         setIsRenaming(false);
     };
 
-    const truncateText = (e: string): string => {
-        if (e.length < 10) return e;
-        else return e.substring(0, 8) + "...";
-    };
+
 
     const onActiveClick = () => {
         onActive(data);
@@ -55,7 +53,7 @@ const Area: React.FC<AreaProps> = ({ area, onRename, onActive, onDelete }) => {
         onDelete(data);
     };
 
-     
+
     return (
         <div
             className={`tab btn-group ${data.isActive ? "active" : ""}`}

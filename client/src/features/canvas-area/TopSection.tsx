@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   icons_file_add,
-  icons_keyboard_arrow_down,
+
 } from "../../components/Icons";
 import useUniverseCanvas from "./hooks/useUniverseCanvas";
 import type { IUniverseArea, IUniverseCanvasContext } from "./interfaces";
@@ -9,7 +9,8 @@ import Area from "./components/Area";
 import { useDispatch } from "react-redux";
 import { createToast } from "../../components/toasts/toastSlicer";
 import locale from "../../resources";
-import findTotalAreaToShow from "./utils/findTotalAreaToShow";
+import calculateVisibleTabs from "./utils/calculateVisibleTabs";
+import AreaSelection from "./components/AreaSelection";
 
 const TopSection: React.FC = () => {
   const {
@@ -24,7 +25,7 @@ const TopSection: React.FC = () => {
   const dispatch = useDispatch();
   const refList = useRef<HTMLDivElement | null>(null);
   const totalShow = useRef<number>(1);
-  const totalArea = areas.length;
+  const totalAreaCount = areas.length;
   const [visibleWidth, setVisibleWidth] = useState(0);
   console.log("visibleWidth", { universeData, areas });
 
@@ -68,7 +69,7 @@ const TopSection: React.FC = () => {
     }
 
     setAreas(data);
-    totalShow.current = findTotalAreaToShow(visibleWidth, data.length);
+    totalShow.current = calculateVisibleTabs(visibleWidth, data.length);
     return () => {
       setAreas([]);
     };
@@ -128,7 +129,7 @@ const TopSection: React.FC = () => {
           shapes: [],
         });
 
-        totalShow.current = findTotalAreaToShow(visibleWidth, copyAreas.length);
+        totalShow.current = calculateVisibleTabs(visibleWidth, copyAreas.length);
         dispatch(
           createToast({
             title: locale.universe_Canvas,
@@ -160,7 +161,7 @@ const TopSection: React.FC = () => {
     // Update state using functional update to ensure latest state
     const copyAreas = [...areas, newArea];
     setAreas(copyAreas);
-    totalShow.current = findTotalAreaToShow(visibleWidth, copyAreas.length);
+    totalShow.current = calculateVisibleTabs(visibleWidth, copyAreas.length);
     // Call the provided addUniverseArea function
     addUniverseArea({
       id: newArea.id,
@@ -170,7 +171,7 @@ const TopSection: React.FC = () => {
       shapes: [],
     });
   }, [areas, addUniverseArea, visibleWidth]);
-
+  console.log(totalShow.current, totalAreaCount, (totalShow?.current > totalAreaCount));
   return (
     <div className="tabs-1" ref={refList}>
       {areas.slice(0, totalShow.current).map((area) => (
@@ -183,17 +184,18 @@ const TopSection: React.FC = () => {
         />
       ))}
 
+      {((totalAreaCount > totalShow?.current)) && <AreaSelection
+        areas={areas.slice(totalShow.current, totalAreaCount)}
+      ></AreaSelection>
+      }
+
       <div className="tab action btn-group" role="group" aria-label="action">
         <button type="button" className="btn btn-sm" onClick={onAdd}>
           <img src={icons_file_add} />
         </button>
       </div>
 
-      <div className="tab action btn-group" role="group" aria-label="action">
-        <button type="button" className="btn btn-sm">
-          <img src={icons_keyboard_arrow_down} />
-        </button>
-      </div>
+
     </div>
   );
 };

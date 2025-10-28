@@ -90,3 +90,16 @@ input[type="password"] {
   min-height: 0px;
   min-width: 0px;
 }
+
+.dropdown-menu {
+    display: block;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.3s, opacity 0.3s linear;
+}
+
+.dropdown-menu.show {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+}

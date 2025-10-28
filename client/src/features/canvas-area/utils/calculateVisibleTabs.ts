@@ -1,10 +1,10 @@
-
-const findTotalAreaToShow = (clientWidth: number,
-    totalTabs: number): number => {
-
-    const TAB_WIDTH = 145;
+const calculateVisibleTabs = (
+    clientWidth: number,
+    totalTabs: number
+): number => {
+    const TAB_WIDTH = 153;
     const ADD_BUTTON_WIDTH = 35;
-    const DROPDOWN_BUTTON_WIDTH = 35;
+    const DROPDOWN_BUTTON_WIDTH = 153;
 
     const requiredWidthWithAdd = totalTabs * TAB_WIDTH + ADD_BUTTON_WIDTH;
 
@@ -21,4 +21,4 @@ const findTotalAreaToShow = (clientWidth: number,
     return Math.floor(availableWidth / TAB_WIDTH);
 };
 
-export default findTotalAreaToShow;
+export default calculateVisibleTabs;
