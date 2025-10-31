@@ -93,13 +93,38 @@ export const useTabManagement = ({
           createToast({
             title: locale.universe_Canvas,
             description: locale.DeleteError,
-            type: 'warning',
+            type: 'danger',
           })
         );
         return;
       }
 
-      setAreas(prevAreas => prevAreas.filter(a => a.id !== area.id));
+      const currentAreaIndex = areas.findIndex(a => a.id === area.id && a.isActive === true);
+      const newAreas = areas.filter(a => a.id !== area.id);
+
+      const newActiveIndex = newAreas.findIndex(a => a.isActive === true);
+
+      if (newActiveIndex < 0) {
+
+        const checkIsLast = currentAreaIndex === areas.length - 1;
+        if (checkIsLast) {
+          newAreas[currentAreaIndex - 1].isActive = true;
+        }
+        else {
+          newAreas[currentAreaIndex].isActive = true;
+        }
+
+      }
+
+      const finalActiveIndex = newAreas.findIndex(a => a.isActive === true);
+      if (finalActiveIndex < 0) {
+        newAreas[0].isActive = true;
+      }
+
+      setAreas(newAreas);
+
+
+
       deleteUniverseArea({
         id: area.id,
         name: area.name,
@@ -116,7 +141,7 @@ export const useTabManagement = ({
         })
       );
     },
-    [areas.length, deleteUniverseArea, dispatch]
+    [areas, deleteUniverseArea, dispatch]
   );
 
   const onAdd = useCallback(() => {

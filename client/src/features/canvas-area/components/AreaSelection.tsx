@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import Area from "./Area";
 import type { IUniverseArea } from "../interfaces";
 import { icons_keyboard_arrow_down } from "../../../components/Icons";
 import { truncateText } from "../utils";
-import locale from '../../../resources';
+import locale from "../../../resources";
 
 interface AreaSelectionProps {
     areas: IUniverseArea[];
@@ -29,23 +29,27 @@ const AreaSelection: React.FC<AreaSelectionProps> = ({
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <div className="tab-1 tab-1-text">{truncateText(isAnyActive ? isAnyActive.name : locale.select)}</div>
+                <div className="tab-1 tab-1-text">
+                    {truncateText(isAnyActive ? isAnyActive.name : locale.select)}
+                </div>
                 <img src={icons_keyboard_arrow_down} />
             </button>
 
             <div className={`dropdown-menu ${isOpen ? "show" : ""}`}>
-                {areas.map((area) => (
-                    <>
-            m"><            <Area
-                            key={area.id}
-                            area={area}
-                            onRename={onRename}
-                            onActive={onActive}
-                            onDelete={onDelete}
-                        />
-                        <hr className="mx-auto mt-0 mb-2"></hr>
-                    </>
-                ))}
+                {areas.map((area) => {
+                    return (
+                        <Fragment key={area.id}>
+                            <Area
+                                key={area.id}
+                                area={area}
+                                onRename={onRename}
+                                onActive={onActive}
+                                onDelete={onDelete}
+                            />
+                            <hr className="mx-auto mt-0 mb-2"></hr>
+                        </Fragment>
+                    );
+                })}
             </div>
         </div>
     );
