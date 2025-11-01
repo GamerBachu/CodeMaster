@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { createToast } from '../../../components/toasts/toastSlicer';
 import locale from '../../../resources';
@@ -12,6 +12,7 @@ interface useTabManagementProps {
   addUniverseArea: IUniverseCanvasContext['addUniverseArea'];
   renameUniverseArea: IUniverseCanvasContext['renameUniverseArea'];
   deleteUniverseArea: IUniverseCanvasContext['deleteUniverseArea'];
+  changeUniverseArea: IUniverseCanvasContext['changeUniverseArea'];
   visibleWidth: number;
 }
 
@@ -21,15 +22,18 @@ export const useTabManagement = ({
   addUniverseArea,
   renameUniverseArea,
   deleteUniverseArea,
+  changeUniverseArea,
   visibleWidth,
 }: useTabManagementProps) => {
   const [areas, setAreas] = useState<IUniverseArea[]>([]);
   const dispatch = useDispatch();
-  const totalShow = calculateVisibleTabs(visibleWidth, areas.length);
+  const totalShow = useMemo(() => calculateVisibleTabs(visibleWidth, areas.length), [visibleWidth, areas.length]);
 
   useEffect(() => {
-    if (!isCanvasReady || visibleWidth < 10) return;
-    if (!universeData.current?.length) return;
+    if (!isCanvasReady || visibleWidth < 10 || !universeData.current) {
+      setAreas([]);
+      return;
+    }
 
     const data = universeData.current.map((area) => ({
       id: area.id,
@@ -37,9 +41,9 @@ export const useTabManagement = ({
       isActive: false,
     }));
 
-    const isAnyOneActive = data.some((area) => area.isActive);
-    if (!isAnyOneActive) {
+    if (data.length > 0 && !data.some((area) => area.isActive)) {
       data[0].isActive = true;
+      changeUniverseArea("", data[0].id);
     }
 
     setAreas(data);
@@ -47,128 +51,152 @@ export const useTabManagement = ({
     return () => {
       setAreas([]);
     };
-  }, [isCanvasReady, universeData, visibleWidth]);
+  }, [changeUniverseArea, isCanvasReady, universeData, visibleWidth]);
 
   const onRename = useCallback(
     (area: IUniverseArea) => {
-      const findArea = areas.find((a) => a.id === area.id);
-      if (!findArea || findArea.name === area.name) return;
+      setAreas((prevAreas) => {
+        const areaExists = prevAreas.some(
+          (a) => a.id === area.id && a.name === area.name
+        );
+        if (areaExists) {
+          return prevAreas;
+        }
 
-      findArea.name = area.name;
+        const isAnyActive = prevAreas.some((a) => a.isActive);
 
-      const isAnyActive = areas.some((a) => a.isActive === true);
-      if (isAnyActive === false) {
-        findArea.isActive = true;
-      }
+        const newAreas = prevAreas.map((a) => {
+          if (a.id === area.id) {
+            return {
+              ...a,
+              name: area.name,
+              isActive: !isAnyActive ? true : a.isActive,
+            };
+          }
+          return a;
+        });
 
+        renameUniverseArea({
+          id: area.id,
+          name: area.name,
+          updatedAt: '',
+          updatedBy: '',
+          shapes: [],
+        });
 
-      setAreas([...areas]);
-      renameUniverseArea({
-        id: area.id,
-        name: area.name,
-        updatedAt: '',
-        updatedBy: '',
-        shapes: [],
+        return newAreas;
       });
     },
-    [areas, renameUniverseArea]
+    [renameUniverseArea]
   );
 
   const onActive = useCallback(
     (activeArea: IUniverseArea) => {
-      setAreas(prevAreas =>
-        prevAreas.map(area => ({
-          ...area,
-          isActive: area.id === activeArea.id
-        }))
-      );
-    },
-    []
-  );
-
-  const onDelete = useCallback(
-    (area: IUniverseArea) => {
-      if (areas.length === 1) {
-        dispatch(
-          createToast({
-            title: locale.universe_Canvas,
-            description: locale.DeleteError,
-            type: 'danger',
-          })
-        );
+      const currentActiveId = areas.find((a) => a.isActive)?.id;
+      if (currentActiveId === activeArea.id) {
         return;
       }
 
-      const currentAreaIndex = areas.findIndex(a => a.id === area.id && a.isActive === true);
-      const newAreas = areas.filter(a => a.id !== area.id);
+      changeUniverseArea(currentActiveId ?? '', activeArea.id);
+      setAreas((prevAreas) =>
+        prevAreas.map((area) => ({
+          ...area,
+          isActive: area.id === activeArea.id,
+        }))
+      );
+    },
+    [areas, changeUniverseArea]
+  );
 
-      const newActiveIndex = newAreas.findIndex(a => a.isActive === true);
-
-      if (newActiveIndex < 0) {
-
-        const checkIsLast = currentAreaIndex === areas.length - 1;
-        if (checkIsLast) {
-          newAreas[currentAreaIndex - 1].isActive = true;
+  const onDelete = useCallback(
+    (areaToDelete: IUniverseArea) => {
+      setAreas((prevAreas) => {
+        if (prevAreas.length === 1) {
+          dispatch(
+            createToast({
+              title: locale.universe_Canvas,
+              description: locale.DeleteError,
+              type: 'danger',
+            })
+          );
+          return prevAreas;
         }
-        else {
-          newAreas[currentAreaIndex].isActive = true;
+
+        const deletedAreaIndex = prevAreas.findIndex(
+          (a) => a.id === areaToDelete.id
+        );
+        if (deletedAreaIndex === -1) {
+          return prevAreas;
         }
 
+        const deletedArea = prevAreas[deletedAreaIndex];
+        let newAreas = prevAreas.filter((a) => a.id !== areaToDelete.id);
+
+        if (deletedArea.isActive) {
+          const newActiveIndex = Math.min(
+            deletedAreaIndex,
+            newAreas.length - 1
+          );
+          const newActiveArea = newAreas[newActiveIndex];
+
+          if (newActiveArea) {
+            changeUniverseArea(deletedArea.id, newActiveArea.id);
+            newAreas = newAreas.map((a, index) => ({
+              ...a,
+              isActive: index === newActiveIndex,
+            }));
+          }
+        }
+
+        deleteUniverseArea(
+          {
+            id: areaToDelete.id,
+            name: areaToDelete.name,
+            updatedAt: '',
+            updatedBy: '',
+            shapes: [],
+          }
+        );
+        dispatch(
+          createToast({
+            title: locale.universe_Canvas,
+            description: locale.DeleteSuccess,
+            type: 'warning',
+          })
+        );
+        return newAreas;
+      });
+    },
+    [changeUniverseArea, deleteUniverseArea, dispatch]
+  );
+
+  const onAdd = useCallback(() => {
+    setAreas((prevAreas) => {
+      const existingNames = new Set(prevAreas.map((area) => area.name));
+      let counter = 1;
+      let newName = `Room-${counter}`;
+      while (existingNames.has(newName)) {
+        counter++;
+        newName = `Room-${counter}`;
       }
 
-      const finalActiveIndex = newAreas.findIndex(a => a.isActive === true);
-      if (finalActiveIndex < 0) {
-        newAreas[0].isActive = true;
-      }
+      const newArea: IUniverseArea = {
+        id: Date.now().toString(),
+        name: newName,
+        isActive: false,
+      };
 
-      setAreas(newAreas);
-
-
-
-      deleteUniverseArea({
-        id: area.id,
-        name: area.name,
+      addUniverseArea({
+        id: newArea.id,
+        name: newArea.name,
         updatedAt: '',
         updatedBy: '',
         shapes: [],
       });
 
-      dispatch(
-        createToast({
-          title: locale.universe_Canvas,
-          description: locale.DeleteSuccess,
-          type: 'warning',
-        })
-      );
-    },
-    [areas, deleteUniverseArea, dispatch]
-  );
-
-  const onAdd = useCallback(() => {
-    let newName = 'Room-1';
-    const existingNames = areas.map((area) => area.name);
-    let counter = 1;
-    while (existingNames.includes(newName)) {
-      counter++;
-      newName = `Room-${counter}`;
-    }
-
-    const newArea: IUniverseArea = {
-      id: Date.now().toString(),
-      name: newName,
-      isActive: false,
-    };
-
-    setAreas(prevAreas => [...prevAreas, newArea]);
-
-    addUniverseArea({
-      id: newArea.id,
-      name: newArea.name,
-      updatedAt: '',
-      updatedBy: '',
-      shapes: [],
+      return [...prevAreas, newArea];
     });
-  }, [areas, addUniverseArea]);
+  }, [addUniverseArea]);
 
   return {
     areas,

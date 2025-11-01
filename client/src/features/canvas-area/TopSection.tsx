@@ -11,6 +11,7 @@ const TopSection: React.FC = () => {
     addUniverseArea,
     renameUniverseArea,
     deleteUniverseArea,
+    changeUniverseArea
   } = useUniverseCanvas();
 
   const refList = useRef<HTMLDivElement | null>(null);
@@ -45,6 +46,7 @@ const TopSection: React.FC = () => {
     addUniverseArea,
     renameUniverseArea,
     deleteUniverseArea,
+    changeUniverseArea,
     visibleWidth,
   });
 

@@ -1,11 +1,12 @@
 import { useCallback, useMemo, useRef, useState, type ReactNode } from "react";
 import { UniverseCanvasContext } from "./UniverseCanvasContext";
 import type Konva from "konva";
-import type {
-
-    IUniverseCanvasContext,
-    IUniverseData,
-} from "../interfaces";
+import type { IUniverseCanvasContext, IUniverseData } from "../interfaces";
+import {
+    addUniverseAreaAction,
+    removeUniverseAreaAction,
+    updateUniverseAreaAction
+} from "../reducers/handlers/index";
 
 interface UniverseCanvasProviderProps {
     children: ReactNode;
@@ -40,22 +41,13 @@ export const UniverseCanvasProvider = ({
         setRefresh(event);
     }, []);
 
-    const addUniverseArea = useCallback((area: IUniverseData) => {
-        universeData.current.push(area);
-    }, []);
+    const addUniverseArea = useCallback((area: IUniverseData) => { addUniverseAreaAction(universeData.current, area); }, []);
+    const deleteUniverseArea = useCallback((area: IUniverseData) => { removeUniverseAreaAction(universeData.current, area); }, []);
+    const renameUniverseArea = useCallback((area: IUniverseData) => { updateUniverseAreaAction(universeData.current, area, 1); }, []);
 
-    const renameUniverseArea = useCallback((area: IUniverseData) => {
-        const index = universeData.current.findIndex((item) => item.id === area.id);
-        if (index === -1) return;
-        universeData.current[index].name = area.name;
-        universeData.current[index].updatedAt = area.updatedAt;
-        universeData.current[index].updatedBy = area.updatedBy;
-    }, []);
-
-    const deleteUniverseArea = useCallback((area: IUniverseData) => {
-        const index = universeData.current.findIndex((item) => item.id === area.id);
-        if (index === -1) return;
-        universeData.current.splice(index, 1);
+    const changeUniverseArea = useCallback((fromId: IUniverseData["id"], toId: IUniverseData["id"]): boolean => {
+        alert(`"changeUniverseArea", ${fromId}, ${toId}`);
+        return false;
     }, []);
 
     const value = useMemo<IUniverseCanvasContext>(
@@ -71,6 +63,7 @@ export const UniverseCanvasProvider = ({
             addUniverseArea,
             renameUniverseArea,
             deleteUniverseArea,
+            changeUniverseArea,
         }),
         [
             refresh,
@@ -81,6 +74,7 @@ export const UniverseCanvasProvider = ({
             addUniverseArea,
             renameUniverseArea,
             deleteUniverseArea,
+            changeUniverseArea,
         ]
     );
 

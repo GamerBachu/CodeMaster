@@ -36,6 +36,8 @@ export interface IUniverseCanvasContext {
     addUniverseArea: (area: IUniverseData) => void;
     renameUniverseArea: (area: IUniverseData) => void;
     deleteUniverseArea: (area: IUniverseData) => void;
+    changeUniverseArea: (fromId: IUniverseData["id"], toId: IUniverseData["id"]) => boolean;
+
 }
 
 export interface IUniverseArea {
