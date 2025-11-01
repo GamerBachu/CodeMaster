@@ -30,10 +30,7 @@ export const useTabManagement = ({
   const totalShow = useMemo(() => calculateVisibleTabs(visibleWidth, areas.length), [visibleWidth, areas.length]);
 
   useEffect(() => {
-    if (!isCanvasReady || visibleWidth < 10 || !universeData.current) {
-      setAreas([]);
-      return;
-    }
+    if (!isCanvasReady) return;
 
     const data = universeData.current.map((area) => ({
       id: area.id,
@@ -51,7 +48,7 @@ export const useTabManagement = ({
     return () => {
       setAreas([]);
     };
-  }, [changeUniverseArea, isCanvasReady, universeData, visibleWidth]);
+  }, [changeUniverseArea, isCanvasReady, universeData]);
 
   const onRename = useCallback(
     (area: IUniverseArea) => {
