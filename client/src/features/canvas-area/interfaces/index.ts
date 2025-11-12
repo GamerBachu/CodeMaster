@@ -40,6 +40,14 @@ export interface IUniverseCanvasContext {
 
 }
 
+
+export type IKonvaStageObject = {
+    attrs: Record<string, never>;
+    className: string;
+    children?: IKonvaStageObject[];
+};
+
+
 export interface IUniverseArea {
     id: string;
     name: string;
@@ -52,7 +60,7 @@ export interface IUniverseData {
     name: string;
     updatedAt: string;
     updatedBy: string;
-    shapes: any[];
+    stage: IKonvaStageObject[];
 }
 
 export interface IUniverseCanvasState {

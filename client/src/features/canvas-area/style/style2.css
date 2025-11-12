@@ -22,17 +22,22 @@
     }
 
     .card {
-      width: var(--card-width);
+      /* width: var(--card-width); */
+      overflow: hidden;
 
       .card-img-top {
-        width: 70px;
+        /* width: 70px; */
         height: 70px;
+         overflow: hidden;
       }
       .card-body {
+         overflow: hidden;
         .card-title {
-          max-width: 90px;
+           overflow: hidden;
+          /* max-width: 90px; */
         }
         .card-text {
+           overflow: hidden;
           max-height: 50px;
           overflow: auto;
         }

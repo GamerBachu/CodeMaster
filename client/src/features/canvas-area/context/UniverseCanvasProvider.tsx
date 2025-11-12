@@ -1,12 +1,13 @@
 import { useCallback, useMemo, useRef, useState, type ReactNode } from "react";
 import { UniverseCanvasContext } from "./UniverseCanvasContext";
-import type Konva from "konva";
+import Konva from "konva";
 import type { IUniverseCanvasContext, IUniverseData } from "../interfaces";
 import {
     addUniverseAreaAction,
     removeUniverseAreaAction,
     updateUniverseAreaAction
 } from "../reducers/handlers/index";
+import { canvasExport } from "../utils/canvasData";
 
 interface UniverseCanvasProviderProps {
     children: ReactNode;
@@ -46,9 +47,35 @@ export const UniverseCanvasProvider = ({
     const renameUniverseArea = useCallback((area: IUniverseData) => { updateUniverseAreaAction(universeData.current, area, 1); }, []);
 
     const changeUniverseArea = useCallback((fromId: IUniverseData["id"], toId: IUniverseData["id"]): boolean => {
-        alert(`"changeUniverseArea", ${fromId}, ${toId}`);
-        return false;
-    }, []);
+
+
+        const fromIndex = universeData.current.findIndex((area) => area.id === fromId);
+        if (fromIndex > -1) {
+            const abc = konvaLayer.current?.toObject().children;
+            if (abc) {
+                console.log("save", abc);
+                universeData.current[fromIndex].stage = abc;
+            }
+        }
+
+        const toIndex = universeData.current.findIndex((area) => area.id === toId);
+        if (toIndex > -1) {
+            const toArea = universeData.current[toIndex].stage;
+            console.log("load", toArea);
+            // Clear the layer
+            konvaLayer.current?.destroyChildren();
+            // Load shapes from toArea
+            if (Array.isArray(toArea)) {
+                for (const shape of toArea) {
+                    const currentShape = Konva.Node.create(shape);
+                    currentShape.draggable(true);
+                    konvaLayer.current?.add(currentShape);
+                }
+                konvaLayer.current?.batchDraw();
+            }
+        }
+        return true;
+    }, [konvaLayer]);
 
     const value = useMemo<IUniverseCanvasContext>(
         () => ({

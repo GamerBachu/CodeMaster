@@ -78,7 +78,7 @@ export const useTabManagement = ({
           name: area.name,
           updatedAt: '',
           updatedBy: '',
-          shapes: [],
+          stage: []
         });
 
         return newAreas;
@@ -151,7 +151,7 @@ export const useTabManagement = ({
             name: areaToDelete.name,
             updatedAt: '',
             updatedBy: '',
-            shapes: [],
+            stage: [],
           }
         );
         dispatch(
@@ -188,7 +188,7 @@ export const useTabManagement = ({
         name: newArea.name,
         updatedAt: '',
         updatedBy: '',
-        shapes: [],
+        stage: [],
       });
 
       return [...prevAreas, newArea];

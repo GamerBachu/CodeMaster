@@ -18,20 +18,19 @@ const getData = async (id: string): Promise<IUniverseData[]> => {
 
     const universe: IUniverseData[] = [
         {
-            id: generateGuidV2(),
-            name: "Room-1",
+            id: 'w' + generateGuidV2(),
+            name: "Room-1-api",
             updatedAt: getDateString(),
             updatedBy: "user-1",
+            stage: []
 
-            shapes: []
         },
         {
-            id: generateGuidV2(),
-            name: "Room-2",
+            id: 'p' + generateGuidV2(),
+            name: "Room-2-api",
             updatedAt: getDateString(),
             updatedBy: "user-1",
-
-            shapes: []
+            stage: []
         },
 
     ];

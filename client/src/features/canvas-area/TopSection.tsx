@@ -50,6 +50,7 @@ const TopSection: React.FC = () => {
     visibleWidth,
   });
 
+
   return (
     <div className="tabs-1" ref={refList}>
       <AreaList

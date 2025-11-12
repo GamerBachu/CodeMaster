@@ -34,27 +34,11 @@ const MainCanvas: React.FC = () => {
 
   useEffect(() => {
 
-    apiServices.getData("a1s2").then((data) => {
+    apiServices.getData("api-uid").then((data) => {
       initializeUniverse(data);
-    });
 
-    setTimeout(() => {
-      if (konvaStage && konvaLayer) {
-        const rect = new Konva.Rect({
-          x: 20,
-          y: 20,
-          width: 100,
-          height: 50,
-          fill: 'red',
-          stroke: 'black',
-          strokeWidth: 2,
-          draggable: true,
-        });
-        konvaLayer.current.add(rect);
-        konvaLayer.current.draw();
-      }
-    }, 5000);
-  }, [initializeUniverse, isCanvasReady, konvaLayer, konvaStage]);
+    });
+  }, [initializeUniverse]);
 
   return (
     <div className="layer-1" ref={canvasElement}>    </div>
