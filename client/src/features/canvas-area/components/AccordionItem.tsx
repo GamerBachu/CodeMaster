@@ -1,4 +1,4 @@
-import Konva from "konva";
+import { FabricImage } from "fabric";
 import useUniverseCanvas from "../hooks/useUniverseCanvas";
 import type { IAccordionData } from "../interfaces";
 
@@ -9,25 +9,28 @@ type Props = {
 const AccordionItem = ({ child }: Props) => {
     const {
         isCanvasReady,
-        konvaLayer
+        canvas
     } = useUniverseCanvas();
 
 
     const onClick = (data: IAccordionData) => {
 
-        if (isCanvasReady) {
-          //  console.log("Adding to canvas:", data);
-            Konva.Image.fromURL(data.src, (image) => {
-                image.setAttrs({
-                    x: 50,
-                    y: 50,
-                    width: 100,
-                    height: 100,
-                    draggable: true,
+        if (isCanvasReady && canvas.current) {
+            console.log("Adding to canvas:", data);
+            try {
+                FabricImage.fromURL(data.src).then((image) => {
+                    image.set({
+                        left: 50,
+                        top: 50,
+                        selectable: true,
+                    });
+                    canvas.current!.add(image);
+                    canvas.current!.renderAll();
                 });
-                konvaLayer.current.add(image);
-                konvaLayer.current.draw();
-            });
+
+            } catch (error) {
+                console.error("Error loading image:", error);
+            }
         }
     };
 

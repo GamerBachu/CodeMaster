@@ -30,7 +30,7 @@ await db.create('storeName', data);
 
 ### 4. UI Components
 - Built on React 19.x with TypeScript
-- Uses Konva for canvas-based interactions (Room Planner)
+- Uses fabric js for canvas-based interactions (Room Planner)
 - Component hierarchy:
   - `AppContainer` → `AppLayout` → Feature-specific layouts
   - Shared components in `src/components/`
@@ -70,10 +70,15 @@ features/
 4. Component-level state for UI-only concerns
 
 ### Canvas Interactions
-Canvas-based features use react-konva:
+Canvas-based features use fabric js (latest version: 6.9.0):
 - Implement shape components in `features/canvas-area/`
-- Use `Konva.Layer` for grouping related elements
-- Handle transformations via Konva's built-in tools
+
+## Function Documentation & Comments
+Whenever you create a function, use proper documentation and comments:
+- Add JSDoc or TypeScript doc comments for every function, including parameters, return types, and purpose.
+- Inline comments should be used for complex logic or business rules.
+- Follow documentation patterns from existing codebase.
+ 
 
 ## Common Pitfalls
 - Always initialize LocalDb before using it
@@ -90,6 +95,6 @@ Canvas-based features use react-konva:
 ## External Dependencies
 - React 19.x
 - Redux Toolkit for state management
-- Konva/react-konva for canvas operations
+- fabric js for canvas operations
 - Bootstrap 5.x for base styling
 - Axios for HTTP requests

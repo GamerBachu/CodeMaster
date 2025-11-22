@@ -1,10 +1,12 @@
-import type Konva from "konva";
+
 
 
 import { generateGuidV2 } from "../../../utils/helper/guid";
 export { generateGuidV2 };
 
 import { getDateString } from "../../../utils/helper/dateUtils";
+import type { Canvas } from "fabric";
+import type { IFabricCanvasObject } from "../../../lib/fabricJs";
 export { getDateString };
 
 export interface IAccordionData {
@@ -25,27 +27,22 @@ export interface IAccordion {
 
 
 export interface IUniverseCanvasContext {
-    refresh?: string;
+
     isCanvasReady: boolean;
-    konvaStage: React.RefObject<Konva.Stage>;
-    konvaLayer: React.RefObject<Konva.Layer>;
+    canvas: React.RefObject<undefined | Canvas>;
     universeData: React.RefObject<IUniverseData[]>;
-    initializeCanvas: (stage: Konva.Stage, layer: Konva.Layer) => void;
+
+    initializeCanvas: (element: HTMLCanvasElement, width: number, height: number) => void;
     initializeUniverse: (data: IUniverseData[]) => void;
-    forceRefresh: (event: string) => void;
+
     addUniverseArea: (area: IUniverseData) => void;
     renameUniverseArea: (area: IUniverseData) => void;
     deleteUniverseArea: (area: IUniverseData) => void;
-    changeUniverseArea: (fromId: IUniverseData["id"], toId: IUniverseData["id"]) => boolean;
+    changeUniverseArea:  (fromId: string, toId: string) => Promise<boolean>;
 
 }
 
 
-export type IKonvaStageObject = {
-    attrs: Record<string, never>;
-    className: string;
-    children?: IKonvaStageObject[];
-};
 
 
 export interface IUniverseArea {
@@ -60,12 +57,7 @@ export interface IUniverseData {
     name: string;
     updatedAt: string;
     updatedBy: string;
-    stage: IKonvaStageObject[];
+    stage: IFabricCanvasObject | null | undefined;
 }
 
-export interface IUniverseCanvasState {
-    universe: IUniverseData[];
-    konvaStage: Konva.Stage | undefined;
-    konvaLayer: Konva.Layer | undefined;
-}
 

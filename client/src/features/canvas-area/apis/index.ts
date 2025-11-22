@@ -22,7 +22,7 @@ const getData = async (id: string): Promise<IUniverseData[]> => {
             name: "Room-1-api",
             updatedAt: getDateString(),
             updatedBy: "user-1",
-            stage: []
+            stage: undefined
 
         },
         {
@@ -30,7 +30,7 @@ const getData = async (id: string): Promise<IUniverseData[]> => {
             name: "Room-2-api",
             updatedAt: getDateString(),
             updatedBy: "user-1",
-            stage: []
+            stage: undefined
         },
 
     ];
