@@ -21,6 +21,7 @@ const CanvasScroll = ({ area, canvas }: CanvasScrollProps) => {
         (e: React.UIEvent<HTMLDivElement>) => {
             if (!verticalScrollBody.current) return;
             if (canvas === undefined || canvas === null) return;
+            canvas.discardActiveObject();
             const scrollY = e.currentTarget.scrollTop;
             scrollVertical(canvas, scrollY);
         },
@@ -31,6 +32,7 @@ const CanvasScroll = ({ area, canvas }: CanvasScrollProps) => {
         (e: React.UIEvent<HTMLDivElement>) => {
             if (!horizontalScrollBody.current) return;
             if (canvas === undefined || canvas === null) return;
+            canvas.discardActiveObject();
             const scrollX = e.currentTarget.scrollLeft;
             scrollHorizontal(canvas, scrollX);
         },
