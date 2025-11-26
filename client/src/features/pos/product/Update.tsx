@@ -36,7 +36,7 @@ const Update = ({ id, productId }: Props) => {
                 .then((resultP) => {
 
                     if (resultP) {
-                        console.log(dbToDateTimeInput(resultP.liveDate));
+                      
                         setForm((prev) => ({
                             ...prev,
                             id: String(resultP.id),

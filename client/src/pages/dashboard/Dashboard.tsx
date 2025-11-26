@@ -1,10 +1,12 @@
 
 import { useAppSession } from "../../contexts";
+import logger from "../../utils/logger";
 
 const Dashboard = () => {
   const appSession = useAppSession();
 
-  console.log(appSession);
+  logger.info("Rendering Dashboard component", { file: "Dashboard.tsx", block: "Dashboard" });
+
 
   return (
     <div className="card m-1">

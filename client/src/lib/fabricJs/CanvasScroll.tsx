@@ -65,7 +65,7 @@ const CanvasScroll = ({ area, canvas }: CanvasScrollProps) => {
                 return;
 
             const { deltaX, deltaY } = e;
-            console.log({ deltaX, deltaY });
+         
 
             if (Math.abs(deltaX) !== 0) {
                 horizontalScrollBody.current.scrollLeft += deltaX;

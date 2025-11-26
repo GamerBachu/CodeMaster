@@ -4,14 +4,17 @@ import { saveCanvas } from "./save";
 import { clearCanvas } from "./clear";
 import type { IFabricCanvasObject } from "./interface";
 import CanvasScroll from "./CanvasScroll";
+import getCenterPoint from "./getCenterPoint";
 
 export {
     init,
     saveCanvas,
     loadCanvas,
     clearCanvas,
+    getCenterPoint,
 
 
-    CanvasScroll
+    // jsx components
+    CanvasScroll,
 };
 export type { IFabricCanvasObject };

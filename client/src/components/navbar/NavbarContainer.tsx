@@ -2,10 +2,9 @@ import { Link, NavLink } from "react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import appRoute from "../../routes/appRoute";
 import actionLink from "./actionLink";
+import NavBarLink from "./NavBarLink";
 
- 
 const NavbarContainer = () => {
-
     const [authLink, setAuthLink] = useState([...actionLink]);
     const [visibleCount, setVisibleCount] = useState(actionLink.length);
 
@@ -15,11 +14,7 @@ const NavbarContainer = () => {
         );
     };
 
-
-
     const navWrapperEle = useRef<HTMLUListElement>(null);
-
-
 
     // Returns how many items can be shown before overflow
     const calculateVisibleCount = useCallback(() => {
@@ -49,19 +44,15 @@ const NavbarContainer = () => {
         return count;
     }, [authLink]);
 
-
     useEffect(() => {
         const handleResize = () => {
             const count = calculateVisibleCount();
             setVisibleCount(count);
         };
         handleResize();
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
     }, [authLink, calculateVisibleCount]);
-
-
-
 
     // Split links into visible and overflow
     const visibleLinks = authLink.slice(0, visibleCount);
@@ -74,77 +65,81 @@ const NavbarContainer = () => {
     useEffect(() => {
         if (!dropdownOpen) return;
         const handleClick = (e: MouseEvent) => {
-            const dropdown = document.getElementById('navbarDropdownMenu');
+            const dropdown = document.getElementById("navbarDropdownMenu");
             if (dropdown && !dropdown.contains(e.target as Node)) {
                 setDropdownOpen(false);
             }
         };
-        document.addEventListener('mousedown', handleClick);
-        return () => document.removeEventListener('mousedown', handleClick);
+        document.addEventListener("mousedown", handleClick);
+        return () => document.removeEventListener("mousedown", handleClick);
     }, [dropdownOpen]);
 
     return (
         <nav className="wrapper-header bg-body-tertiary border-bottom">
             <div className="d-flex">
-
-                <ul ref={navWrapperEle} className="nav me-auto flex-nowrap w-100 overflow-hidden text-nowrap" >
+                <ul
+                    ref={navWrapperEle}
+                    className="nav me-auto flex-nowrap w-100 overflow-hidden text-nowrap"
+                >
                     {visibleLinks.map((link) => (
-                        <li className="nav-item" key={link.id}>
-                            <Link
-                                to={link.path}
-                                className={`nav-link link-body-emphasis px-2 text-capitalize ${link.active ? "active" : ""}`}
-                                onClick={() => linkClick(link.id)}
-                            >
-                                {link.value}
-                            </Link>
-                        </li>
+                        <NavBarLink
+                            id={link.id}
+                            key={link.id}
+                            to={link.path}
+                            active={link.active}
+                            value={link.value}
+                            onClick={(id) => {
+                                linkClick(id);
+                                setDropdownOpen(false);
+                            }}
+                        ></NavBarLink>
                     ))}
                     {overflowLinks.length > 0 && (
-                        <li className={`nav-item `} >
+                        <li className="nav-item">
                             <button
-                                className="nav-link link-body-emphasis px-2 text-capitalize dropdown-toggle ove "
+                                className={`nav-link link-body-emphasis px-2 text-capitalize dropdown-toggle ${overflowLinks.findIndex((p) => p.active === true) > -1
+                                    ? "active"
+                                    : ""
+                                    }`}
                                 type="button"
                                 aria-expanded={dropdownOpen}
                                 onClick={() => setDropdownOpen((open) => !open)}
                             >
                                 More
                             </button>
-                            <ul className={`${dropdownOpen ? 'dropdown-menu show position-fixed  overflow-auto   h-25' : 'dropdown-menu'}`}
-                            style={{right:"50px"}}
+                            <ul
+                                className={`${dropdownOpen
+                                    ? "dropdown-menu show position-fixed  overflow-auto   h-25"
+                                    : "dropdown-menu"
+                                    }`}
+                                style={{ right: "50px" }}
                             >
                                 {overflowLinks.map((link) => (
-                                    <li className="nav-item" key={link.id}>
-                                        <Link
-                                            to={link.path}
-                                            className={`nav-link link-body-emphasis text-capitalize${link.active ? " active" : ""}`}
-                                            onClick={() => {
-                                                linkClick(link.id);
-                                                setDropdownOpen(false);
-                                            }}
-                                        >
-                                            {link.value}
-                                        </Link>
-                                    </li>
+                                    <NavBarLink
+                                        id={link.id}
+                                        key={link.id}
+                                        to={link.path}
+                                        active={link.active}
+                                        value={link.value}
+                                        onClick={(id) => {
+                                            linkClick(id);
+                                            setDropdownOpen(false);
+                                        }}
+                                    ></NavBarLink>
                                 ))}
                             </ul>
                         </li>
                     )}
                 </ul>
 
-
-
                 <ul className="nav">
-                    <li className="nav-item">
-                        <NavLink
+                   <NavBarLink
+                            id={-10}
                             to={appRoute.LOGOUT.path}
-                            className={({ isActive }) =>
-                                "nav-link link-body-emphasis px-2 text-capitalize" +
-                                (isActive ? " active" : "")
-                            }
-                        >
-                            {appRoute.LOGOUT.value}
-                        </NavLink>
-                    </li>
+                            active={false}
+                            value={appRoute.LOGOUT.value}
+                            onClick={() => { }}
+                        ></NavBarLink>
                 </ul>
             </div>
         </nav>

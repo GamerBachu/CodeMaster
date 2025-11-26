@@ -22,6 +22,7 @@ import Profile from "../pages/account/Profile";
 import Verify from "../pages/account/Verify";
  
 import UniverseCanvas from "../features/canvas-area/CanvasAreaLayout"
+import SampleCanvas from "../features/canvas-area/SampleCanvas";
 
 const PrivateRoute = ({ children }: { children: JSX.Element; }) => {
   const appSession = useAppSession();
@@ -147,7 +148,7 @@ const InitializeRoutes = () => (
           path="sample-canvas"
           element={
             <PrivateRoute>
-              <PosUpdate />
+              <SampleCanvas />
             </PrivateRoute>
           }
         />
