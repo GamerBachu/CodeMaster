@@ -5,6 +5,7 @@ import { clearCanvas } from "./clear";
 import type { IFabricCanvasObject } from "./interface";
 import CanvasScroll from "./CanvasScroll";
 import getCenterPoint from "./getCenterPoint";
+import resizeCanvas from "./resizeCanvas";
 
 export {
     init,
@@ -12,7 +13,7 @@ export {
     loadCanvas,
     clearCanvas,
     getCenterPoint,
-
+    resizeCanvas,
 
     // jsx components
     CanvasScroll,

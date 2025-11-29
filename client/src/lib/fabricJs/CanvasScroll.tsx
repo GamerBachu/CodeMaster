@@ -65,7 +65,7 @@ const CanvasScroll = ({ area, canvas }: CanvasScrollProps) => {
                 return;
 
             const { deltaX, deltaY } = e;
-         
+
 
             if (Math.abs(deltaX) !== 0) {
                 horizontalScrollBody.current.scrollLeft += deltaX;
@@ -143,6 +143,7 @@ const CanvasScroll = ({ area, canvas }: CanvasScrollProps) => {
             </div>
             <div
                 className="area-design-scrollbar horizontal"
+                data-test={`${area.width}`}
                 style={{
                     width: area.width - config.scrollMargin.width,
                     display: "block",

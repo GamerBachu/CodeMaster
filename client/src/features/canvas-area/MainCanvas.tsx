@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import useUniverseCanvas from "./hooks/useUniverseCanvas";
 import type { IUniverseCanvasContext } from "./interfaces";
 import apiServices from "./apis";
-import { CanvasScroll } from "../../lib/fabricJs";
+import { CanvasScroll, resizeCanvas } from "../../lib/fabricJs";
 
 const MainCanvas: React.FC = () => {
 
@@ -30,6 +30,29 @@ const MainCanvas: React.FC = () => {
       initializeUniverse(data);
     });
   }, [initializeUniverse]);
+
+  //layer with change then reseize the canvas
+  useEffect(() => {
+    const handleResize = () => {
+
+      const canvasArea = layerElement.current;
+      if (!canvasArea) return;
+      const width = canvasArea.clientWidth;
+      const height = canvasArea.clientHeight;
+      if (!width || !height) return;
+      setArea({ width, height });
+      if (canvasElement.current) {
+        canvasElement.current.width = width;
+        canvasElement.current.height = height;
+        resizeCanvas(canvas.current!, width, height);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [canvas, initializeCanvas]);
 
   return (
     <div className="layer-1" ref={layerElement}>
