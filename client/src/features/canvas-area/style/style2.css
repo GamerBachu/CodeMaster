@@ -2,10 +2,10 @@
   --top-bar-height: 38px;
   --top-tab-width: 108px;
   --side-bar-width: 300px;
-  --card-width: 108px;
+  --card-h: 85px;
   --drop-down-max-height: 350px;
   --scroll-margin-width: 1px;
-  --scroll-margin-height: 2px; 
+  --scroll-margin-height: 2px;
 
   display: flex;
   flex-direction: row;
@@ -23,33 +23,42 @@
       overflow: auto;
     }
 
-    .card {
-      /* width: var(--card-width); */
+    .card-v {
+      height: var(--card-h);
+      display: flex;
+      align-items: center;
       overflow: hidden;
+      border: 1px solid var(--bs-gray-500);
+      border-radius: 5px;
+      padding: 2px;
 
-      .card-img-top {
-        /* width: 70px; */
-        height: 70px;
-        overflow: hidden;
+      .card-v-i {
+        height: calc(var(--card-h) - 6px);
+        border: 1px solid var(--bs-gray-500);
+        border-radius: 2px;
       }
-      .card-body {
+
+      .card-v-b {
+        display: flex;
+        flex-direction: column;
+        align-self: start;
+        padding-left: 10px;
         overflow: hidden;
-        .card-title {
-          overflow: hidden;
-          /* max-width: 90px; */
-        }
+
         .card-text {
-          overflow: hidden;
-          max-height: 50px;
+          max-height:  calc(var(--card-h) - 30px);;
           overflow: auto;
         }
       }
+
     }
   }
+
   .top-bar-1 {
     height: var(--top-bar-height);
     background-color: var(--bg-color-body);
     align-content: end;
+
     .tabs-1 {
       display: flex;
       column-gap: 1px;
@@ -65,22 +74,26 @@
         height: calc(var(--top-bar-height) - 2px);
         box-sizing: border-box;
         border: 1px solid #ccc;
-        border-bottom: none;100
-        box-shadow: inset 0 3px 3px rgba(0, 0, 0, 0.05);
+        border-bottom: none;
+        100 box-shadow: inset 0 3px 3px rgba(0, 0, 0, 0.05);
+
         &.active {
           background-color: var(--bg-color-box);
           border: 1px solid var(--bs-primary);
           border-bottom: 1px solid var(--bg-color-box);
         }
+
         &:hover {
           background-color: var(--bs-primary-border-subtle);
           cursor: pointer;
         }
+
         &.action {
           border: 1px solid #ccc !important;
           border-radius: 8px !important;
           /* background-color: transparent;       */
         }
+
         .tab-1 {
           width: var(--top-tab-width);
           padding-left: 5px;
@@ -88,6 +101,7 @@
           text-align: start;
           white-space: nowrap;
         }
+
         & .tab-1-text {
           width: calc(var(--top-tab-width) + 16px);
         }
@@ -101,12 +115,14 @@
       }
     }
   }
+
   .main-area {
     display: block;
     background-color: var(--bg-color-body);
-    overflow: hidden;100
-    width: 100%;
+    overflow: hidden;
+    100 width: 100%;
     height: 100vh;
+
     .layer-1 {
       --canvas-offset: 1rem;
       background-color: var(--bg-color-box);
@@ -115,7 +131,7 @@
 
       width: calc(100% - var(--scroll-margin-width));
       height: calc(100% - var(--scroll-margin-height));
-       
+
       /* scrollbar */
       position: relative;
       overflow: hidden;
@@ -128,24 +144,29 @@
         opacity: 0.9;
         z-index: 12;
       }
+
       .area-design-scrollbar.horizontal {
         right: var(--canvas-offset);
         overflow-x: scroll;
         overflow-y: hidden;
       }
-      .area-design-scrollbar.horizontal > div {
+
+      .area-design-scrollbar.horizontal>div {
         height: 1px;
         background: #ddd;
       }
+
       .area-design-scrollbar.vertical {
         bottom: var(--canvas-offset);
         overflow-x: hidden;
         overflow-y: scroll;
       }
-      .area-design-scrollbar.vertical > div {
+
+      .area-design-scrollbar.vertical>div {
         width: 1px;
         background: #ddd;
       }
+
       /* scrollbar */
     }
   }

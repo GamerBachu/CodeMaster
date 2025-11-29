@@ -97,13 +97,10 @@ const Accordion = () => {
                         className={`accordion-collapse collapse${parent.open ? ' show' : ''}`}
                         aria-labelledby={`a-1-h-${parent.id}`}
                     >
-                        <div className="accordion-body px-1 py-1">
-                            <div className='row row-cols-sm-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 g-2 '>
-                                {parent.content?.map((child) => (
-                                    <AccordionItem child={child} key={child.id}  ></AccordionItem>
-                                ))}
-                            </div>
-
+                        <div className="accordion-body p-1 d-flex gap-1 flex-column">
+                            {parent.content?.map((child) => (
+                                <AccordionItem child={child} key={child.id}  ></AccordionItem>
+                            ))}
                         </div>
                     </div>
                 </div>

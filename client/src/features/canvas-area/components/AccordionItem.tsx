@@ -41,32 +41,29 @@ const AccordionItem = ({ child }: Props) => {
     };
 
     return (
-        <div className="col mb-2">
-            <section
-                className="card border-secondary align-items-center"
-                data-test-id={`a-c-${child.id}`}
-                id={`a-c-${child.id}`}
-                onClick={() => {
-                    onClick(child);
-                }}
-            >
-                <img
-                    className="card-img-top object-fit-fill border rounded mt-1"
-                    src={child.src}
-                    title={child.title}
-                    alt={child.alt}
-                ></img>
-                <div className="card-body p-1 small">
-                    <small className="card-title fw-bold  d-inline-block text-truncate">
-                        {" "}
-                        {child.title}
-                    </small>
-                    <p className="card-text">
-                        <small>{child.description}</small>
-                    </p>
-                </div>
-            </section>
-        </div>
+        <section
+            className="card-v"
+            data-test-id={`a-c-${child.id}`}
+            id={`a-c-${child.id}`}
+            onClick={() => {
+                onClick(child);
+            }}
+        >
+            <img
+                className="card-v-i"
+                src={child.src}
+                title={child.title}
+                alt={child.alt}
+            ></img>
+            <div className="card-v-b">
+                <span className="fw-bold d-inline-block text-truncate small">
+                    {child.title}
+                </span>
+                <p className="card-text p-0 small">
+                  {child.description}
+                </p>
+            </div>
+        </section>
     );
 };
 
