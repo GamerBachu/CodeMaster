@@ -16,5 +16,20 @@ export const config = {
         deltaZoom: 5,
         defaultZoom: 100,
         zoomRatioMultiplier: 100,
+    },
+    controls: {
+        borderColor: 'red',
+        cornerColor: 'green',
+        cornerSize: 6
+    },
+    context:{
+        copy: true,
+        paste: true,
+        delete: true,
+        rotate: true,
+        duplicate: true,
+        moreOptions: true
+
     }
 };
+ 

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import { Canvas } from "fabric";
-import { config } from "./Config";
-import { scrollHorizontal, scrollVertical, scrollRefresh } from "./scroll";
+import { config } from "../Config";
+import { scrollHorizontal, scrollVertical, scrollRefresh } from "../scroll";
 
 type CanvasScrollProps = {
     area: {

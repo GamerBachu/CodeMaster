@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import useUniverseCanvas from "./hooks/useUniverseCanvas";
 import type { IUniverseCanvasContext } from "./interfaces";
 import apiServices from "./apis";
-import { CanvasScroll, resizeCanvas } from "../../lib/fabricJs";
+import { CanvasScroll, resizeCanvas ,ObjectContext} from "../../lib/fabricJs"; 
+import "../../lib/fabricJs/styles/fabricCanvas.css";
 
 const MainCanvas: React.FC = () => {
 
@@ -58,6 +59,7 @@ const MainCanvas: React.FC = () => {
     <div className="layer-1" ref={layerElement}>
       <CanvasScroll area={area} canvas={canvas.current} />
       <canvas ref={canvasElement} />
+      <ObjectContext canvas={canvas.current} ></ObjectContext>
     </div>
   );
 };

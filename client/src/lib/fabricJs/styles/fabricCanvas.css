@@ -1,0 +1,62 @@
+/* Object Context Menu Styles */
+.object-context-menu {
+  position: absolute;
+  background-color: #dee2e6;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  padding: 6px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  min-width: 170px;
+  user-select: none;
+
+  .object-context-header {
+    font-size: 10px;
+    font-weight: 700;
+    color: #9ca3af;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    letter-spacing: 0.05em;
+  }
+
+  .object-context-button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.1s ease;
+  }
+
+  .object-context-button:hover {
+    background-color: #e5e7eb;
+  }
+
+  .object-context-button.delete {
+    color: #e11d48;
+  }
+
+  .object-context-button.delete:hover {
+    background-color: #fee2e2;
+  }
+
+  .object-context-button-icon {
+    font-size: 14px;
+  }
+
+  .object-context-divider {
+    height: 1px;
+    background-color: #f3f4f6;
+    margin: 4px 8px;
+  }
+}

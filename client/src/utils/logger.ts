@@ -7,7 +7,7 @@
  * It also allows passing a context object with file and block properties to provide more context to the log messages.
  */
 
-const ENABLE_LOGGER = true;
+const ENABLE_LOGGER = false;
 export type LogLevel = 'info' | 'warn' | 'error';
 
 /**
