@@ -13,11 +13,11 @@ type ListProps = { productId: string; };
 const List = ({ productId }: ListProps) => {
     const [apiData, setApiData] = useState<specificationModel[]>([]);
     const [specList, setSpecList] = useState<keyValueModel[]>([]);
-    const [selectedSpec, setSelectedSpec] = useState<string>("");
+    const [selectedSpecKey, setSelectedSpecKey] = useState<string>("");
     const dispatch = useDispatch();
 
     const onAddButtonClick = () => {
-        if (selectedSpec === "") return;
+        if (selectedSpecKey === "") return;
 
         const minRowId =
             apiData.length > 0
@@ -26,8 +26,12 @@ const List = ({ productId }: ListProps) => {
                 )
                 : 0;
         const newRowId = minRowId - 1;
+
+        const isValidKey = specList.findIndex(s => s.key === selectedSpecKey); 
+        if (isValidKey < 0) return;
+
         setApiData([
-            { rowId: newRowId, productId, id: 0, type: selectedSpec, unit: "", value: "" },
+            { rowId: newRowId, productId, id: 0, type: specList[isValidKey].value, unit: "", value: "" },
             ...apiData,
         ]);
     };
@@ -112,7 +116,7 @@ const List = ({ productId }: ListProps) => {
             }
             const d = res.map((item) => ({ key: String(item.id ?? item.createdDate), value: item.name }));
             setSpecList(d);
-            if (d.length > 0) setSelectedSpec(d[0].value);
+            if (d.length > 0) setSelectedSpecKey(d[0].value);
         });
 
         db.tblPosSpecification
@@ -140,15 +144,17 @@ const List = ({ productId }: ListProps) => {
     const onSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
         const isValidKey = specList.findIndex(s => s.key === value);
-        if (isValidKey > -1) setSelectedSpec(specList[isValidKey].value);
-        else setSelectedSpec("");
+        if (isValidKey > -1) setSelectedSpecKey(specList[isValidKey].key);
+        else setSelectedSpecKey("");
     };
 
     return (
         <>
             <div className="row align-items-center">
                 <div className="col-6">
-                    <select className="form-select form-select-sm" value={selectedSpec} onChange={onSelectChange}>
+                    <select className="form-select form-select-sm"
+                        value={selectedSpecKey}
+                        onChange={onSelectChange}>
 
                         {specList.map((spec) => (
                             <option key={spec.key} value={spec.key}>

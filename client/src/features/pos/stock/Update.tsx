@@ -18,7 +18,7 @@ interface StockAvailabilityModel {
     currentStock: number;
     minimumOrderQuantity: number;
 }
-const initialForm = { id: 0, productId: "0", currentStock: 0, minimumOrderQuantity: 0 };
+const initialForm = { id: 0, productId: "0", currentStock: 0, minimumOrderQuantity: 1 };
 
 const Update = ({ productId, id }: stockAvailabilityFormProps) => {
     const dispatch = useDispatch();

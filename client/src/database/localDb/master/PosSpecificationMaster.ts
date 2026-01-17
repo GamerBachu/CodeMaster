@@ -69,6 +69,12 @@ const PosSpecificationMaster: ISpecificationMasterModel[] = [
         name: "Country Of Origin",
     },
 
+    {
+        id: 12,
+        isActive: true,
+        createdDate: new Date().toISOString(),
+        name: "Volume",
+    },
     
 ];
 export default PosSpecificationMaster;
