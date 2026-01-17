@@ -10,6 +10,8 @@ export const appAuthRoute = {
   PLAN_Action: { path: "/planner", value: locale.link_Planner },
 
   POS_Action: { path: "/feature/pos", value: locale.link_Pos },
+  SAMPLE_CANVAS: { path: "/feature/canvas-area/sample-canvas", value: locale.link_SampleCanvas },
+  Universe_Canvas: { path: "/feature/canvas-area/universe-canvas", value: locale.link_Universe_Canvas },
 
 };
 

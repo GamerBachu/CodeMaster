@@ -28,3 +28,9 @@ export function dbToDateTimeInput(now: Date | string | undefined): string {
     value.setMinutes(value.getMinutes() - value.getTimezoneOffset());
     return value.toISOString().slice(0, 16);
 }
+
+
+export function getDateString(): string {
+
+    return new Date().toISOString();
+}

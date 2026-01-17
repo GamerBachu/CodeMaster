@@ -62,7 +62,7 @@ const Status = ({
                 .then((resultP) => {
                     if (resultP) {
 
-                        console.log("resultP", resultP);
+                        
                         setForm((prev) => ({
                             ...prev,
                             id: String(resultP.id),

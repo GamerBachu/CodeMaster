@@ -15,7 +15,7 @@ const Create = () => {
   }, [navigate]);
 
   const updateProductID = useCallback((productId: string) => {
-    console.log(`${appRoute.POS_Action.path}/update/${productId}`);
+  
     navigate(`${appRoute.POS_Action.path}/update/${productId}`);
   }, [navigate]);
 

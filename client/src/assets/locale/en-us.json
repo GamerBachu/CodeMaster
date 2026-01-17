@@ -8,7 +8,7 @@
   "login": "Log In",
   "username": "Username",
   "password": "Password",
-  "loginSuccess": "Login successful!",
+  "loginSuccess": "Login successful.",
   "loginFailed": "Invalid username or password.",
 
   "register": "New User",
@@ -19,7 +19,7 @@
   "createDate": "Create On",
   "name": "name",
   "createDate": "Create On",
-  "registerSuccess": "Registration successful! Please log in.",
+  "registerSuccess": "Registration successful. Please log in.",
   "registerFailed": "Registration failed. Please try again.",
   "createAccount": "Create Account",
   "alreadyHaveAccount": "Already have an account? Log in.",
@@ -37,6 +37,8 @@
   "link_About": "About",
   "link_Planner": "Planner",
   "link_Pos": "Product Master",
+  "link_SampleCanvas": "Sample Canvas",
+  "link_Universe_Canvas": "Universe Canvas",
 
   "Planner": "Planner",
   "planStartDate": "Plan Start Date",
@@ -52,18 +54,19 @@
   "Cancel": "Cancel",
   "Update": "Update",
   "Delete": "Delete",
-  "AddNewSuccess": "Added successfully!",
-  "UpdateSuccess": "Updated successfully!",
-  "DeleteSuccess": "Deleted successfully!",
+  "AddNewSuccess": "Added successfully.",
+  "UpdateSuccess": "Updated successfully.",
+  "DeleteSuccess": "Deleted successfully.",
+  "DeleteError": "Can not delete this.",
   "CreateNew": "Create New",
+  "select": "Select",
 
   "Pos": "Product Master",
   "PosTitle": "Product",
 
-
   "pageNotFound": "Requested page not found or not available.",
 
-  "welcomeMessage": "Welcome to our application!",
+  "welcomeMessage": "Welcome to our application.",
   "errorMessage": "An error has occurred. Please try again.",
   "validateForm": "please check out all flied and re validate.",
   "loadingMessage": "Loading, please wait...",
@@ -101,5 +104,8 @@
   "selectSpecification": "Select Specification",
   "specificationType": "Type",
   "specificationUnit": "Unit",
-  "specificationValue": "Value"
+  "specificationValue": "Value",
+
+  "universe_Canvas": "Universe Canvas"
+
 }

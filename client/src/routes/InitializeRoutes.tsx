@@ -20,8 +20,11 @@ import { useAppSession } from "../contexts";
 import Logout from "../pages/account/Logout";
 import Profile from "../pages/account/Profile";
 import Verify from "../pages/account/Verify";
+ 
+import UniverseCanvas from "../features/canvas-area/CanvasAreaLayout"
+import SampleCanvas from "../features/canvas-area/SampleCanvas";
 
-const PrivateRoute = ({ children }: { children: JSX.Element }) => {
+const PrivateRoute = ({ children }: { children: JSX.Element; }) => {
   const appSession = useAppSession();
   return appSession.info.isAuthorized ? (
     children
@@ -124,6 +127,36 @@ const InitializeRoutes = () => (
           element={
             <PrivateRoute>
               <PosCreate />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="update/:id"
+          element={
+            <PrivateRoute>
+              <PosUpdate />
+            </PrivateRoute>
+          }
+        />
+      </Route>
+
+
+
+      <Route path="feature/canvas-area">
+        <Route
+          index
+          path="sample-canvas"
+          element={
+            <PrivateRoute>
+              <SampleCanvas />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="universe-canvas"
+          element={
+            <PrivateRoute>
+              <UniverseCanvas />
             </PrivateRoute>
           }
         />

@@ -38,6 +38,21 @@ const Profile = () => {
     apis.accounts.getUserDetail(Number(userId))
       .then((result) => {
         if (result) {
+
+          const prev = appSession.info;
+          const prevAcc = appSession.info.account;
+          if (prevAcc === undefined) return;
+          prevAcc.name = result.name;
+          prevAcc.email = result.email;
+          prevAcc.username = result.username;
+          prevAcc.id = result.id;
+
+
+          appSession.setInfo({
+            ...prev,
+            account: prevAcc
+          });
+
           setForm({
             name: result.name,
             email: result.email,
@@ -86,6 +101,18 @@ const Profile = () => {
               })
             );
           } else {
+
+            const prev = appSession.info;
+            const prevAcc = appSession.info.account;
+            if (prevAcc === undefined) return;
+            prevAcc.name = form.name;
+            prevAcc.email = form.email;
+            prevAcc.username = form.username; 
+            appSession.setInfo({
+              ...prev,
+              account: prevAcc
+            });
+
             dispatch(
               createToast({
                 title: locale.profileTitle,
