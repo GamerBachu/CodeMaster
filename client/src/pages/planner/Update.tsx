@@ -153,7 +153,7 @@ const Update = () => {
   return (
     <TableForm
       id="frm"
-      title={`${locale.Planner} - ${locale.AddNew}`}
+      title={`${locale.Planner} - ${locale.Update}`}
       addButtonLabel={locale.Back}
       onAddButtonClick={onAddButtonClick}
     >

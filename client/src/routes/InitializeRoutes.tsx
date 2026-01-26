@@ -11,6 +11,15 @@ import {
   PlannerDelete,
 } from "../pages/planner";
 
+import {
+  LogList,
+  LogCreate,
+  LogView,
+  LogUpdate,
+  LogDelete,
+} from "../features/logger";
+
+
 import { PosList, PosCreate, PosUpdate } from "../features/pos";
 
 import Login from "../pages/account/Login";
@@ -165,6 +174,50 @@ const InitializeRoutes = () => (
           element={
             <PrivateRoute>
               <PosUpdate />
+            </PrivateRoute>
+          }
+        />
+      </Route>
+
+      <Route path="feature/logger">
+        <Route
+          index
+          path="list/:q?"
+          element={
+            <PrivateRoute>
+              <LogList />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="create/:id"
+          element={
+            <PrivateRoute>
+              <LogCreate />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="view/:id"
+          element={
+            <PrivateRoute>
+              <LogView />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="update/:id"
+          element={
+            <PrivateRoute>
+              <LogUpdate />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="delete/:id"
+          element={
+            <PrivateRoute>
+              <LogDelete />
             </PrivateRoute>
           }
         />

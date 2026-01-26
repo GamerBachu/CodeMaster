@@ -91,7 +91,7 @@ const Delete = () => {
   return (
     <TableForm
       id="frm"
-      title={`${locale.Planner} - ${locale.AddNew}`}
+      title={`${locale.Planner} - ${locale.Delete}`}
       addButtonLabel={locale.Back}
       onAddButtonClick={onAddButtonClick}
     >

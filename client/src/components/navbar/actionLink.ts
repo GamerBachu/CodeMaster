@@ -27,8 +27,8 @@ const actionLink = [
     },
     {
         id: 90,
-        path: appRoute.DASHBOARD.path,
-        value: appRoute.DASHBOARD.value,
+        path: appRoute.Logger_Action.path+"/list",
+        value: appRoute.Logger_Action.value,
         active: false,
     },
     {

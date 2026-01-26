@@ -39,6 +39,7 @@
   "link_Pos": "Product Master",
   "link_SampleCanvas": "Sample Canvas",
   "link_Universe_Canvas": "Universe Canvas",
+  "link_App_Logger": "App Logger",
 
   "Planner": "Planner",
   "planStartDate": "Plan Start Date",
@@ -54,6 +55,7 @@
   "Cancel": "Cancel",
   "Update": "Update",
   "Delete": "Delete",
+  "View":"View",
   "AddNewSuccess": "Added successfully.",
   "UpdateSuccess": "Updated successfully.",
   "DeleteSuccess": "Deleted successfully.",
@@ -106,6 +108,15 @@
   "specificationUnit": "Unit",
   "specificationValue": "Value",
 
-  "universe_Canvas": "Universe Canvas"
+  "universe_Canvas": "Universe Canvas",
 
+  "titleLog": "App Logger",
+  "logId": "Log Id",
+  "logType": "Log Type",
+  "pageName": "Page Name",
+  "functionName": "Function Name",
+  "lineNumber": "Line Number",
+  "timestamp": "Timestamp",
+  "message": "Message",
+  "stackTrace": "Stack Trace"
 }

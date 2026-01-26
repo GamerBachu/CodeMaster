@@ -70,7 +70,7 @@ const View = () => {
   return (
     <TableForm
       id="frm"
-      title={`${locale.Planner} - ${locale.AddNew}`}
+      title={`${locale.Planner} - ${locale.View}`}
       addButtonLabel={locale.Back}
       onAddButtonClick={onAddButtonClick}
     >

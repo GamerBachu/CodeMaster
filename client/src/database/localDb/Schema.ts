@@ -16,6 +16,7 @@ import {
     ProductSchema,
     ProductIdSchema,
 } from "./model/PosModel";
+import AppLogSchema from "./model/LogsModel";
 
 export const schema: IDBStoreSchema[] = [
     User,
@@ -34,6 +35,7 @@ export const schema: IDBStoreSchema[] = [
     ReviewsSchema,
     ProductSchema,
     ProductIdSchema,
+    AppLogSchema
 ];
 export const version = 1;
 export const dbName = "CodeMasterDB";
