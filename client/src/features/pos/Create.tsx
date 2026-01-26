@@ -22,10 +22,10 @@ const Create = () => {
 
   return (
     <TableForm
-      id="frm"
+      id="frm-s-c"
       title={`${locale.Pos}`}
       addButtonLabel={locale.Back}
-      onAddButtonClick={onBackButtonClick}
+      onButtonClick={onBackButtonClick}
     >
       <div className="accordion">
         <ProductCreate

@@ -1,7 +1,7 @@
 import type { IDBStoreSchema } from "../Interfaces";
 import type PrimaryModel from "./PrimaryModel";
 
-export interface AppLogModel extends PrimaryModel {
+export interface AppLogModel extends Partial<PrimaryModel> {
     type: string;
     pageName: string;
     functionName: string;

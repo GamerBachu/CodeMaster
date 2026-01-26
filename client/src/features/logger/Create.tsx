@@ -1,13 +1,13 @@
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux"; 
+import { useDispatch } from "react-redux";
 import appRoute from "../../routes/appRoute";
 import locale from "../../resources";
 import { createToast } from "../../components/toasts/toastSlicer";
 import { useAppSession } from "../../contexts";
 
 import type { keyValueModel } from "../../models";
-import tblAppLog, { type AppLogModel } from "../../database/tblAppLog";
+import db, { type AppLogModel } from "../../database";
 import Form from "./Form";
 
 const Create = () => {
@@ -35,12 +35,12 @@ const Create = () => {
 
   const [statusList, setStatusList] = useState<keyValueModel[]>([]);
 
-  const onAddButtonClick = useCallback(() => {
+  const onButtonClick = useCallback(() => {
     navigate(`${appRoute.Logger_Action.path}/list?q=`);
   }, [navigate]);
 
   useEffect(() => {
-    tblAppLog
+    db.tblAppLog
       .logTypes()
       .then((result) => {
         if (result) {
@@ -82,7 +82,7 @@ const Create = () => {
       const status = statusList.find(
         (s) => String(s.key) === String(form.type),
       );
-      tblAppLog
+       db.tblAppLog
         .post({
           id: 0,
           type: status ? status.value : statusList[0].value,
@@ -145,7 +145,7 @@ const Create = () => {
       form={form}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
-      onAddButtonClick={onAddButtonClick}
+      onBackClick={onButtonClick}
       statusList={statusList}
       formType={locale.AddNew}
       formTitle={locale.titleLog}

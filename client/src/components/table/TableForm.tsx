@@ -6,7 +6,7 @@ type TableFormProps = {
   title: string;
   addButtonLabel?: string;
   children?: React.ReactNode;
-  onAddButtonClick?: () => void;
+  onButtonClick?: () => void;
   hideBackButton?:boolean
 };
 
@@ -14,7 +14,7 @@ const TableForm = ({
   id,
   title,
   addButtonLabel,
-  onAddButtonClick,
+  onButtonClick,
   children,
   hideBackButton
 }: TableFormProps) => {
@@ -33,7 +33,7 @@ const TableForm = ({
             className="btn btn-sm  btn-outline-success align-content-center"
             id={buttonId}
             data-testid={buttonId}
-            onClick={onAddButtonClick}
+            onClick={onButtonClick}
           >
             <img src={icons_arrow_left_square} className="btn-sm-align" />{" "}
             <label>{addButtonLabel}</label>

@@ -7,7 +7,7 @@ import locale from "../../resources";
 import { createToast } from "../../components/toasts/toastSlicer";
 
 import type { keyValueModel } from "../../models";
-import tblAppLog, { type AppLogModel } from "../../database/tblAppLog";
+import db, { type AppLogModel } from "../../database";
 import Form from "./Form";
 
 const View = () => {
@@ -34,16 +34,16 @@ const View = () => {
   });
 
   const [statusList, setStatusList] = useState<keyValueModel[]>([]);
-  const onAddButtonClick = useCallback(() => {
+  const onBackClick = useCallback(() => {
     navigate(`${appRoute.Logger_Action.path}/list?q=${id}`);
   }, [id, navigate]);
 
   useEffect(() => {
     if (!id) {
-      onAddButtonClick();
+      onBackClick();
       return;
     }
-    tblAppLog
+    db.tblAppLog
       .logTypes()
       .then((result) => {
         if (result) {
@@ -65,7 +65,7 @@ const View = () => {
         );
       });
 
-    tblAppLog
+    db.tblAppLog
       .get({ id: Number(id) })
       .then((result) => {
         if (result) {
@@ -91,7 +91,7 @@ const View = () => {
           }),
         );
       });
-  }, [dispatch, id, onAddButtonClick]);
+  }, [dispatch, id, onBackClick]);
 
   const handleChange = useCallback(
     (
@@ -108,9 +108,9 @@ const View = () => {
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      onAddButtonClick();
+      onBackClick();
     },
-    [onAddButtonClick],
+    [onBackClick],
   );
 
   return (
@@ -118,7 +118,7 @@ const View = () => {
       form={form}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
-      onAddButtonClick={onAddButtonClick}
+      onBackClick={onBackClick}
       statusList={statusList}
       formType={locale.View}
       formTitle={locale.titleLog}

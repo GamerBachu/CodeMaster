@@ -1,7 +1,7 @@
 import type { IDBStoreSchema } from "./Interfaces";
 import User from "./model/UserModel";
 import ActionStatus from "./model/ActionStatusModel";
-import UserPlanner from "./model/UserPlannerModel";
+import UserPlanner from "./model/PlannerModel";
 import UserToken from "./model/UserTokenModel";
 import {
     DiscountSchema,

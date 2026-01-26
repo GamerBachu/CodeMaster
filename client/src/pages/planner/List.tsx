@@ -11,7 +11,7 @@ import locale from "../../resources";
 import { useEffect, useState } from "react";
 import { toViewString } from "../../utils/helper/stringFormat";
 import type { UserPlannerModel } from "../../models/userPlanner";
-import tblUserPlanner from "../../database/tblUserPlanner";
+import tblPlanner from "../../database/tblPlanner";
 const List = () => {
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ const List = () => {
   const [apiData, setApiData] = useState<UserPlannerModel[]>([]);
 
   useEffect(() => {
-    tblUserPlanner.search()
+    tblPlanner.search()
       .then((response) => {
         if (response === undefined || response === null) {
           setApiData([]);

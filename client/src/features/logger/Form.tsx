@@ -1,7 +1,7 @@
 import TableForm from '../../components/table/TableForm';
 import locale from "../../resources";
 import type { keyValueModel } from "../../models";
-import { type AppLogModel } from "../../database/tblAppLog";
+import { type AppLogModel } from "../../database";
 
 type FormProps = {
     formId: string,
@@ -11,7 +11,7 @@ type FormProps = {
     statusList: keyValueModel[],
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void,
     handleSubmit: (e: React.FormEvent) => void,
-    onAddButtonClick: () => void,
+    onBackClick: () => void,
 };
 
 const Form = ({
@@ -22,7 +22,7 @@ const Form = ({
     statusList,
     handleChange,
     handleSubmit,
-    onAddButtonClick,
+    onBackClick,
 
 }: FormProps) => {
 
@@ -32,7 +32,7 @@ const Form = ({
             id={formId}
             title={`${formTitle} - ${formType}`}
             addButtonLabel={locale.Back}
-            onAddButtonClick={onAddButtonClick}
+            onButtonClick={onBackClick}
         >
             <form className="mb-4" onSubmit={handleSubmit}>
                 <div className="mb-3 row">

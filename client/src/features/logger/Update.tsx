@@ -8,7 +8,7 @@ import { createToast } from "../../components/toasts/toastSlicer";
 import { useAppSession } from "../../contexts";
 
 import type { keyValueModel } from "../../models";
-import tblAppLog, { type AppLogModel } from "../../database/tblAppLog";
+import db, { type AppLogModel } from "../../database";
 import Form from "./Form";
 
 const Update = () => {
@@ -36,16 +36,16 @@ const Update = () => {
   });
 
   const [statusList, setStatusList] = useState<keyValueModel[]>([]);
-  const onAddButtonClick = useCallback(() => {
+  const onBackClick = useCallback(() => {
     navigate(`${appRoute.Logger_Action.path}/list?q=${id}`);
   }, [id, navigate]);
 
   useEffect(() => {
     if (!id) {
-      onAddButtonClick();
+      onBackClick();
       return;
     }
-    tblAppLog
+    db.tblAppLog
       .logTypes()
       .then((result) => {
         if (result) {
@@ -67,7 +67,7 @@ const Update = () => {
         );
       });
 
-    tblAppLog
+    db.tblAppLog
       .get({ id: Number(id) })
       .then((result) => {
         if (result) {
@@ -93,7 +93,7 @@ const Update = () => {
           }),
         );
       });
-  }, [dispatch, id, onAddButtonClick]);
+  }, [dispatch, id, onBackClick]);
 
   const handleChange = useCallback(
     (
@@ -113,7 +113,7 @@ const Update = () => {
       const status = statusList.find(
         (s) => String(s.key) === String(form.type),
       );
-      tblAppLog
+      db.tblAppLog
         .put({
           id: form.id,
           type: status ? status.value : statusList[0].value,
@@ -143,7 +143,7 @@ const Update = () => {
                 type: "success",
               }),
             );
-            onAddButtonClick();
+            onBackClick();
           }
         })
         .catch(() => {
@@ -169,7 +169,7 @@ const Update = () => {
       form.type,
       statusList,
       userId,
-      onAddButtonClick,
+      onBackClick,
     ],
   );
 
@@ -178,7 +178,7 @@ const Update = () => {
       form={form}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
-      onAddButtonClick={onAddButtonClick}
+      onBackClick={onBackClick}
       statusList={statusList}
       formType={locale.Update}
       formTitle={locale.titleLog}

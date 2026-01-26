@@ -1,8 +1,7 @@
-import type { IDBStoreSchema } from "../Interfaces"; 
+import type { IDBStoreSchema } from "../Interfaces";
 import type PrimaryModel from "./PrimaryModel";
 
-export interface UserPlannerModel extends PrimaryModel {
-  
+export interface PlannerModel extends Partial<PrimaryModel> {
   title: string;
   desc: string;
   startDate: string;

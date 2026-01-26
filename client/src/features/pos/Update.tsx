@@ -22,7 +22,7 @@ const Update = () => {
   const [productId, setProductId] = useState<string>("0");
 
 
-  const onAddButtonClick = useCallback(() => {
+  const onButtonClick = useCallback(() => {
     navigate(`${appRoute.POS_Action.path}/list?q=${productId}`);
   }, [productId, navigate]);
 
@@ -64,16 +64,16 @@ const Update = () => {
       wrongProduct();
       return;
     });
-  }, [dispatch, id, navigate, onAddButtonClick,]);
+  }, [dispatch, id, navigate, onButtonClick,]);
 
 
 
   return (
     <TableForm
-      id="frm"
+      id="frm-s-o"
       title={`${locale.PosTitle} ${productId}`}
       addButtonLabel={locale.Back}
-      onAddButtonClick={onAddButtonClick}
+      onButtonClick={onButtonClick}
     >
 
 

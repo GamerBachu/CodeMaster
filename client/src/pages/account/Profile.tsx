@@ -26,13 +26,13 @@ const Profile = () => {
     id: 0,
     createdAt: ""
   });
-  const onAddButtonClick = useCallback(() => {
+  const onButtonClick = useCallback(() => {
     navigate(`${appRoute.DASHBOARD.path}`);
   }, [navigate]);
 
   useEffect(() => {
     if (!userId) {
-      onAddButtonClick();
+      onButtonClick();
       return;
     }
     apis.accounts.getUserDetail(Number(userId))
@@ -72,7 +72,7 @@ const Profile = () => {
           })
         );
       });
-  }, [dispatch, navigate, onAddButtonClick, userId]);
+  }, [dispatch, navigate, onButtonClick, userId]);
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -139,10 +139,10 @@ const Profile = () => {
 
   return (
     <TableForm
-      id="frm"
+      id="frm-p-a"
       title={`${locale.profileTitle}`}
       addButtonLabel={locale.Back}
-      onAddButtonClick={onAddButtonClick}
+      onButtonClick={onButtonClick}
       hideBackButton={true}
     >
       <form className="mb-4" onSubmit={handleSubmit}>

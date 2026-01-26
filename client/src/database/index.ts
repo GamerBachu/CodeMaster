@@ -1,18 +1,25 @@
 import tblUser from "./tblUser";
 import tblActionStatus from "./tblActionStatus";
-import tblUserPlanner from "./tblUserPlanner";
+import tblPlanner, { type PlannerModel } from "./tblPlanner";
 import { tblProduct } from "./tblPos";
 import tblPOSStock from "./tblPosStock";
 import tblPosSpecification from "./tblPosSpecification";
 import tblPosDiscount from "./tblPosDiscount";
+import tblAppLog, { type AppLogModel } from "./tblAppLog";
 
 export default {
     tblUser,
     tblActionStatus,
-    tblUserPlanner,
+    tblPlanner,
     tblProduct,
     tblPosDiscount,
     tblPosSpecification,
-    tblPOSStock
+    tblPOSStock,
+    tblAppLog
+};
 
+export type {
+
+    PlannerModel,
+    AppLogModel
 };

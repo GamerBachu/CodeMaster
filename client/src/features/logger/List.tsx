@@ -11,14 +11,14 @@ import locale from "../../resources";
 import { useEffect, useState } from "react";
 import { toViewString } from "../../utils/helper/stringFormat";
 
-import tblAppLog, { type AppLogModel } from "../../database/tblAppLog";
+import db, { type AppLogModel } from "../../database";
 const List = () => {
   const navigate = useNavigate();
 
   const [apiData, setApiData] = useState<AppLogModel[]>([]);
 
   useEffect(() => {
-    tblAppLog.search()
+    db.tblAppLog.search()
       .then((response) => {
         if (response === undefined || response === null) {
           setApiData([]);
