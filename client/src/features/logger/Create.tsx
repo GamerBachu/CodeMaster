@@ -5,6 +5,7 @@ import appRoute from "../../routes/appRoute";
 import locale from "../../resources";
 import { createToast } from "../../components/toasts/toastSlicer";
 import { useAppSession } from "../../contexts";
+import { toUTCForDB } from "../../utils/helper/dateUtils";
 
 import type { keyValueModel } from "../../models";
 import db, { type AppLogModel } from "../../database";
@@ -82,7 +83,7 @@ const Create = () => {
       const status = statusList.find(
         (s) => String(s.key) === String(form.type),
       );
-       db.tblAppLog
+      db.tblAppLog
         .post({
           id: 0,
           type: status ? status.value : statusList[0].value,
@@ -92,7 +93,7 @@ const Create = () => {
           timestamp: form.timestamp,
           message: form.message,
           stackTrace: form.stackTrace,
-          createdDate: form.createdDate,
+          createdDate: toUTCForDB(form.createdDate),
           createdBy: Number(userId),
         })
         .then((result) => {

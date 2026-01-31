@@ -77,4 +77,4 @@ const tblAppLog = {
     logTypes
 };
 export default tblAppLog;
-export type { AppLogModel };
+export type { AppLogModel, AppLogType };

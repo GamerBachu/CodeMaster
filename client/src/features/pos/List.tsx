@@ -105,7 +105,7 @@ const List = () => {
               <td>{idx + 1}</td>
               <td className="d-flex flex-column">
                 {row.productName}
-                <small>{row.productId}</small>
+                <small>{locale.productIdShort}{row.productId}</small>
               </td>
               <td>{row.price}</td>
               <td>{toViewString(row.liveDate, true)}</td>

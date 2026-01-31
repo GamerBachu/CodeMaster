@@ -6,6 +6,7 @@ import appRoute from "../../routes/appRoute";
 import locale from "../../resources";
 import { createToast } from "../../components/toasts/toastSlicer";
 import { useAppSession } from "../../contexts";
+import { toUTCForDB, toLocalForInput } from "../../utils/helper/dateUtils";
 
 import type { keyValueModel } from "../../models";
 import db, { type AppLogModel } from "../../database";
@@ -78,7 +79,7 @@ const Update = () => {
             pageName: result.pageName,
             functionName: result.functionName,
             lineNumber: result.lineNumber,
-            timestamp: result.timestamp,
+            timestamp: toLocalForInput(result.timestamp),
             message: result.message,
             stackTrace: result.stackTrace,
           }));
@@ -120,7 +121,7 @@ const Update = () => {
           pageName: form.pageName,
           functionName: form.functionName,
           lineNumber: form.lineNumber,
-          timestamp: form.timestamp,
+          timestamp: toUTCForDB(form.timestamp),
           message: form.message,
           stackTrace: form.stackTrace,
           createdDate: form.createdDate,

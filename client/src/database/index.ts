@@ -5,7 +5,7 @@ import { tblProduct } from "./tblPos";
 import tblPOSStock from "./tblPosStock";
 import tblPosSpecification from "./tblPosSpecification";
 import tblPosDiscount from "./tblPosDiscount";
-import tblAppLog, { type AppLogModel } from "./tblAppLog";
+import tblAppLog, { type AppLogModel, type AppLogType } from "./tblAppLog";
 
 export default {
     tblUser,
@@ -21,5 +21,6 @@ export default {
 export type {
 
     PlannerModel,
-    AppLogModel
+    AppLogModel,
+    AppLogType
 };

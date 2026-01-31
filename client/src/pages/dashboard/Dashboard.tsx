@@ -1,13 +1,16 @@
 
 import { useAppSession } from "../../contexts";
-import logger from "../../utils/logger";
+import logger from "../../features/logger/logger.ts";
 
 const Dashboard = () => {
   const appSession = useAppSession();
-
-  logger.info("Rendering Dashboard component", { file: "Dashboard.tsx", block: "Dashboard" });
-
-
+  logger.addDebug(
+    "Dashboard component rendered",
+    "Dashboard",
+    "render",
+    "", "",
+    typeof appSession.info.account?.id === "number" ? appSession.info.account.id : Number(appSession.info.account?.id) || undefined
+  );
   return (
     <div className="card m-1">
       <div className="card-header d-flex">

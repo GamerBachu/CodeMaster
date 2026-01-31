@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import appRoute from "../../routes/appRoute";
 import locale from "../../resources";
 import { createToast } from "../../components/toasts/toastSlicer";
+import { toLocalForInput } from "../../utils/helper/dateUtils";
 
 import type { keyValueModel } from "../../models";
 import db, { type AppLogModel } from "../../database";
@@ -76,7 +77,7 @@ const View = () => {
             pageName: result.pageName,
             functionName: result.functionName,
             lineNumber: result.lineNumber,
-            timestamp: result.timestamp,
+            timestamp: toLocalForInput(result.timestamp),
             message: result.message,
             stackTrace: result.stackTrace,
           }));
