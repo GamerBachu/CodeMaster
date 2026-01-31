@@ -121,8 +121,8 @@ const View = () => {
       handleSubmit={handleSubmit}
       onBackClick={onBackClick}
       statusList={statusList}
-      formType={locale.View}
-      formTitle={locale.titleLog}
+      btnLabel={locale.Back} 
+      formTitle={locale.titleLog + " - " + locale.View}
       formId="logger-v-form"
     ></Form>
   );

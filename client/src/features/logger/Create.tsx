@@ -148,8 +148,8 @@ const Create = () => {
       handleSubmit={handleSubmit}
       onBackClick={onButtonClick}
       statusList={statusList}
-      formType={locale.AddNew}
-      formTitle={locale.titleLog}
+      btnLabel={locale.AddNew}
+      formTitle={locale.titleLog + " - " + locale.AddNew}
       formId="logger-a-form"
     ></Form>
   );

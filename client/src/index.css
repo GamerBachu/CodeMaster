@@ -86,6 +86,9 @@ input[type="password"] {
 .btn-sm-align {
   margin-top: -3px;
 }
+.btn-sm-img {
+  margin-top: -1px;
+}
 .toast-container {
   min-height: 0px;
   min-width: 0px;

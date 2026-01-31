@@ -7,7 +7,7 @@ type TableFormProps = {
   addButtonLabel?: string;
   children?: React.ReactNode;
   onButtonClick?: () => void;
-  hideBackButton?:boolean
+  hideBackButton?: boolean;
 };
 
 const TableForm = ({
@@ -27,16 +27,16 @@ const TableForm = ({
         <div className="h2 me-auto" id={titleId} data-testid={titleId}>
           {title}
         </div>
-        <div className={`${hideBackButton?"d-none":""}`}>
+        <div className={`${hideBackButton ? "d-none" : ""}`}>
           <button
             type="button"
-            className="btn btn-sm  btn-outline-success align-content-center"
+            className="btn btn-sm d-inline-flex align-items-center gap-1 btn-outline-success"
             id={buttonId}
             data-testid={buttonId}
             onClick={onButtonClick}
           >
-            <img src={icons_arrow_left_square} className="btn-sm-align" />{" "}
-            <label>{addButtonLabel}</label>
+            <img src={icons_arrow_left_square} className="btn-sm-img" />{" "}
+            <span>{addButtonLabel}</span>
           </button>
         </div>
       </div>

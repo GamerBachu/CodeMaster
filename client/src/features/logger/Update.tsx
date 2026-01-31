@@ -181,8 +181,8 @@ const Update = () => {
       handleSubmit={handleSubmit}
       onBackClick={onBackClick}
       statusList={statusList}
-      formType={locale.Update}
-      formTitle={locale.titleLog}
+      btnLabel={locale.Update}
+      formTitle={locale.titleLog + " - " + locale.Update}
       formId="logger-u-form"
     ></Form>
   );

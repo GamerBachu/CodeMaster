@@ -155,7 +155,7 @@ const Update = () => {
       onBackClick,
     ],
   );
- 
+
   return (
     <Form
       form={form}
@@ -163,8 +163,8 @@ const Update = () => {
       handleSubmit={handleSubmit}
       onBackClick={onBackClick}
       statusList={statusList}
-      formType={locale.Update}
-      formTitle={locale.Planner}
+      btnLabel={locale.Update}
+      formTitle={locale.Planner + " - " + locale.Update}
       formId="pl-u-form"
     ></Form>
   );

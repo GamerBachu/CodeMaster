@@ -29,12 +29,13 @@ const Table = ({
         <div className="">
           <button
             type="button"
-            className="btn btn-sm  btn-outline-success align-content-center"
+            className="btn btn-sm d-inline-flex align-items-center gap-1 btn-outline-success"
             id={buttonId}
             data-testid={buttonId}
             onClick={onAddButtonClick}
           >
-            <img src={icons_file_add} className="btn-sm-align" /> <label>{addButtonLabel}</label>
+            <img src={icons_file_add} className="btn-sm-img" />
+            <span>{addButtonLabel}</span>
           </button>
         </div>
       </div>

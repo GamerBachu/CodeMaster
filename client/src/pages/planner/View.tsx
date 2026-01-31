@@ -107,9 +107,9 @@ const View = () => {
       handleChange={handleChange}
       handleSubmit={handleSubmit}
       onBackClick={onBackClick}
-      statusList={statusList}
-      formType={locale.View}
-      formTitle={locale.Planner}
+      statusList={statusList} 
+      btnLabel={locale.Back}
+      formTitle={locale.Planner+ " - " +locale.View}
       formId="pl-v-form"
     ></Form>
   );

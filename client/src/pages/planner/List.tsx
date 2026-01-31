@@ -87,13 +87,13 @@ const List = () => {
                   role="group"
                   aria-label="action"
                 >
-                  <button type="button" className="btn btn-sm btn-outline-primary" onClick={() => handleRowAction(row.id, 1)}>
+                  <button type="button" className="btn d-inline-flex align-items-center btn-outline-primary" onClick={() => handleRowAction(row.id, 1)}>
                     <img src={icons_file_view} />
                   </button>
-                  <button type="button" className="btn btn-sm btn-outline-info" onClick={() => handleRowAction(row.id, 2)}>
+                  <button type="button" className="btn d-inline-flex align-items-center btn-outline-info" onClick={() => handleRowAction(row.id, 2)}>
                     <img src={icons_file_edit} />
                   </button>
-                  <button type="button" className="btn btn-sm btn-outline-danger" onClick={() => handleRowAction(row.id, 3)}>
+                  <button type="button" className="btn d-inline-flex align-items-center btn-outline-danger" onClick={() => handleRowAction(row.id, 3)}>
                     <img src={icons_file_delete} />
                   </button>
                 </div>

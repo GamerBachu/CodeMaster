@@ -36,7 +36,7 @@ const List = () => {
     };
   }, []);
 
-  const handleRowAction = (id: number | string, type: number) => {
+  const handleRowAction = (id: number | string | undefined, type: number) => {
     if (type === 0) {
       navigate(`${appRoute.Logger_Action.path}/create/${id}`);
     } else if (type === 1) {
@@ -89,21 +89,21 @@ const List = () => {
               >
                 <button
                   type="button"
-                  className="btn btn-sm btn-outline-primary"
+                  className="btn d-inline-flex align-items-center btn-outline-primary"
                   onClick={() => handleRowAction(row.id, 1)}
                 >
                   <img src={icons_file_view} />
                 </button>
                 <button
                   type="button"
-                  className="btn btn-sm btn-outline-info"
+                  className="btn d-inline-flex align-items-center btn-outline-info"
                   onClick={() => handleRowAction(row.id, 2)}
                 >
                   <img src={icons_file_edit} />
                 </button>
                 <button
                   type="button"
-                  className="btn btn-sm btn-outline-danger"
+                  className="btn d-inline-flex align-items-center btn-outline-danger"
                   onClick={() => handleRowAction(row.id, 3)}
                 >
                   <img src={icons_file_delete} />

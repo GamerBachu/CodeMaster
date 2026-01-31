@@ -163,8 +163,8 @@ const Delete = () => {
       handleSubmit={handleSubmit}
       onBackClick={onBackClick}
       statusList={statusList}
-      formType={locale.Delete}
-      formTitle={locale.Planner}
+      btnLabel={locale.Delete}
+      formTitle={locale.Planner + " - " + locale.Delete}
       formId="pl-d-form"
     ></Form>
   );

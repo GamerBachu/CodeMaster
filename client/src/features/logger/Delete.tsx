@@ -181,8 +181,8 @@ const Delete = () => {
       handleSubmit={handleSubmit}
       onBackClick={onBackClick}
       statusList={statusList}
-      formType={locale.Delete}
-      formTitle={locale.titleLog}
+      btnLabel={locale.Delete}
+      formTitle={locale.titleLog + " - " + locale.Delete}
       formId="logger-d-form"
     ></Form>
   );

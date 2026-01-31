@@ -132,8 +132,8 @@ const Create = () => {
       handleSubmit={handleSubmit}
       onBackClick={onBackClick}
       statusList={statusList}
-      formType={locale.AddNew}
-      formTitle={locale.Planner}
+      btnLabel={locale.AddNew}
+      formTitle={locale.Planner + " - " + locale.AddNew}
       formId="pl-c-form"
     ></Form>
   );

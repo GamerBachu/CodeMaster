@@ -4,10 +4,10 @@ import type { keyValueModel } from "../../models";
 import { type AppLogModel } from "../../database";
 
 type FormProps = {
-    formId: string;
-    formType: string;
+    formId: string; 
     formTitle: string;
     form: AppLogModel;
+    btnLabel: string;
     statusList: keyValueModel[];
     handleChange: (
         e: React.ChangeEvent<
@@ -20,9 +20,9 @@ type FormProps = {
 
 const Form = ({
     formId,
-    formTitle,
-    formType,
+    formTitle,    
     form,
+    btnLabel,
     statusList,
     handleChange,
     handleSubmit,
@@ -31,17 +31,17 @@ const Form = ({
     return (
         <TableForm
             id={formId}
-            title={`${formTitle} - ${formType}`}
+            title={`${formTitle}`}
             addButtonLabel={locale.Back}
             onButtonClick={onBackClick}
         >
-                <form className="mb-4 custom-form-override" onSubmit={handleSubmit}>
+            <form className="mb-4" onSubmit={handleSubmit}>
                 <div className="row g-3 mb-3">
                     <div className="col-12 col-md-6">
-                            <label className="form-label custom-label">{locale.logId}</label>
-                            <input
-                                type="text"
-                                className="form-control form-control-sm custom-input"
+                        <label className="form-label small">{locale.logId}</label>
+                        <input
+                            type="text"
+                            className="form-control form-control-sm"
                             name="id"
                             value={form.id || "#"}
                             readOnly
@@ -49,9 +49,9 @@ const Form = ({
                         />
                     </div>
                     <div className="col-12 col-md-6">
-                            <label className="form-label custom-label">{locale.logType}</label>
-                            <select
-                                className="form-select form-select-sm custom-input"
+                        <label className="form-label small">{locale.logType}</label>
+                        <select
+                            className="form-select form-select-sm"
                             name="type"
                             value={form.type || ""}
                             onChange={handleChange}
@@ -66,10 +66,10 @@ const Form = ({
                     </div>
 
                     <div className="col-12 col-md-6">
-                            <label className="form-label custom-label">{locale.pageName}</label>
-                            <input
-                                type="text"
-                                className="form-control form-control-sm custom-input"
+                        <label className="form-label small">{locale.pageName}</label>
+                        <input
+                            type="text"
+                            className="form-control form-control-sm"
                             name="pageName"
                             value={form.pageName || ""}
                             onChange={handleChange}
@@ -77,10 +77,10 @@ const Form = ({
                         />
                     </div>
                     <div className="col-12 col-md-6">
-                            <label className="form-label custom-label">{locale.functionName}</label>
-                            <input
-                                type="text"
-                                className="form-control form-control-sm custom-input"
+                        <label className="form-label small">{locale.functionName}</label>
+                        <input
+                            type="text"
+                            className="form-control form-control-sm"
                             name="functionName"
                             value={form.functionName || ""}
                             onChange={handleChange}
@@ -89,10 +89,10 @@ const Form = ({
                     </div>
 
                     <div className="col-12 col-md-6">
-                            <label className="form-label custom-label">{locale.lineNumber}</label>
-                            <input
-                                type="text"
-                                className="form-control form-control-sm custom-input"
+                        <label className="form-label small">{locale.lineNumber}</label>
+                        <input
+                            type="text"
+                            className="form-control form-control-sm"
                             name="lineNumber"
                             value={form.lineNumber || ""}
                             onChange={handleChange}
@@ -100,10 +100,10 @@ const Form = ({
                         ></input>
                     </div>
                     <div className="col-12 col-md-6">
-                            <label className="form-label custom-label">{locale.timestamp}</label>
-                            <input
-                                type="datetime-local"
-                                className="form-control form-control-sm custom-input"
+                        <label className="form-label small">{locale.timestamp}</label>
+                        <input
+                            type="datetime-local"
+                            className="form-control form-control-sm"
                             name="timestamp"
                             value={form.timestamp || ""}
                             onChange={handleChange}
@@ -112,9 +112,9 @@ const Form = ({
                     </div>
 
                     <div className="col-12">
-                            <label className="form-label custom-label">{locale.message}</label>
-                            <textarea
-                                className="form-control form-control-sm custom-input"
+                        <label className="form-label small">{locale.message}</label>
+                        <textarea
+                            className="form-control form-control-sm"
                             name="message"
                             value={form.message || ""}
                             onChange={handleChange}
@@ -123,9 +123,9 @@ const Form = ({
                         />
                     </div>
                     <div className="col-12">
-                            <label className="form-label custom-label">{locale.stackTrace}</label>
-                            <textarea
-                                className="form-control form-control-sm custom-input"
+                        <label className="form-label small">{locale.stackTrace}</label>
+                        <textarea
+                            className="form-control form-control-sm"
                             name="stackTrace"
                             value={form.stackTrace || ""}
                             onChange={handleChange}
@@ -135,7 +135,7 @@ const Form = ({
                 </div>
                 <div className="d-grid gap-2">
                     <button type="submit" className="btn btn-primary btn-sm custom-btn">
-                        {formType}
+                        {btnLabel}
                     </button>
                 </div>
             </form>
